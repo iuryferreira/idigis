@@ -15,3 +15,8 @@ jobs:
       run: dotnet restore
     - name: Test
       run: dotnet test --nologo -v q
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./lcov.info
