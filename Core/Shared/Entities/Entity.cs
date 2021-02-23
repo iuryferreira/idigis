@@ -1,19 +1,26 @@
 using System;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace Shared.Entities
 {
     public abstract class Entity
     {
         public string Id { get; protected set; }
+        public bool Valid { get; private set; }
+        public bool Invalid => !Valid;
+        public ValidationResult ValidationResult { get; private set; }
 
         protected Entity ()
         {
             Id = Guid.NewGuid().ToString();
         }
-
+        protected bool Validate<T> (T entity, AbstractValidator<T> validator)
+        {
+            ValidationResult = validator.Validate(entity);
+            return Valid = ValidationResult.IsValid;
+        }
     }
-
     public class EntityValidator : AbstractValidator<Entity>
     {
         public EntityValidator ()
