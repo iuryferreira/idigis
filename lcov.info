@@ -1,48 +1,106 @@
-SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Domain/Entities/Church.cs
-FN:7,System.String Domain.Entities.Church::get_Name()
-FNDA:2,System.String Domain.Entities.Church::get_Name()
-DA:8,2
-FN:9,System.Void Domain.Entities.Church::.ctor(System.String,System.String)
-FNDA:1,System.Void Domain.Entities.Church::.ctor(System.String,System.String)
-DA:10,1
-DA:11,1
-DA:12,1
-DA:13,1
-DA:14,1
-FN:17,System.Void Domain.Entities.ChurchValidator::.ctor()
-FNDA:1,System.Void Domain.Entities.ChurchValidator::.ctor()
-DA:18,1
-DA:19,1
-DA:20,1
-DA:21,1
-DA:22,1
-LF:11
-LH:11
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Domain/ValueObjects/Credentials.cs
+FN:7,System.String Domain.ValueObjects.Credentials::get_Email()
+FNDA:11,System.String Domain.ValueObjects.Credentials::get_Email()
+DA:8,11
+FN:8,System.String Domain.ValueObjects.Credentials::get_Password()
+FNDA:19,System.String Domain.ValueObjects.Credentials::get_Password()
+DA:9,19
+FN:10,System.Void Domain.ValueObjects.Credentials::.ctor(System.String,System.String)
+FNDA:5,System.Void Domain.ValueObjects.Credentials::.ctor(System.String,System.String)
+DA:11,5
+DA:12,5
+DA:13,5
+DA:14,5
+DA:15,5
+FN:19,System.Void Domain.ValueObjects.CredentialsValidator::.ctor()
+FNDA:6,System.Void Domain.ValueObjects.CredentialsValidator::.ctor()
+DA:20,6
+DA:21,6
+DA:22,6
+DA:23,6
+DA:24,6
+LF:12
+LH:12
 BRF:0
 BRH:0
-FNF:3
-FNH:3
+FNF:4
+FNH:4
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Domain/Entities/Church.cs
+FN:9,System.String Domain.Entities.Church::get_Name()
+FNDA:11,System.String Domain.Entities.Church::get_Name()
+DA:10,11
+FN:10,Domain.ValueObjects.Credentials Domain.Entities.Church::get_Credentials()
+FNDA:19,Domain.ValueObjects.Credentials Domain.Entities.Church::get_Credentials()
+DA:11,19
+FN:12,System.Void Domain.Entities.Church::.ctor(System.String,Domain.ValueObjects.Credentials)
+FNDA:3,System.Void Domain.Entities.Church::.ctor(System.String,Domain.ValueObjects.Credentials)
+DA:13,3
+DA:14,3
+DA:15,3
+DA:16,3
+DA:18,3
+DA:20,3
+DA:22,3
+FN:23,System.Void Domain.Entities.Church::.ctor(System.String,System.String,Domain.ValueObjects.Credentials)
+FNDA:2,System.Void Domain.Entities.Church::.ctor(System.String,System.String,Domain.ValueObjects.Credentials)
+DA:24,2
+DA:25,2
+DA:26,2
+DA:27,2
+DA:28,2
+DA:30,2
+DA:31,2
+FN:34,System.Void Domain.Entities.ChurchValidator::.ctor()
+FNDA:6,System.Void Domain.Entities.ChurchValidator::.ctor()
+DA:35,6
+DA:36,6
+DA:37,6
+DA:38,6
+DA:39,6
+DA:40,6
+LF:22
+LH:22
+BRF:0
+BRH:0
+FNF:5
+FNH:5
 end_of_record
 SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Shared/Entities/Entity.cs
-FN:7,System.String Shared.Entities.Entity::get_Id()
-FNDA:3,System.String Shared.Entities.Entity::get_Id()
-DA:8,3
-FN:9,System.Void Shared.Entities.Entity::.ctor()
-FNDA:1,System.Void Shared.Entities.Entity::.ctor()
-DA:10,1
+FN:8,System.String Shared.Entities.Entity::get_Id()
+FNDA:14,System.String Shared.Entities.Entity::get_Id()
+DA:9,14
+FN:9,System.Boolean Shared.Entities.Entity::get_Valid()
+FNDA:7,System.Boolean Shared.Entities.Entity::get_Valid()
+DA:10,7
+FN:10,System.Boolean Shared.Entities.Entity::get_Invalid()
+FNDA:1,System.Boolean Shared.Entities.Entity::get_Invalid()
 DA:11,1
-DA:12,1
-DA:13,1
-FN:18,System.Void Shared.Entities.EntityValidator::.ctor()
-FNDA:1,System.Void Shared.Entities.EntityValidator::.ctor()
-DA:19,1
-DA:20,1
-DA:21,1
-DA:22,1
-LF:9
-LH:9
+FN:11,FluentValidation.Results.ValidationResult Shared.Entities.Entity::get_ValidationResult()
+FNDA:14,FluentValidation.Results.ValidationResult Shared.Entities.Entity::get_ValidationResult()
+DA:12,14
+FN:18,System.Boolean Shared.Entities.Entity::Validate(T,FluentValidation.AbstractValidator`1<T>)
+FNDA:5,System.Boolean Shared.Entities.Entity::Validate(T,FluentValidation.AbstractValidator`1<T>)
+DA:19,5
+DA:20,5
+DA:21,5
+DA:22,5
+FN:13,System.Void Shared.Entities.Entity::.ctor()
+FNDA:5,System.Void Shared.Entities.Entity::.ctor()
+DA:14,5
+DA:15,5
+DA:16,5
+DA:17,5
+FN:26,System.Void Shared.Entities.EntityValidator::.ctor()
+FNDA:6,System.Void Shared.Entities.EntityValidator::.ctor()
+DA:27,6
+DA:28,6
+DA:29,6
+DA:30,6
+LF:16
+LH:16
 BRF:0
 BRH:0
-FNF:3
-FNH:3
+FNF:7
+FNH:7
 end_of_record
