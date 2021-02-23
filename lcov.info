@@ -1,0 +1,48 @@
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Domain/Entities/Church.cs
+FN:7,System.String Domain.Entities.Church::get_Name()
+FNDA:2,System.String Domain.Entities.Church::get_Name()
+DA:8,2
+FN:9,System.Void Domain.Entities.Church::.ctor(System.String,System.String)
+FNDA:1,System.Void Domain.Entities.Church::.ctor(System.String,System.String)
+DA:10,1
+DA:11,1
+DA:12,1
+DA:13,1
+DA:14,1
+FN:17,System.Void Domain.Entities.ChurchValidator::.ctor()
+FNDA:1,System.Void Domain.Entities.ChurchValidator::.ctor()
+DA:18,1
+DA:19,1
+DA:20,1
+DA:21,1
+DA:22,1
+LF:11
+LH:11
+BRF:0
+BRH:0
+FNF:3
+FNH:3
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Shared/Entities/Entity.cs
+FN:7,System.String Shared.Entities.Entity::get_Id()
+FNDA:3,System.String Shared.Entities.Entity::get_Id()
+DA:8,3
+FN:9,System.Void Shared.Entities.Entity::.ctor()
+FNDA:1,System.Void Shared.Entities.Entity::.ctor()
+DA:10,1
+DA:11,1
+DA:12,1
+DA:13,1
+FN:18,System.Void Shared.Entities.EntityValidator::.ctor()
+FNDA:1,System.Void Shared.Entities.EntityValidator::.ctor()
+DA:19,1
+DA:20,1
+DA:21,1
+DA:22,1
+LF:9
+LH:9
+BRF:0
+BRH:0
+FNF:3
+FNH:3
+end_of_record
