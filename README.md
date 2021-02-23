@@ -16,7 +16,7 @@
 
 ### ✌ Hello!
 
-Idigis is a church management system written in C# using Blazor WebAssembly and featuring a Web API that is consumed in our Mobile App.
+Idigis is a church management system written in C# using Blazor WebAssembly and featuring a Web API that is consumed in our Mobile App. This system should make it possible to manage the main activities carried out in a community, making life easier for administrators.
 
 ### 🛣 Roadmap
 
