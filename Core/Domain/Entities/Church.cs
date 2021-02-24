@@ -5,7 +5,7 @@ using Shared.Entities;
 
 namespace Domain.Entities
 {
-    internal class Church : Entity
+    public class Church : Entity
     {
         public string Name { get; private set; }
         public Credentials Credentials { get; private set; }

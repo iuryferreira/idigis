@@ -3,7 +3,7 @@ using Shared.ValueObjects;
 
 namespace Domain.ValueObjects
 {
-    internal class Credentials : ValueObject
+    public class Credentials : ValueObject
     {
         public string Email { get; private set; }
         public string Password { get; internal set; }
