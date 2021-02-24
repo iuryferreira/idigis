@@ -2,7 +2,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shared.Notifications;
 
-namespace Tests._Core.Application
+namespace Tests._Core.Shared.Notifications
 {
     [TestClass]
     public class NotificationContextTest
@@ -22,6 +22,7 @@ namespace Tests._Core.Application
             sut.AddNotification("valid_key", "valid_message");
             Assert.AreEqual(1, sut.Notifications.Count);
         }
+
         [TestMethod]
         public void Should_Return_a_Valid_Notification ()
         {
