@@ -1,22 +1,17 @@
-using Hash;
-using FluentValidation;
 using Domain.ValueObjects;
+using FluentValidation;
+using Hash;
 using Shared.Entities;
 
 namespace Domain.Entities
 {
     public class Church : Entity
     {
-        public string Name { get; private set; }
-        public Credentials Credentials { get; private set; }
-
         public Church (string name, Credentials credentials)
         {
             Name = name;
             Credentials = credentials;
-
             Validate(this, new ChurchValidator());
-
             Credentials.Password = new Hashio().Hash(Credentials.Password);
         }
 
@@ -25,10 +20,13 @@ namespace Domain.Entities
             Id = id;
             Name = name;
             Credentials = credentials;
-
             Validate(this, new ChurchValidator());
         }
+
+        public string Name { get; }
+        public Credentials Credentials { get; }
     }
+
     internal class ChurchValidator : AbstractValidator<Church>
     {
         public ChurchValidator ()
