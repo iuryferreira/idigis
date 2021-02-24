@@ -27,13 +27,15 @@ namespace Tests._Core.Domain.Entities
             Church sut = new("valid_name", new("not_valid_email", ""));
             Assert.IsFalse(sut.Valid);
             Assert.AreEqual(3, sut.ValidationResult.Errors.Count);
-            Assert.AreEqual("AspNetCoreCompatibleEmailValidator", (sut.ValidationResult.Errors
-                .Where(error => error.ErrorCode == "AspNetCoreCompatibleEmailValidator").First()).ErrorCode);
-            Assert.AreEqual("NotEmptyValidator", (sut.ValidationResult.Errors
-                .Where(error => error.ErrorCode == "NotEmptyValidator").First()).ErrorCode);
-            Assert.AreEqual("MinimumLengthValidator", (sut.ValidationResult.Errors
-                .Where(error => error.ErrorCode == "MinimumLengthValidator").First()).ErrorCode);
+            Assert.AreEqual("AspNetCoreCompatibleEmailValidator",
+                sut.ValidationResult.Errors.First(error => error.ErrorCode == "AspNetCoreCompatibleEmailValidator")
+                    .ErrorCode);
+            Assert.AreEqual("NotEmptyValidator",
+                sut.ValidationResult.Errors.First(error => error.ErrorCode == "NotEmptyValidator").ErrorCode);
+            Assert.AreEqual("MinimumLengthValidator",
+                sut.ValidationResult.Errors.First(error => error.ErrorCode == "MinimumLengthValidator").ErrorCode);
         }
+
         [TestMethod]
         public void Should_Generate_a_Hash_in_the_Entered_Password ()
         {
