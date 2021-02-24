@@ -23,6 +23,7 @@
     <ProjectReference Include="..\Core\Domain\Domain.csproj" />
     <ProjectReference Include="..\Core\Shared\Shared.csproj" />
     <ProjectReference Include="..\Core\Application\Application.csproj" />
+    <ProjectReference Include="..\Core\Persistence\Persistence.csproj" />
   </ItemGroup>
 
 </Project>
