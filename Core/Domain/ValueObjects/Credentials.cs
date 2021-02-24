@@ -5,14 +5,14 @@ namespace Domain.ValueObjects
 {
     public class Credentials : ValueObject
     {
-        public string Email { get; private set; }
-        public string Password { get; internal set; }
-
         public Credentials (string email, string password)
         {
             Email = email;
             Password = password;
         }
+
+        public string Email { get; }
+        public string Password { get; internal set; }
     }
 
     internal class CredentialsValidator : AbstractValidator<Credentials>

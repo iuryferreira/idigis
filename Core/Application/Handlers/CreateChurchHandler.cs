@@ -1,9 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Application.Requests;
 using Application.Responses;
 using Domain.Entities;
+using MediatR;
 using Shared.Notifications;
 
 namespace Application.Handlers
@@ -25,11 +25,10 @@ namespace Application.Handlers
                 _notificationContext.AddNotifications(entity.ValidationResult);
                 return Task.FromResult<CreateChurchResponse>(null);
             }
+
             var response = new CreateChurchResponse
             {
-                Id = entity.Id,
-                Name = entity.Name,
-                Email = entity.Credentials.Email
+                Id = entity.Id, Name = entity.Name, Email = entity.Credentials.Email
             };
             return Task.FromResult(response);
         }
