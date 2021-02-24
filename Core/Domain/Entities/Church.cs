@@ -1,6 +1,6 @@
-using Domain.ValueObjects;
-using FluentValidation;
 using Hash;
+using FluentValidation;
+using Domain.ValueObjects;
 using Shared.Entities;
 
 namespace Domain.Entities
