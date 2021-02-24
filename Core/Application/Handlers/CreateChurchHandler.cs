@@ -1,0 +1,37 @@
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using Application.Requests;
+using Application.Responses;
+using Domain.Entities;
+using Shared.Notifications;
+
+namespace Application.Handlers
+{
+    public class CreateChurchHandler : IRequestHandler<CreateChurch, CreateChurchResponse>
+    {
+        private readonly NotificationContext _notificationContext;
+
+        public CreateChurchHandler (NotificationContext notificationContext)
+        {
+            _notificationContext = notificationContext;
+        }
+
+        public Task<CreateChurchResponse> Handle (CreateChurch request, CancellationToken cancellationToken)
+        {
+            Church entity = new(request.Name, new(request.Email, request.Password));
+            if (entity.Invalid)
+            {
+                _notificationContext.AddNotifications(entity.ValidationResult);
+                return Task.FromResult<CreateChurchResponse>(null);
+            }
+            var response = new CreateChurchResponse
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Email = entity.Credentials.Email
+            };
+            return Task.FromResult(response);
+        }
+    }
+}
