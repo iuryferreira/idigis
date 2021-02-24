@@ -19,32 +19,6 @@ namespace Shared.Notifications
         {
             _notifications.Add(new Notification(key, message));
         }
-
-        public void AddNotification (Notification notification)
-        {
-            _notifications.Add(notification);
-        }
-
-        public void AddNotifications (IEnumerable<Notification> notifications)
-        {
-            _notifications.AddRange(notifications);
-        }
-
-        public void AddNotifications (IReadOnlyCollection<Notification> notifications)
-        {
-            _notifications.AddRange(notifications);
-        }
-
-        public void AddNotifications (IList<Notification> notifications)
-        {
-            _notifications.AddRange(notifications);
-        }
-
-        public void AddNotifications (ICollection<Notification> notifications)
-        {
-            _notifications.AddRange(notifications);
-        }
-
         public void AddNotifications (ValidationResult validationResult)
         {
             foreach (var error in validationResult.Errors)
