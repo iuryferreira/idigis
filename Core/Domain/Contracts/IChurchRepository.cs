@@ -5,6 +5,6 @@ namespace Domain.Contracts
 {
     public interface IChurchRepository
     {
-        Task<bool> Add (Church entity);
+        Task<Church> Add (Church entity);
     }
 }
