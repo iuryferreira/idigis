@@ -6,21 +6,23 @@ namespace Shared.Entities
 {
     public abstract class Entity
     {
-        public string Id { get; protected set; }
-        public bool Valid { get; private set; }
-        public bool Invalid => !Valid;
-        public ValidationResult ValidationResult { get; private set; }
-
         protected Entity ()
         {
             Id = Guid.NewGuid().ToString();
         }
-        protected bool Validate<T> (T entity, AbstractValidator<T> validator)
+
+        public string Id { get; protected init; }
+        public bool Valid { get; private set; }
+        public bool Invalid => !Valid;
+        public ValidationResult ValidationResult { get; private set; }
+
+        protected void Validate<T> (T entity, AbstractValidator<T> validator)
         {
             ValidationResult = validator.Validate(entity);
-            return Valid = ValidationResult.IsValid;
+            Valid = ValidationResult.IsValid;
         }
     }
+
     public class EntityValidator : AbstractValidator<Entity>
     {
         public EntityValidator ()
