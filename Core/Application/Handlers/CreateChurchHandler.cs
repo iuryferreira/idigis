@@ -5,12 +5,11 @@ using Application.Responses;
 using Domain.Contracts;
 using Domain.Entities;
 using MediatR;
-using Shared.Handlers;
 using Shared.Notifications;
 
 namespace Application.Handlers
 {
-    public class CreateChurchHandler : Handler, IRequestHandler<CreateChurch, CreateChurchResponse>
+    public class CreateChurchHandler : Notifiable, IRequestHandler<CreateChurch, CreateChurchResponse>
     {
         private readonly IChurchRepository _repository;
 
