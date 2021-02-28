@@ -7,13 +7,13 @@ namespace Persistence.Migrations
         protected override void Up (MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "churches",
-                columns: table => new
+                "churches",
+                table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<string>("nvarchar(450)", nullable: false),
+                    Name = table.Column<string>("nvarchar(max)", nullable: false),
+                    Email = table.Column<string>("nvarchar(max)", nullable: false),
+                    Password = table.Column<string>("nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,7 +24,7 @@ namespace Persistence.Migrations
         protected override void Down (MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "churches");
+                "churches");
         }
     }
 }
