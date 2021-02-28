@@ -2,14 +2,11 @@ namespace Shared.Notifications
 {
     public abstract class Notifiable
     {
-        private readonly NotificationContext _notificationContext;
-        public NotificationContext NotificationContext => _notificationContext;
-
-        public Notifiable (NotificationContext notificationContext)
+        protected Notifiable (NotificationContext notificationContext)
         {
-            _notificationContext = notificationContext;
-
+            NotificationContext = notificationContext;
         }
 
+        protected NotificationContext NotificationContext { get; }
     }
 }
