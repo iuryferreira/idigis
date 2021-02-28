@@ -2,6 +2,6 @@ namespace Shared.Models
 {
     public abstract class Model
     {
-        public string Id { get; set; }
+        public string Id { get; init; }
     }
 }
