@@ -13,7 +13,8 @@ namespace Application.Handlers
     {
         private readonly IChurchRepository _repository;
 
-        public CreateChurchHandler (NotificationContext notificationContext, IChurchRepository repository) : base(notificationContext)
+        public CreateChurchHandler (NotificationContext notificationContext, IChurchRepository repository) : base(
+            notificationContext)
         {
             _repository = repository;
         }
@@ -26,8 +27,10 @@ namespace Application.Handlers
                 NotificationContext.AddNotifications(entity.ValidationResult);
                 return null;
             }
-            await this._repository.Add(entity);
-            var response = new CreateChurchResponse { Id = entity.Id, Name = entity.Name, Email = entity.Credentials.Email };
+
+            await _repository.Add(entity);
+            var response =
+                new CreateChurchResponse { Id = entity.Id, Name = entity.Name, Email = entity.Credentials.Email };
             return response;
         }
     }
