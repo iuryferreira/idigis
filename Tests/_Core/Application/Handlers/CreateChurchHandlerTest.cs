@@ -19,8 +19,8 @@ namespace Tests._Core.Application.Handlers
         public void SetUp ()
         {
             _successEntity = new("Iury", new("valid_email@email.com", "valid_password"));
-            this._mockRepository = new();
-            this._mockRepository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(_successEntity);
+            _mockRepository = new();
+            _mockRepository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(_successEntity);
         }
 
         [TestMethod]
