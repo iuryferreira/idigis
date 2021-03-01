@@ -5,7 +5,7 @@ using Persistence.Contexts;
 using Persistence.Factories;
 using Persistence.Models;
 
-namespace Tests._Core.Persistence.Factories
+namespace Tests._Core.Persistence.Contexts
 {
     [TestClass]
     public class ChurchContextTest
@@ -49,8 +49,20 @@ namespace Tests._Core.Persistence.Factories
                 Email = "Testing@email.com",
                 Password = "Password123"
             };
-            var saved = await _context.Add(model);
+            await _context.Add(model);
             Assert.IsTrue(await _context.Exists(model));
+        }
+
+        [TestMethod]
+        public async Task Must_Return_False_If_the_Add_Method_Throws_Exeception ()
+        {
+            var model = new ChurchModel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Testing",
+                Password = "Password123"
+            };
+            Assert.IsFalse(await _context.Add(model));
         }
     }
 }
