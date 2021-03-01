@@ -8,12 +8,12 @@ using Persistence.Models;
 
 namespace Persistence.Contexts
 {
-    public class ChurchContext : DbContext, IChurchContext
+    public sealed class ChurchContext : DbContext, IChurchContext
     {
         public ChurchContext (DbContextOptions<ChurchContext> options) : base(options)
         {
             if (!this.Database.CanConnect())
-                throw new Exception("Could not connect to the database.");
+                throw new("Could not connect to the database.");
         }
 
         private DbSet<ChurchModel> Entity { get; set; }
@@ -21,14 +21,26 @@ namespace Persistence.Contexts
         public async Task<bool> Add (ChurchModel data)
         {
             var entry = await Entity.AddAsync(data);
-            await this.SaveChangesAsync();
-            return entry.State is EntityState.Unchanged;
+            try
+            {
+                await this.Save();
+                return entry.State is EntityState.Unchanged;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> Exists (ChurchModel data)
         {
             ChurchModel entity = await Entity.Where(e => e.Email == data.Email || e.Id == data.Id).FirstOrDefaultAsync();
             return entity is not null;
+        }
+
+        public async Task<int> Save ()
+        {
+            return await this.SaveChangesAsync();
         }
 
         protected override void OnModelCreating (ModelBuilder builder)
