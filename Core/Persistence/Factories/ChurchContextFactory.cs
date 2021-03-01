@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
@@ -16,25 +15,20 @@ namespace Persistence.Factories
         {
             return GenerateDbContext();
         }
+
         public static ChurchContext CreateDbContext (string? connectionString = null)
         {
             return GenerateDbContext(connectionString);
         }
+
         private static ChurchContext GenerateDbContext (string? connectionString = null)
         {
-            var env = Environment.GetEnvironmentVariable("DOTNET_ENV");
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddUserSecrets<ChurchContextFactory>()
                 .Build();
             var optionsBuilder = new DbContextOptionsBuilder<ChurchContext>();
-            if (connectionString is null)
-            {
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("default"));
-            }
-            else
-                optionsBuilder.UseSqlServer(connectionString);
-
+            optionsBuilder.UseSqlServer(connectionString ?? configuration.GetConnectionString("default"));
             return new(optionsBuilder.Options);
         }
     }
