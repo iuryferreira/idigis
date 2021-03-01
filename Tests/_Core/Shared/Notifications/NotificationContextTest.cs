@@ -31,5 +31,16 @@ namespace Tests._Core.Shared.Notifications
             Assert.AreEqual("valid_key", sut.Notifications.Single().Key);
             Assert.AreEqual("valid_message", sut.Notifications.Single().Message);
         }
+
+        [TestMethod]
+        public void Should_Allow_Concatenating_Two_Notification_Contexts ()
+        {
+            NotificationContext firstContext = new();
+            NotificationContext secondContext = new();
+            firstContext.AddNotification("valid_key", "valid_message");
+            secondContext.AddNotification("second_valid_key", "second_valid_message");
+            firstContext.AddNotifications(secondContext.Notifications.ToList());
+            Assert.AreEqual(2, firstContext.Notifications.Count);
+        }
     }
 }

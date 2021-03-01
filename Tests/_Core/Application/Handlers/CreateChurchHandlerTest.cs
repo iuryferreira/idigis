@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Application.Handlers;
 using Application.Requests;
@@ -6,6 +8,7 @@ using Domain.Contracts;
 using Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Shared.Notifications;
 
 namespace Tests._Core.Application.Handlers
 {
@@ -13,14 +16,18 @@ namespace Tests._Core.Application.Handlers
     public class CreateChurchHandlerTest
     {
         private Mock<IChurchRepository> _mockRepository;
-        private Church _successEntity;
+        private Mock<IChurchRepository> _mockRepositoryFailed;
+
 
         [TestInitialize]
         public void SetUp ()
         {
-            _successEntity = new("Iury", new("valid_email@email.com", "valid_password"));
             _mockRepository = new();
-            _mockRepository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(_successEntity);
+            _mockRepositoryFailed = new();
+            _mockRepository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(true);
+            _mockRepositoryFailed.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(false);
+            _mockRepositoryFailed.SetupGet(repository => repository.Notifications).Returns(new List<Notification> { new("Repository", "") });
+
         }
 
         [TestMethod]
@@ -40,6 +47,15 @@ namespace Tests._Core.Application.Handlers
             var result = await sut.Handle(data, new());
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(CreateChurchResponse));
+        }
+        [TestMethod]
+        public async Task Should_Return_Null_If_the_Entity_Is_Not_Saved ()
+        {
+            CreateChurchHandler sut = new(new(), _mockRepositoryFailed.Object);
+            CreateChurch data = new("valid_name", "valid_email@email.com", "valid_password");
+            var result = await sut.Handle(data, new());
+            Assert.IsNull(result);
+            Assert.AreEqual("Repository", sut.NotificationContext.Notifications.First().Key);
         }
     }
 }
