@@ -16,23 +16,23 @@ FNF:3
 FNH:3
 end_of_record
 SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Application/Requests/CreateChurch.cs
-FN:7,System.String Application.Requests.CreateChurch::get_Name()
-FNDA:2,System.String Application.Requests.CreateChurch::get_Name()
-DA:8,2
-FN:8,System.String Application.Requests.CreateChurch::get_Email()
-FNDA:2,System.String Application.Requests.CreateChurch::get_Email()
-DA:9,2
-FN:9,System.String Application.Requests.CreateChurch::get_Password()
-FNDA:2,System.String Application.Requests.CreateChurch::get_Password()
-DA:10,2
-FN:11,System.Void Application.Requests.CreateChurch::.ctor(System.String,System.String,System.String)
-FNDA:2,System.Void Application.Requests.CreateChurch::.ctor(System.String,System.String,System.String)
-DA:12,2
-DA:13,2
-DA:14,2
-DA:15,2
-DA:16,2
-DA:17,2
+FN:14,System.String Application.Requests.CreateChurch::get_Name()
+FNDA:3,System.String Application.Requests.CreateChurch::get_Name()
+DA:15,3
+FN:15,System.String Application.Requests.CreateChurch::get_Email()
+FNDA:3,System.String Application.Requests.CreateChurch::get_Email()
+DA:16,3
+FN:16,System.String Application.Requests.CreateChurch::get_Password()
+FNDA:3,System.String Application.Requests.CreateChurch::get_Password()
+DA:17,3
+FN:7,System.Void Application.Requests.CreateChurch::.ctor(System.String,System.String,System.String)
+FNDA:3,System.Void Application.Requests.CreateChurch::.ctor(System.String,System.String,System.String)
+DA:8,3
+DA:9,3
+DA:10,3
+DA:11,3
+DA:12,3
+DA:13,3
 LF:9
 LH:9
 BRF:0
@@ -41,58 +41,62 @@ FNF:4
 FNH:4
 end_of_record
 SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Application/Handlers/CreateChurchHandler.cs
-FN:20,System.Threading.Tasks.Task`1<Application.Responses.CreateChurchResponse> Application.Handlers.CreateChurchHandler::Handle(Application.Requests.CreateChurch,System.Threading.CancellationToken)
-FNDA:2,System.Threading.Tasks.Task`1<Application.Responses.CreateChurchResponse> Application.Handlers.CreateChurchHandler::Handle(Application.Requests.CreateChurch,System.Threading.CancellationToken)
-DA:21,2
-DA:22,2
-DA:23,2
-DA:24,1
-DA:25,1
-DA:26,1
+FN:17,System.Void Application.Handlers.CreateChurchHandler::.ctor(Shared.Notifications.NotificationContext,Domain.Contracts.IChurchRepository)
+FNDA:3,System.Void Application.Handlers.CreateChurchHandler::.ctor(Shared.Notifications.NotificationContext,Domain.Contracts.IChurchRepository)
+DA:18,3
+DA:19,3
+DA:20,3
+DA:21,3
+DA:22,3
+FN:24,System.Void Application.Handlers.CreateChurchHandler/<Handle>d__2::MoveNext()
+FNDA:3,System.Void Application.Handlers.CreateChurchHandler/<Handle>d__2::MoveNext()
+DA:25,3
+DA:26,3
+DA:27,3
 DA:28,1
 DA:29,1
 DA:30,1
-DA:31,1
-DA:32,1
+DA:32,2
 DA:33,1
 DA:34,1
-DA:35,2
-BRDA:23,38,0,1
-BRDA:23,38,1,1
-FN:14,System.Void Application.Handlers.CreateChurchHandler::.ctor(Shared.Notifications.NotificationContext)
-FNDA:2,System.Void Application.Handlers.CreateChurchHandler::.ctor(Shared.Notifications.NotificationContext)
-DA:15,2
-DA:16,2
-DA:17,2
-DA:18,2
-LF:18
-LH:18
-BRF:2
-BRH:2
+DA:35,1
+DA:36,1
+DA:38,1
+DA:39,1
+DA:40,1
+DA:41,3
+BRDA:27,80,0,1
+BRDA:27,80,1,2
+BRDA:32,250,0,1
+BRDA:32,250,1,1
+LF:20
+LH:20
+BRF:4
+BRH:4
 FNF:2
 FNH:2
 end_of_record
 SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Domain/ValueObjects/Credentials.cs
-FN:7,System.String Domain.ValueObjects.Credentials::get_Email()
-FNDA:16,System.String Domain.ValueObjects.Credentials::get_Email()
-DA:8,16
-FN:8,System.String Domain.ValueObjects.Credentials::get_Password()
-FNDA:27,System.String Domain.ValueObjects.Credentials::get_Password()
-DA:9,27
-FN:10,System.Void Domain.ValueObjects.Credentials::.ctor(System.String,System.String)
-FNDA:7,System.Void Domain.ValueObjects.Credentials::.ctor(System.String,System.String)
-DA:11,7
-DA:12,7
-DA:13,7
-DA:14,7
-DA:15,7
+FN:13,System.String Domain.ValueObjects.Credentials::get_Email()
+FNDA:18,System.String Domain.ValueObjects.Credentials::get_Email()
+DA:14,18
+FN:14,System.String Domain.ValueObjects.Credentials::get_Password()
+FNDA:48,System.String Domain.ValueObjects.Credentials::get_Password()
+DA:15,48
+FN:7,System.Void Domain.ValueObjects.Credentials::.ctor(System.String,System.String)
+FNDA:11,System.Void Domain.ValueObjects.Credentials::.ctor(System.String,System.String)
+DA:8,11
+DA:9,11
+DA:10,11
+DA:11,11
+DA:12,11
 FN:19,System.Void Domain.ValueObjects.CredentialsValidator::.ctor()
-FNDA:8,System.Void Domain.ValueObjects.CredentialsValidator::.ctor()
-DA:20,8
-DA:21,8
-DA:22,8
-DA:23,8
-DA:24,8
+FNDA:12,System.Void Domain.ValueObjects.CredentialsValidator::.ctor()
+DA:20,12
+DA:21,12
+DA:22,12
+DA:23,12
+DA:24,12
 LF:12
 LH:12
 BRF:0
@@ -101,38 +105,38 @@ FNF:4
 FNH:4
 end_of_record
 SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Domain/Entities/Church.cs
-FN:9,System.String Domain.Entities.Church::get_Name()
-FNDA:16,System.String Domain.Entities.Church::get_Name()
-DA:10,16
-FN:10,Domain.ValueObjects.Credentials Domain.Entities.Church::get_Credentials()
-FNDA:28,Domain.ValueObjects.Credentials Domain.Entities.Church::get_Credentials()
-DA:11,28
-FN:12,System.Void Domain.Entities.Church::.ctor(System.String,Domain.ValueObjects.Credentials)
-FNDA:5,System.Void Domain.Entities.Church::.ctor(System.String,Domain.ValueObjects.Credentials)
-DA:13,5
-DA:14,5
-DA:15,5
-DA:16,5
-DA:18,5
-DA:20,5
-DA:21,5
-FN:22,System.Void Domain.Entities.Church::.ctor(System.String,System.String,Domain.ValueObjects.Credentials)
+FN:25,System.String Domain.Entities.Church::get_Name()
+FNDA:18,System.String Domain.Entities.Church::get_Name()
+DA:26,18
+FN:26,Domain.ValueObjects.Credentials Domain.Entities.Church::get_Credentials()
+FNDA:43,Domain.ValueObjects.Credentials Domain.Entities.Church::get_Credentials()
+DA:27,43
+FN:9,System.Void Domain.Entities.Church::.ctor(System.String,Domain.ValueObjects.Credentials)
+FNDA:9,System.Void Domain.Entities.Church::.ctor(System.String,Domain.ValueObjects.Credentials)
+DA:10,9
+DA:11,9
+DA:12,9
+DA:13,9
+DA:14,9
+DA:15,9
+DA:16,9
+FN:17,System.Void Domain.Entities.Church::.ctor(System.String,System.String,Domain.ValueObjects.Credentials)
 FNDA:2,System.Void Domain.Entities.Church::.ctor(System.String,System.String,Domain.ValueObjects.Credentials)
+DA:18,2
+DA:19,2
+DA:20,2
+DA:21,2
+DA:22,2
 DA:23,2
 DA:24,2
-DA:25,2
-DA:26,2
-DA:27,2
-DA:29,2
-DA:30,2
-FN:33,System.Void Domain.Entities.ChurchValidator::.ctor()
-FNDA:8,System.Void Domain.Entities.ChurchValidator::.ctor()
-DA:34,8
-DA:35,8
-DA:36,8
-DA:37,8
-DA:38,8
-DA:39,8
+FN:31,System.Void Domain.Entities.ChurchValidator::.ctor()
+FNDA:12,System.Void Domain.Entities.ChurchValidator::.ctor()
+DA:32,12
+DA:33,12
+DA:34,12
+DA:35,12
+DA:36,12
+DA:37,12
 LF:22
 LH:22
 BRF:0
@@ -140,20 +144,37 @@ BRH:0
 FNF:5
 FNH:5
 end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Shared/Notifications/Notifiable.cs
+FN:9,Shared.Notifications.NotificationContext Shared.Notifications.Notifiable::get_NotificationContext()
+FNDA:3,Shared.Notifications.NotificationContext Shared.Notifications.Notifiable::get_NotificationContext()
+DA:10,3
+FN:4,System.Void Shared.Notifications.Notifiable::.ctor(Shared.Notifications.NotificationContext)
+FNDA:3,System.Void Shared.Notifications.Notifiable::.ctor(Shared.Notifications.NotificationContext)
+DA:5,3
+DA:6,3
+DA:7,3
+DA:8,3
+LF:5
+LH:5
+BRF:0
+BRH:0
+FNF:2
+FNH:2
+end_of_record
 SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Shared/Notifications/Notification.cs
-FN:4,System.String Shared.Notifications.Notification::get_Key()
-FNDA:1,System.String Shared.Notifications.Notification::get_Key()
-DA:5,1
-FN:5,System.String Shared.Notifications.Notification::get_Message()
-FNDA:1,System.String Shared.Notifications.Notification::get_Message()
-DA:6,1
-FN:7,System.Void Shared.Notifications.Notification::.ctor(System.String,System.String)
-FNDA:8,System.Void Shared.Notifications.Notification::.ctor(System.String,System.String)
-DA:8,8
-DA:9,8
-DA:10,8
-DA:11,8
-DA:12,8
+FN:10,System.String Shared.Notifications.Notification::get_Key()
+FNDA:4,System.String Shared.Notifications.Notification::get_Key()
+DA:11,4
+FN:11,System.String Shared.Notifications.Notification::get_Message()
+FNDA:3,System.String Shared.Notifications.Notification::get_Message()
+DA:12,3
+FN:4,System.Void Shared.Notifications.Notification::.ctor(System.String,System.String)
+FNDA:16,System.Void Shared.Notifications.Notification::.ctor(System.String,System.String)
+DA:5,16
+DA:6,16
+DA:7,16
+DA:8,16
+DA:9,16
 LF:7
 LH:7
 BRF:0
@@ -162,75 +183,237 @@ FNF:3
 FNH:3
 end_of_record
 SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Shared/Notifications/NotificationContext.cs
-FN:9,System.Collections.Generic.IReadOnlyCollection`1<Shared.Notifications.Notification> Shared.Notifications.NotificationContext::get_Notifications()
-FNDA:3,System.Collections.Generic.IReadOnlyCollection`1<Shared.Notifications.Notification> Shared.Notifications.NotificationContext::get_Notifications()
-DA:10,3
-FN:10,System.Boolean Shared.Notifications.NotificationContext::get_HasNotifications()
+FN:15,System.Collections.Generic.IReadOnlyCollection`1<Shared.Notifications.Notification> Shared.Notifications.NotificationContext::get_Notifications()
+FNDA:6,System.Collections.Generic.IReadOnlyCollection`1<Shared.Notifications.Notification> Shared.Notifications.NotificationContext::get_Notifications()
+DA:16,6
+FN:16,System.Boolean Shared.Notifications.NotificationContext::get_HasNotifications()
 FNDA:1,System.Boolean Shared.Notifications.NotificationContext::get_HasNotifications()
-DA:11,1
-FN:18,System.Void Shared.Notifications.NotificationContext::AddNotification(System.String,System.String)
-FNDA:8,System.Void Shared.Notifications.NotificationContext::AddNotification(System.String,System.String)
-DA:19,8
-DA:20,8
-DA:21,8
-FN:22,System.Void Shared.Notifications.NotificationContext::AddNotifications(FluentValidation.Results.ValidationResult)
+DA:17,1
+FN:19,System.Void Shared.Notifications.NotificationContext::AddNotification(System.String,System.String)
+FNDA:10,System.Void Shared.Notifications.NotificationContext::AddNotification(System.String,System.String)
+DA:20,10
+DA:21,10
+DA:22,10
+FN:24,System.Void Shared.Notifications.NotificationContext::AddNotifications(FluentValidation.Results.ValidationResult)
 FNDA:1,System.Void Shared.Notifications.NotificationContext::AddNotifications(FluentValidation.Results.ValidationResult)
-DA:23,1
-DA:24,13
-DA:25,5
-DA:26,5
+DA:25,1
+DA:26,13
 DA:27,5
-DA:28,1
-BRDA:24,50,1,5
-BRDA:24,50,0,1
-FN:12,System.Void Shared.Notifications.NotificationContext::.ctor()
-FNDA:5,System.Void Shared.Notifications.NotificationContext::.ctor()
-DA:13,5
-DA:14,5
-DA:15,5
-DA:16,5
-LF:15
-LH:15
+DA:28,5
+DA:29,5
+DA:30,1
+BRDA:26,50,1,5
+BRDA:26,50,0,1
+FN:32,System.Void Shared.Notifications.NotificationContext::AddNotifications(System.Collections.Generic.IEnumerable`1<Shared.Notifications.Notification>)
+FNDA:2,System.Void Shared.Notifications.NotificationContext::AddNotifications(System.Collections.Generic.IEnumerable`1<Shared.Notifications.Notification>)
+DA:33,2
+DA:34,2
+DA:35,2
+FN:10,System.Void Shared.Notifications.NotificationContext::.ctor()
+FNDA:8,System.Void Shared.Notifications.NotificationContext::.ctor()
+DA:11,8
+DA:12,8
+DA:13,8
+DA:14,8
+LF:18
+LH:18
 BRF:2
 BRH:2
-FNF:5
-FNH:5
+FNF:6
+FNH:6
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Shared/Models/Model.cs
+FN:4,System.String Shared.Models.Model::get_Id()
+FNDA:13,System.String Shared.Models.Model::get_Id()
+DA:5,13
+LF:1
+LH:1
+BRF:0
+BRH:0
+FNF:1
+FNH:1
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Shared/Handlers/Handler.cs
+FN:6,System.Void Shared.Handlers.Handler::.ctor(Shared.Notifications.NotificationContext)
+FNDA:9,System.Void Shared.Handlers.Handler::.ctor(Shared.Notifications.NotificationContext)
+DA:7,9
+LF:1
+LH:1
+BRF:0
+BRH:0
+FNF:1
+FNH:1
 end_of_record
 SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Shared/Entities/Entity.cs
-FN:8,System.String Shared.Entities.Entity::get_Id()
-FNDA:19,System.String Shared.Entities.Entity::get_Id()
-DA:9,19
-FN:9,System.Boolean Shared.Entities.Entity::get_Valid()
-FNDA:11,System.Boolean Shared.Entities.Entity::get_Valid()
+FN:13,System.String Shared.Entities.Entity::get_Id()
+FNDA:32,System.String Shared.Entities.Entity::get_Id()
+DA:14,32
+FN:14,System.Boolean Shared.Entities.Entity::get_Valid()
+FNDA:16,System.Boolean Shared.Entities.Entity::get_Valid()
+DA:15,16
+FN:15,System.Boolean Shared.Entities.Entity::get_Invalid()
+FNDA:4,System.Boolean Shared.Entities.Entity::get_Invalid()
+DA:16,4
+FN:16,FluentValidation.Results.ValidationResult Shared.Entities.Entity::get_ValidationResult()
+FNDA:27,FluentValidation.Results.ValidationResult Shared.Entities.Entity::get_ValidationResult()
+DA:17,27
+FN:19,System.Void Shared.Entities.Entity::Validate(T,FluentValidation.AbstractValidator`1<T>)
+FNDA:11,System.Void Shared.Entities.Entity::Validate(T,FluentValidation.AbstractValidator`1<T>)
+DA:20,11
+DA:21,11
+DA:22,11
+DA:23,11
+FN:8,System.Void Shared.Entities.Entity::.ctor()
+FNDA:11,System.Void Shared.Entities.Entity::.ctor()
+DA:9,11
 DA:10,11
-FN:10,System.Boolean Shared.Entities.Entity::get_Invalid()
-FNDA:3,System.Boolean Shared.Entities.Entity::get_Invalid()
-DA:11,3
-FN:11,FluentValidation.Results.ValidationResult Shared.Entities.Entity::get_ValidationResult()
-FNDA:19,FluentValidation.Results.ValidationResult Shared.Entities.Entity::get_ValidationResult()
-DA:12,19
-FN:18,System.Boolean Shared.Entities.Entity::Validate(T,FluentValidation.AbstractValidator`1<T>)
-FNDA:7,System.Boolean Shared.Entities.Entity::Validate(T,FluentValidation.AbstractValidator`1<T>)
-DA:19,7
-DA:20,7
-DA:21,7
-DA:22,7
-FN:13,System.Void Shared.Entities.Entity::.ctor()
-FNDA:7,System.Void Shared.Entities.Entity::.ctor()
-DA:14,7
-DA:15,7
-DA:16,7
-DA:17,7
-FN:25,System.Void Shared.Entities.EntityValidator::.ctor()
-FNDA:8,System.Void Shared.Entities.EntityValidator::.ctor()
-DA:26,8
-DA:27,8
-DA:28,8
-DA:29,8
+DA:11,11
+DA:12,11
+FN:27,System.Void Shared.Entities.EntityValidator::.ctor()
+FNDA:12,System.Void Shared.Entities.EntityValidator::.ctor()
+DA:28,12
+DA:29,12
+DA:30,12
+DA:31,12
 LF:16
 LH:16
 BRF:0
 BRH:0
+FNF:7
+FNH:7
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Repositories/ChurchRepository.cs
+FN:13,System.Collections.Generic.List`1<Shared.Notifications.Notification> Persistence.Repositories.ChurchRepository::get_Notifications()
+FNDA:9,System.Collections.Generic.List`1<Shared.Notifications.Notification> Persistence.Repositories.ChurchRepository::get_Notifications()
+DA:14,9
+FN:15,System.Void Persistence.Repositories.ChurchRepository::.ctor(Persistence.Contracts.IChurchContext)
+FNDA:3,System.Void Persistence.Repositories.ChurchRepository::.ctor(Persistence.Contracts.IChurchContext)
+DA:16,3
+DA:17,3
+DA:18,3
+DA:19,3
+DA:20,3
+FN:22,System.Void Persistence.Repositories.ChurchRepository/<Add>d__5::MoveNext()
+FNDA:5,System.Void Persistence.Repositories.ChurchRepository/<Add>d__5::MoveNext()
+DA:23,5
+DA:24,5
+DA:25,5
+DA:26,5
+DA:27,5
+DA:28,5
+DA:29,5
+DA:30,5
+DA:31,5
+DA:32,3
+DA:33,3
+DA:34,4
+DA:35,3
+DA:38,2
+DA:39,2
+DA:40,5
+BRDA:31,251,0,3
+BRDA:34,403,0,1
+BRDA:34,403,1,3
+BRDA:31,251,1,2
+LF:22
+LH:22
+BRF:4
+BRH:4
+FNF:3
+FNH:3
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Models/ChurchModel.cs
+FN:7,System.String Persistence.Models.ChurchModel::get_Name()
+FNDA:8,System.String Persistence.Models.ChurchModel::get_Name()
+DA:8,8
+FN:9,System.String Persistence.Models.ChurchModel::get_Email()
+FNDA:12,System.String Persistence.Models.ChurchModel::get_Email()
+DA:10,12
+FN:11,System.String Persistence.Models.ChurchModel::get_Password()
+FNDA:8,System.String Persistence.Models.ChurchModel::get_Password()
+DA:12,8
+LF:3
+LH:3
+BRF:0
+BRH:0
+FNF:3
+FNH:3
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Factories/ChurchContextFactory.cs
+FN:19,Persistence.Contexts.ChurchContext Persistence.Factories.ChurchContextFactory::CreateDbContext(System.String)
+FNDA:7,Persistence.Contexts.ChurchContext Persistence.Factories.ChurchContextFactory::CreateDbContext(System.String)
+DA:20,7
+DA:21,7
+DA:22,6
+FN:24,Persistence.Contexts.ChurchContext Persistence.Factories.ChurchContextFactory::GenerateDbContext(System.String)
+FNDA:7,Persistence.Contexts.ChurchContext Persistence.Factories.ChurchContextFactory::GenerateDbContext(System.String)
+DA:25,7
+DA:26,7
+DA:27,7
+DA:28,7
+DA:29,7
+DA:30,7
+DA:31,7
+DA:32,7
+DA:33,6
+BRDA:31,36,0,6
+BRDA:31,36,1,7
+LF:12
+LH:12
+BRF:2
+BRH:2
+FNF:2
+FNH:2
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Contexts/ChurchContext.cs
+FN:18,Microsoft.EntityFrameworkCore.DbSet`1<Persistence.Models.ChurchModel> Persistence.Contexts.ChurchContext::get_Entity()
+FNDA:17,Microsoft.EntityFrameworkCore.DbSet`1<Persistence.Models.ChurchModel> Persistence.Contexts.ChurchContext::get_Entity()
+DA:19,17
+FN:46,System.Void Persistence.Contexts.ChurchContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:1,System.Void Persistence.Contexts.ChurchContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+DA:47,1
+DA:48,1
+DA:49,1
+FN:12,System.Void Persistence.Contexts.ChurchContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Persistence.Contexts.ChurchContext>)
+FNDA:7,System.Void Persistence.Contexts.ChurchContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Persistence.Contexts.ChurchContext>)
+DA:13,7
+DA:14,7
+DA:15,7
+DA:16,1
+DA:17,6
+BRDA:15,25,0,1
+BRDA:15,25,1,6
+FN:21,System.Void Persistence.Contexts.ChurchContext/<Add>d__5::MoveNext()
+FNDA:5,System.Void Persistence.Contexts.ChurchContext/<Add>d__5::MoveNext()
+DA:22,5
+DA:23,5
+DA:25,5
+DA:26,5
+DA:27,4
+DA:29,1
+DA:30,1
+DA:31,1
+DA:33,5
+FN:35,System.Void Persistence.Contexts.ChurchContext/<Exists>d__6::MoveNext()
+FNDA:5,System.Void Persistence.Contexts.ChurchContext/<Exists>d__6::MoveNext()
+DA:36,5
+DA:37,5
+DA:38,5
+DA:39,5
+FN:41,System.Void Persistence.Contexts.ChurchContext/<Save>d__7::MoveNext()
+FNDA:5,System.Void Persistence.Contexts.ChurchContext/<Save>d__7::MoveNext()
+DA:42,5
+DA:43,5
+DA:44,4
+FN:54,System.Void Persistence.Contexts.ChurchTypeConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<Persistence.Models.ChurchModel>)
+FNDA:1,System.Void Persistence.Contexts.ChurchTypeConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<Persistence.Models.ChurchModel>)
+DA:55,1
+DA:56,1
+DA:57,1
+LF:28
+LH:28
+BRF:2
+BRH:2
 FNF:7
 FNH:7
 end_of_record
