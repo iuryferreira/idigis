@@ -7,5 +7,6 @@ namespace Persistence.Contracts
     {
         Task<bool> Add (ChurchModel data);
         Task<bool> Exists (ChurchModel data);
+        Task<int> Save ();
     }
 }
