@@ -28,5 +28,10 @@ namespace Shared.Notifications
                 AddNotification(error.ErrorCode, error.ErrorMessage);
             }
         }
+
+        public void AddNotifications (IEnumerable<Notification> notifications)
+        {
+            _notifications.AddRange(notifications);
+        }
     }
 }
