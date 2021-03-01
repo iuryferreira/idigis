@@ -7,6 +7,6 @@ namespace Shared.Notifications
             NotificationContext = notificationContext;
         }
 
-        protected NotificationContext NotificationContext { get; }
+        public NotificationContext NotificationContext { get; }
     }
 }
