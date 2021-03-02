@@ -8,9 +8,9 @@ using Persistence.Contexts;
 namespace Persistence.Factories
 {
 #nullable enable
+    [ExcludeFromCodeCoverage]
     public class ChurchContextFactory : IDesignTimeDbContextFactory<ChurchContext>
     {
-        [ExcludeFromCodeCoverage]
         public ChurchContext CreateDbContext (string[] args)
         {
             return GenerateDbContext();
