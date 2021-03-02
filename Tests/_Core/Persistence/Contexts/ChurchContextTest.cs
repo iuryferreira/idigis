@@ -2,8 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persistence.Contexts;
-using Persistence.Factories;
 using Persistence.Models;
+using Tests.Database.Factories;
 
 namespace Tests._Core.Persistence.Contexts
 {
@@ -15,7 +15,7 @@ namespace Tests._Core.Persistence.Contexts
         [TestInitialize]
         public void BeforeEach ()
         {
-            _context = ChurchContextFactory.CreateDbContext();
+            _context = ChurchContextFactoryForTest.CreateDbContext();
             _context.Database.BeginTransaction();
         }
 

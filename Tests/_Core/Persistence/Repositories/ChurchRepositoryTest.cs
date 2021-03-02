@@ -5,8 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Persistence.Contexts;
 using Persistence.Contracts;
-using Persistence.Factories;
 using Persistence.Repositories;
+using Tests.Database.Factories;
 
 namespace Tests._Core.Persistence.Repositories
 {
@@ -20,17 +20,10 @@ namespace Tests._Core.Persistence.Repositories
         [TestInitialize]
         public void BeforeEach ()
         {
-            _context = ChurchContextFactory.CreateDbContext();
+            _context = ChurchContextFactoryForTest.CreateDbContext();
             _entity = new("name", new("", "valid_password"));
-            _context.Database.BeginTransaction();
-
         }
 
-        [TestCleanup]
-        public void AfterEach ()
-        {
-            _context.Database.RollbackTransaction();
-        }
         [TestMethod]
         public async Task Must_Notify_If_Church_Already_Exists_in_the_Database ()
         {
