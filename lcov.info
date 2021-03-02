@@ -60,17 +60,16 @@ DA:32,2
 DA:33,1
 DA:34,1
 DA:35,1
-DA:36,1
+DA:37,1
 DA:38,1
 DA:39,1
-DA:40,1
-DA:41,3
+DA:40,3
 BRDA:27,80,0,1
 BRDA:27,80,1,2
 BRDA:32,250,0,1
 BRDA:32,250,1,1
-LF:20
-LH:20
+LF:19
+LH:19
 BRF:4
 BRH:4
 FNF:2
@@ -143,6 +142,115 @@ BRF:0
 BRH:0
 FNF:5
 FNH:5
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Repositories/ChurchRepository.cs
+FN:13,System.Collections.Generic.List`1<Shared.Notifications.Notification> Persistence.Repositories.ChurchRepository::get_Notifications()
+FNDA:9,System.Collections.Generic.List`1<Shared.Notifications.Notification> Persistence.Repositories.ChurchRepository::get_Notifications()
+DA:14,9
+FN:15,System.Void Persistence.Repositories.ChurchRepository::.ctor(Persistence.Contracts.IChurchContext)
+FNDA:3,System.Void Persistence.Repositories.ChurchRepository::.ctor(Persistence.Contracts.IChurchContext)
+DA:16,3
+DA:17,3
+DA:18,3
+DA:19,3
+DA:20,3
+FN:22,System.Void Persistence.Repositories.ChurchRepository/<Add>d__5::MoveNext()
+FNDA:5,System.Void Persistence.Repositories.ChurchRepository/<Add>d__5::MoveNext()
+DA:23,5
+DA:24,5
+DA:25,5
+DA:26,5
+DA:27,5
+DA:28,5
+DA:29,5
+DA:30,5
+DA:31,5
+DA:32,3
+DA:33,3
+DA:34,4
+DA:35,3
+DA:38,2
+DA:39,2
+DA:40,5
+BRDA:31,251,0,3
+BRDA:34,403,0,1
+BRDA:34,403,1,3
+BRDA:31,251,1,2
+LF:22
+LH:22
+BRF:4
+BRH:4
+FNF:3
+FNH:3
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Models/ChurchModel.cs
+FN:7,System.String Persistence.Models.ChurchModel::get_Name()
+FNDA:8,System.String Persistence.Models.ChurchModel::get_Name()
+DA:8,8
+FN:9,System.String Persistence.Models.ChurchModel::get_Email()
+FNDA:12,System.String Persistence.Models.ChurchModel::get_Email()
+DA:10,12
+FN:11,System.String Persistence.Models.ChurchModel::get_Password()
+FNDA:8,System.String Persistence.Models.ChurchModel::get_Password()
+DA:12,8
+LF:3
+LH:3
+BRF:0
+BRH:0
+FNF:3
+FNH:3
+end_of_record
+SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Contexts/ChurchContext.cs
+FN:18,Microsoft.EntityFrameworkCore.DbSet`1<Persistence.Models.ChurchModel> Persistence.Contexts.ChurchContext::get_Entity()
+FNDA:17,Microsoft.EntityFrameworkCore.DbSet`1<Persistence.Models.ChurchModel> Persistence.Contexts.ChurchContext::get_Entity()
+DA:19,17
+FN:46,System.Void Persistence.Contexts.ChurchContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:2,System.Void Persistence.Contexts.ChurchContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+DA:47,2
+DA:48,2
+DA:49,2
+FN:12,System.Void Persistence.Contexts.ChurchContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Persistence.Contexts.ChurchContext>)
+FNDA:7,System.Void Persistence.Contexts.ChurchContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Persistence.Contexts.ChurchContext>)
+DA:13,7
+DA:14,7
+DA:15,7
+DA:16,1
+DA:17,6
+BRDA:15,25,0,1
+BRDA:15,25,1,6
+FN:21,System.Void Persistence.Contexts.ChurchContext/<Add>d__5::MoveNext()
+FNDA:5,System.Void Persistence.Contexts.ChurchContext/<Add>d__5::MoveNext()
+DA:22,5
+DA:23,5
+DA:25,5
+DA:26,5
+DA:27,4
+DA:29,1
+DA:30,1
+DA:31,1
+DA:33,5
+FN:35,System.Void Persistence.Contexts.ChurchContext/<Exists>d__6::MoveNext()
+FNDA:5,System.Void Persistence.Contexts.ChurchContext/<Exists>d__6::MoveNext()
+DA:36,5
+DA:37,5
+DA:38,5
+DA:39,5
+FN:41,System.Void Persistence.Contexts.ChurchContext/<Save>d__7::MoveNext()
+FNDA:5,System.Void Persistence.Contexts.ChurchContext/<Save>d__7::MoveNext()
+DA:42,5
+DA:43,5
+DA:44,4
+FN:54,System.Void Persistence.Contexts.ChurchTypeConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<Persistence.Models.ChurchModel>)
+FNDA:2,System.Void Persistence.Contexts.ChurchTypeConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<Persistence.Models.ChurchModel>)
+DA:55,2
+DA:56,2
+DA:57,2
+LF:28
+LH:28
+BRF:2
+BRH:2
+FNF:7
+FNH:7
 end_of_record
 SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Shared/Notifications/Notifiable.cs
 FN:9,Shared.Notifications.NotificationContext Shared.Notifications.Notifiable::get_NotificationContext()
@@ -279,141 +387,6 @@ LF:16
 LH:16
 BRF:0
 BRH:0
-FNF:7
-FNH:7
-end_of_record
-SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Repositories/ChurchRepository.cs
-FN:13,System.Collections.Generic.List`1<Shared.Notifications.Notification> Persistence.Repositories.ChurchRepository::get_Notifications()
-FNDA:9,System.Collections.Generic.List`1<Shared.Notifications.Notification> Persistence.Repositories.ChurchRepository::get_Notifications()
-DA:14,9
-FN:15,System.Void Persistence.Repositories.ChurchRepository::.ctor(Persistence.Contracts.IChurchContext)
-FNDA:3,System.Void Persistence.Repositories.ChurchRepository::.ctor(Persistence.Contracts.IChurchContext)
-DA:16,3
-DA:17,3
-DA:18,3
-DA:19,3
-DA:20,3
-FN:22,System.Void Persistence.Repositories.ChurchRepository/<Add>d__5::MoveNext()
-FNDA:5,System.Void Persistence.Repositories.ChurchRepository/<Add>d__5::MoveNext()
-DA:23,5
-DA:24,5
-DA:25,5
-DA:26,5
-DA:27,5
-DA:28,5
-DA:29,5
-DA:30,5
-DA:31,5
-DA:32,3
-DA:33,3
-DA:34,4
-DA:35,3
-DA:38,2
-DA:39,2
-DA:40,5
-BRDA:31,251,0,3
-BRDA:34,403,0,1
-BRDA:34,403,1,3
-BRDA:31,251,1,2
-LF:22
-LH:22
-BRF:4
-BRH:4
-FNF:3
-FNH:3
-end_of_record
-SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Models/ChurchModel.cs
-FN:7,System.String Persistence.Models.ChurchModel::get_Name()
-FNDA:8,System.String Persistence.Models.ChurchModel::get_Name()
-DA:8,8
-FN:9,System.String Persistence.Models.ChurchModel::get_Email()
-FNDA:12,System.String Persistence.Models.ChurchModel::get_Email()
-DA:10,12
-FN:11,System.String Persistence.Models.ChurchModel::get_Password()
-FNDA:8,System.String Persistence.Models.ChurchModel::get_Password()
-DA:12,8
-LF:3
-LH:3
-BRF:0
-BRH:0
-FNF:3
-FNH:3
-end_of_record
-SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Factories/ChurchContextFactory.cs
-FN:19,Persistence.Contexts.ChurchContext Persistence.Factories.ChurchContextFactory::CreateDbContext(System.String)
-FNDA:7,Persistence.Contexts.ChurchContext Persistence.Factories.ChurchContextFactory::CreateDbContext(System.String)
-DA:20,7
-DA:21,7
-DA:22,6
-FN:24,Persistence.Contexts.ChurchContext Persistence.Factories.ChurchContextFactory::GenerateDbContext(System.String)
-FNDA:7,Persistence.Contexts.ChurchContext Persistence.Factories.ChurchContextFactory::GenerateDbContext(System.String)
-DA:25,7
-DA:26,7
-DA:27,7
-DA:28,7
-DA:29,7
-DA:30,7
-DA:31,7
-DA:32,7
-DA:33,6
-BRDA:31,36,0,6
-BRDA:31,36,1,7
-LF:12
-LH:12
-BRF:2
-BRH:2
-FNF:2
-FNH:2
-end_of_record
-SF:/mnt/arquivos/source/repos/dotnet/idigis/Core/Persistence/Contexts/ChurchContext.cs
-FN:18,Microsoft.EntityFrameworkCore.DbSet`1<Persistence.Models.ChurchModel> Persistence.Contexts.ChurchContext::get_Entity()
-FNDA:17,Microsoft.EntityFrameworkCore.DbSet`1<Persistence.Models.ChurchModel> Persistence.Contexts.ChurchContext::get_Entity()
-DA:19,17
-FN:46,System.Void Persistence.Contexts.ChurchContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
-FNDA:1,System.Void Persistence.Contexts.ChurchContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
-DA:47,1
-DA:48,1
-DA:49,1
-FN:12,System.Void Persistence.Contexts.ChurchContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Persistence.Contexts.ChurchContext>)
-FNDA:7,System.Void Persistence.Contexts.ChurchContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Persistence.Contexts.ChurchContext>)
-DA:13,7
-DA:14,7
-DA:15,7
-DA:16,1
-DA:17,6
-BRDA:15,25,0,1
-BRDA:15,25,1,6
-FN:21,System.Void Persistence.Contexts.ChurchContext/<Add>d__5::MoveNext()
-FNDA:5,System.Void Persistence.Contexts.ChurchContext/<Add>d__5::MoveNext()
-DA:22,5
-DA:23,5
-DA:25,5
-DA:26,5
-DA:27,4
-DA:29,1
-DA:30,1
-DA:31,1
-DA:33,5
-FN:35,System.Void Persistence.Contexts.ChurchContext/<Exists>d__6::MoveNext()
-FNDA:5,System.Void Persistence.Contexts.ChurchContext/<Exists>d__6::MoveNext()
-DA:36,5
-DA:37,5
-DA:38,5
-DA:39,5
-FN:41,System.Void Persistence.Contexts.ChurchContext/<Save>d__7::MoveNext()
-FNDA:5,System.Void Persistence.Contexts.ChurchContext/<Save>d__7::MoveNext()
-DA:42,5
-DA:43,5
-DA:44,4
-FN:54,System.Void Persistence.Contexts.ChurchTypeConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<Persistence.Models.ChurchModel>)
-FNDA:1,System.Void Persistence.Contexts.ChurchTypeConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<Persistence.Models.ChurchModel>)
-DA:55,1
-DA:56,1
-DA:57,1
-LF:28
-LH:28
-BRF:2
-BRH:2
 FNF:7
 FNH:7
 end_of_record
