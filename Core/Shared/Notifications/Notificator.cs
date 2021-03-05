@@ -4,11 +4,11 @@ using FluentValidation.Results;
 
 namespace Shared.Notifications
 {
-    public class NotificationContext
+    public class Notificator : INotificator
     {
         private readonly List<Notification> _notifications;
 
-        public NotificationContext ()
+        public Notificator ()
         {
             _notifications = new();
         }
