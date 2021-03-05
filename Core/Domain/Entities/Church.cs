@@ -20,7 +20,6 @@ namespace Domain.Entities
             Id = id;
             Name = name;
             Credentials = credentials;
-            Validate(this, new ChurchValidator());
         }
 
         public string Name { get; }
