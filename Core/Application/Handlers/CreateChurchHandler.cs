@@ -1,23 +1,22 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Requests;
 using Application.Responses;
 using Domain.Contracts;
 using Domain.Entities;
-using MediatR;
-using Shared.Handlers;
 using Shared.Notifications;
 
 namespace Application.Handlers
 {
-    public class CreateChurchHandler : Handler, IRequestHandler<CreateChurch, CreateChurchResponse>
+    public class CreateChurchHandler : ICreateChurchHandler
     {
         private readonly IChurchRepository _repository;
+        private readonly INotificator _notificator;
+        public INotificator Notificator => _notificator;
 
-        public CreateChurchHandler (NotificationContext notificationContext, IChurchRepository repository) : base(
-            notificationContext)
+        public CreateChurchHandler (INotificator notificator, IChurchRepository repository)
         {
+            _notificator = notificator;
             _repository = repository;
         }
 
@@ -26,12 +25,12 @@ namespace Application.Handlers
             Church entity = new(request.Name, new(request.Email, request.Password));
             if (entity.Invalid)
             {
-                NotificationContext.AddNotifications(entity.ValidationResult);
+                _notificator.AddNotifications(entity.ValidationResult);
                 return null;
             }
             if (!await _repository.Add(entity))
             {
-                NotificationContext.AddNotifications(_repository.Notifications);
+                _notificator.AddNotifications(_repository.Notifications);
                 return null;
             }
             var response =
