@@ -1,7 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persistence.Factories;
-using Tests.Database.Factories;
 
 namespace Tests._Core.Persistence.Factories
 {
