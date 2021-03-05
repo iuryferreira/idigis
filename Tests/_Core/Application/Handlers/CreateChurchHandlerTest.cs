@@ -33,7 +33,7 @@ namespace Tests._Core.Application.Handlers
         [TestMethod]
         public async Task Should_Return_Null_If_the_Entity_Is_Invalid ()
         {
-            CreateChurchHandler sut = new(new(), _mockRepository.Object);
+            CreateChurchHandler sut = new(new Notificator(), _mockRepository.Object);
             CreateChurch data = new("", "", "");
             var result = await sut.Handle(data, new());
             Assert.IsNull(result);
@@ -42,7 +42,7 @@ namespace Tests._Core.Application.Handlers
         [TestMethod]
         public async Task Should_Return_Response_If_the_Entity_Is_Valid ()
         {
-            CreateChurchHandler sut = new(new(), _mockRepository.Object);
+            CreateChurchHandler sut = new(new Notificator(), _mockRepository.Object);
             CreateChurch data = new("valid_name", "valid_email@email.com", "valid_password");
             var result = await sut.Handle(data, new());
             Assert.IsNotNull(result);
@@ -51,11 +51,11 @@ namespace Tests._Core.Application.Handlers
         [TestMethod]
         public async Task Should_Return_Null_If_the_Entity_Is_Not_Saved ()
         {
-            CreateChurchHandler sut = new(new(), _mockRepositoryFailed.Object);
+            CreateChurchHandler sut = new(new Notificator(), _mockRepositoryFailed.Object);
             CreateChurch data = new("valid_name", "valid_email@email.com", "valid_password");
             var result = await sut.Handle(data, new());
             Assert.IsNull(result);
-            Assert.AreEqual("Repository", sut.NotificationContext.Notifications.First().Key);
+            Assert.AreEqual("Repository", sut.Notificator.Notifications.First().Key);
         }
     }
 }
