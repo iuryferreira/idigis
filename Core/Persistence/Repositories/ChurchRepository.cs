@@ -21,13 +21,7 @@ namespace Persistence.Repositories
 
         public async Task<bool> Add (Church entity)
         {
-            ChurchModel model = new()
-            {
-                Id = entity.Id,
-                Name = entity.Name,
-                Email = entity.Credentials.Email,
-                Password = entity.Credentials.Password
-            };
+            ChurchModel model = entity;
             if (!(await _context.Exists(model)))
             {
                 bool result = await _context.Add(model);
