@@ -23,7 +23,6 @@ namespace Application.Handlers
 
         public async Task<CreateChurchResponse> Handle (CreateChurch request, CancellationToken cancellationToken)
         {
-            Console.WriteLine(request.Password);
             Church entity = new(request.Name, new(request.Email, request.Password));
 
             if (entity.Invalid)
