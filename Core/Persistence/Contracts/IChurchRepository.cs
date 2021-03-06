@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Shared.Notifications;
 
-namespace Domain.Contracts
+namespace Persistence.Contracts
 {
     public interface IChurchRepository
     {
