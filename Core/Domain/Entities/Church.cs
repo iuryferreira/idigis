@@ -25,7 +25,7 @@ namespace Domain.Entities
         }
 
         public string Name { get; }
-        
+
         public Credentials Credentials { get; }
     }
 
