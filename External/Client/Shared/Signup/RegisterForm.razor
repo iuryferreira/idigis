@@ -1,0 +1,93 @@
+@using Client.Models
+@using System.Net
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+
+<EditForm OnValidSubmit="HandleValidSubmit" EditContext="_context">
+    <DataAnnotationsValidator/>
+    <div class="columns is-inline-mobile">
+        <div class="column has-text-centered">
+            <div class="field">
+                <div class="control has-icons-left">
+                    <InputText id="name" @bind-Value="_model.Name" class="input" placeholder="Digite o nome da sua igreja"/>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-signature"></i>
+                    </span>
+                    <p class="help is-danger has-text-left">
+                        <ValidationMessage class="help" For="() => _model.Name"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns is-inline-mobile pb-0">
+        <div class="column pt-0 is-7 has-text-centered">
+            <div class="control has-icons-left is-expanded">
+                <InputText name="email" id="email" @bind-Value="_model.Email" class="input"
+                           placeholder="Digite o seu email"/>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <p class="help is-danger has-text-left">
+                    <ValidationMessage class="help" For="() => _model.Email"/>
+                </p>
+            </div>
+        </div>
+        <div class="column pt-0 has-text-centered">
+            <div class="control has-icons-left">
+                <InputText type="password" id="password" @bind-Value="_model.Password" class="input"
+                           placeholder="Digite a Senha"/>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                </span>
+                <p class="help is-danger has-text-left">
+                    <ValidationMessage For="() => _model.Password"/>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field has-text-right">
+        <div class="control">
+            <button type="submit" class="button btn-large is-info is-light">
+                Vamos lá!
+            </button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private readonly CreateChurchRequest _model = new();
+    private EditContext _context;
+    private ValidationMessageStore _messageStore;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _context = new(_model);
+        _messageStore = new(_context);
+
+        _context.OnValidationRequested += (_, _) => _messageStore.Clear();
+        _context.OnFieldChanged += (_, e) => _messageStore.Clear(e.FieldIdentifier);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var response = await Http.PostAsJsonAsync("/api/churches", _model);
+        var register = await response.Content.ReadFromJsonAsync<CreateChurchResponse>();
+
+        switch (response.StatusCode)
+        {
+            case HttpStatusCode.BadRequest:
+            {
+                _context.NotifyValidationStateChanged();
+                break;
+            }
+            case HttpStatusCode.Created:
+                await LocalStorage.SetItemAsync("church", register);
+                NavigationManager.NavigateTo("/");
+                break;
+        }
+    }
+
+}
