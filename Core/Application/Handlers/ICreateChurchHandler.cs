@@ -4,5 +4,7 @@ using MediatR;
 
 namespace Application.Handlers
 {
-    public interface ICreateChurchHandler : IRequestHandler<CreateChurch, CreateChurchResponse> { }
+    public interface ICreateChurchHandler : IRequestHandler<CreateChurch, CreateChurchResponse>
+    {
+    }
 }

@@ -14,7 +14,7 @@ namespace Persistence.Models
 
         public static implicit operator ChurchModel (Church entity)
         {
-            return new ChurchModel
+            return new()
             {
                 Id = entity.Id,
                 Name = entity.Name,
