@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using Application.Handlers;
 using Application.Requests;
 using Application.Responses;
-using Domain.Contracts;
 using Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Persistence.Contracts;
 using Shared.Notifications;
 
 namespace Tests._Core.Application.Handlers
@@ -26,8 +26,8 @@ namespace Tests._Core.Application.Handlers
             _mockRepositoryFailed = new();
             _mockRepository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(true);
             _mockRepositoryFailed.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(false);
-            _mockRepositoryFailed.SetupGet(repository => repository.Notifications).Returns(new List<Notification> { new("Repository", "") });
-
+            _mockRepositoryFailed.SetupGet(repository => repository.Notifications)
+                .Returns(new List<Notification> {new("Repository", "")});
         }
 
         [TestMethod]
@@ -48,6 +48,7 @@ namespace Tests._Core.Application.Handlers
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(CreateChurchResponse));
         }
+
         [TestMethod]
         public async Task Should_Return_Null_If_the_Entity_Is_Not_Saved ()
         {

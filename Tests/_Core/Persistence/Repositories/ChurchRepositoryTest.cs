@@ -11,7 +11,7 @@ using Tests.Database.Factories;
 namespace Tests._Core.Persistence.Repositories
 {
     [TestClass]
-    public class ChurchRepositoryTest
+    public class ChurchRepositoryTest : UnitTest
     {
         private ChurchContext _context;
         private Church _entity;
@@ -20,7 +20,7 @@ namespace Tests._Core.Persistence.Repositories
         [TestInitialize]
         public void BeforeEach ()
         {
-            _context = ChurchContextFactoryForTest.CreateDbContext();
+            _context = ChurchContextFactoryForTests.CreateDbContext();
             _entity = new("name", new("", "valid_password"));
         }
 
@@ -33,7 +33,6 @@ namespace Tests._Core.Persistence.Repositories
             Assert.IsTrue(sut.Notifications.Count > 0);
             Assert.AreEqual("Repository", sut.Notifications.First().Key);
             Assert.AreEqual("O usuário já existe, faça o login.", sut.Notifications.First().Message);
-
         }
 
         [TestMethod]
@@ -46,7 +45,6 @@ namespace Tests._Core.Persistence.Repositories
             Assert.IsTrue(sut.Notifications.Count > 0);
             Assert.AreEqual("Repository", sut.Notifications.First().Key);
             Assert.AreEqual("Ocorreu um erro na inserção.", sut.Notifications.First().Message);
-
         }
 
         [TestMethod]

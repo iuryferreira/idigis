@@ -1,6 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Persistence.Factories;
+using Tests.Database.Factories;
 
 namespace Tests._Core.Persistence.Factories
 {
@@ -13,12 +13,13 @@ namespace Tests._Core.Persistence.Factories
             Exception exception = null;
             try
             {
-                ChurchContextFactory.CreateDbContext("Testing");
+                ChurchContextFactoryForTests.CreateDbContext("invalid");
             }
             catch (Exception e)
             {
                 exception = e;
             }
+
             Assert.IsNotNull(exception);
             Assert.AreEqual("Could not connect to the database.", exception.Message);
         }

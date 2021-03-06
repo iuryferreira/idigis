@@ -8,21 +8,14 @@ using Tests.Database.Factories;
 namespace Tests._Core.Persistence.Contexts
 {
     [TestClass]
-    public class ChurchContextTest
+    public class ChurchContextTest : UnitTest
     {
         private ChurchContext _context;
 
         [TestInitialize]
         public void BeforeEach ()
         {
-            _context = ChurchContextFactoryForTest.CreateDbContext();
-            _context.Database.BeginTransaction();
-        }
-
-        [TestCleanup]
-        public void AfterEach ()
-        {
-            _context.Database.RollbackTransaction();
+            _context = ChurchContextFactoryForTests.CreateDbContext();
         }
 
         [TestMethod]
@@ -54,14 +47,9 @@ namespace Tests._Core.Persistence.Contexts
         }
 
         [TestMethod]
-        public async Task Must_Return_False_If_the_Add_Method_Throws_Exeception ()
+        public async Task Must_Return_False_If_the_Add_Method_Throws_Exception ()
         {
-            var model = new ChurchModel
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Testing",
-                Password = "Password123"
-            };
+            var model = new ChurchModel {Id = Guid.NewGuid().ToString(), Name = "Testing", Password = "Password123"};
             Assert.IsFalse(await _context.Add(model));
         }
     }

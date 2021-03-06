@@ -1,14 +1,12 @@
-using System.IO;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 using Persistence.Contexts;
 
 namespace Tests.Database.Factories
 {
 #nullable enable
-    public class ChurchContextFactoryForTest : IDesignTimeDbContextFactory<ChurchContext>
+    public class ChurchContextFactoryForTests : IDesignTimeDbContextFactory<ChurchContext>
     {
         public ChurchContext CreateDbContext (string[] args)
         {
@@ -24,13 +22,18 @@ namespace Tests.Database.Factories
 
         private static ChurchContext GenerateDbContext (string? connectionString = null)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .Build();
             var optionsBuilder = new DbContextOptionsBuilder<ChurchContext>();
-            var connection = new SqliteConnection(connectionString ?? "Filename=:memory:");
+            SqliteConnection connection = new("Filename=:memory:");
             connection.Open();
-            optionsBuilder.UseSqlite(connection, o => o.MigrationsAssembly("Tests"));
+            if (connectionString is not null)
+            {
+                optionsBuilder.UseSqlite(connectionString, c => c.MigrationsAssembly("Tests"));
+            }
+            else
+            {
+                optionsBuilder.UseSqlite(connection, c => c.MigrationsAssembly("Tests"));
+            }
+
             return new(optionsBuilder.Options);
         }
     }

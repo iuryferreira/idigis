@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
-namespace Tests.Migrations
+namespace Tests.Database.Migrations
 {
     [DbContext(typeof(ChurchContext))]
-    [Migration("20210302033559_initial")]
+    [Migration("20210306021631_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
