@@ -27,7 +27,7 @@ namespace Tests._Core.Application.Handlers
             _mockRepository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(true);
             _mockRepositoryFailed.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(false);
             _mockRepositoryFailed.SetupGet(repository => repository.Notifications)
-                .Returns(new List<Notification> {new("Repository", "")});
+                .Returns(new List<Notification> { new("Repository", "") });
         }
 
         [TestMethod]

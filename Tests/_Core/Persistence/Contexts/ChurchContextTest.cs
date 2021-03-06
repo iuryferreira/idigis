@@ -49,7 +49,7 @@ namespace Tests._Core.Persistence.Contexts
         [TestMethod]
         public async Task Must_Return_False_If_the_Add_Method_Throws_Exception ()
         {
-            var model = new ChurchModel {Id = Guid.NewGuid().ToString(), Name = "Testing", Password = "Password123"};
+            var model = new ChurchModel { Id = Guid.NewGuid().ToString(), Name = "Testing", Password = "Password123" };
             Assert.IsFalse(await _context.Add(model));
         }
     }
