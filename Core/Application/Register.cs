@@ -1,5 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using Application.Handlers;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -14,6 +16,7 @@ namespace Application
 
         private static void AddHandlers (this IServiceCollection services)
         {
+            services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddScoped<ICreateChurchHandler, CreateChurchHandler>();
         }
     }
