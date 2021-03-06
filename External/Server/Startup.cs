@@ -1,3 +1,4 @@
+using System;
 using Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,9 +17,20 @@ namespace Server
         }
 
         private IConfiguration Configuration { get; }
-
+        
+        
+        private const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        
         public void ConfigureServices (IServiceCollection services)
-        {
+        {   
+            
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy(name: MyAllowSpecificOrigins, builder =>
+                {
+                    builder.WithOrigins(Configuration.GetValue<string>("Client").ToString()).AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(NotificatorFilter));
@@ -30,7 +42,7 @@ namespace Server
             services.AddApplication(Configuration);
         }
 
-        public static void Configure (IApplicationBuilder app, IWebHostEnvironment env)
+        public  static void Configure (IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -41,6 +53,7 @@ namespace Server
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
