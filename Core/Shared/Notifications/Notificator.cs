@@ -16,11 +16,6 @@ namespace Shared.Notifications
         public IReadOnlyCollection<Notification> Notifications => _notifications;
         public bool HasNotifications => _notifications.Any();
 
-        public void AddNotification (string key, string message)
-        {
-            _notifications.Add(new(key, message));
-        }
-
         public void AddNotifications (ValidationResult validationResult)
         {
             foreach (var error in validationResult.Errors)
@@ -32,6 +27,11 @@ namespace Shared.Notifications
         public void AddNotifications (IEnumerable<Notification> notifications)
         {
             _notifications.AddRange(notifications);
+        }
+
+        public void AddNotification (string key, string message)
+        {
+            _notifications.Add(new(key, message));
         }
     }
 }

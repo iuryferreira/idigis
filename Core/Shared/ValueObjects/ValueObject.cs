@@ -1,4 +1,6 @@
 namespace Shared.ValueObjects
 {
-    public abstract class ValueObject { }
+    public abstract class ValueObject
+    {
+    }
 }
