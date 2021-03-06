@@ -7,12 +7,7 @@ namespace Shared
     [ExcludeFromCodeCoverage]
     public static class Register
     {
-        public static void AddLayer (this IServiceCollection services)
-        {
-            services.AddHelpers();
-        }
-
-        private static void AddHelpers (this IServiceCollection services)
+        public static void AddHelpers (this IServiceCollection services)
         {
             services.AddScoped<INotificator, Notificator>();
         }
