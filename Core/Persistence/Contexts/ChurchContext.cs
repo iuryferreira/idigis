@@ -12,8 +12,10 @@ namespace Persistence.Contexts
     {
         public ChurchContext (DbContextOptions<ChurchContext> options) : base(options)
         {
-            if (!this.Database.CanConnect())
+            if (!Database.CanConnect())
+            {
                 throw new("Could not connect to the database.");
+            }
         }
 
         private DbSet<ChurchModel> Entity { get; set; }
@@ -23,7 +25,7 @@ namespace Persistence.Contexts
             var entry = await Entity.AddAsync(data);
             try
             {
-                await this.Save();
+                await Save();
                 return entry.State is EntityState.Unchanged;
             }
             catch (Exception)
@@ -34,18 +36,19 @@ namespace Persistence.Contexts
 
         public async Task<bool> Exists (ChurchModel data)
         {
-            ChurchModel entity = await Entity.Where(e => e.Email == data.Email || e.Id == data.Id).FirstOrDefaultAsync();
+            var entity =
+                await Entity.Where(e => e.Email == data.Email || e.Id == data.Id).FirstOrDefaultAsync();
             return entity is not null;
         }
 
         public async Task<int> Save ()
         {
-            return await this.SaveChangesAsync();
+            return await SaveChangesAsync();
         }
 
-        protected override void OnModelCreating (ModelBuilder builder)
+        protected override void OnModelCreating (ModelBuilder modelBuilder)
         {
-            builder.ApplyConfiguration(new ChurchTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ChurchTypeConfiguration());
         }
     }
 
