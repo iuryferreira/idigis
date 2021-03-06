@@ -11,9 +11,8 @@ namespace Application.Requests
             Email = email;
             Password = password;
         }
-
-        public string Name { get; }
-        public string Email { get; }
-        public string Password { get; }
+        public string Name { get; init; }
+        public string Email { get; init; }
+        public string Password { get; init; }
     }
 }
