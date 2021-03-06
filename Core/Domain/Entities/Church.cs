@@ -11,8 +11,10 @@ namespace Domain.Entities
         {
             Name = name;
             Credentials = credentials;
-            Validate(this, new ChurchValidator());
-            Credentials.Password = new Hashio().Hash(Credentials.Password);
+            if (Validate(this, new ChurchValidator()))
+            {
+                Credentials.Password = new Hashio().Hash(Credentials.Password);
+            }
         }
 
         public Church (string id, string name, Credentials credentials)
@@ -23,6 +25,7 @@ namespace Domain.Entities
         }
 
         public string Name { get; }
+        
         public Credentials Credentials { get; }
     }
 
