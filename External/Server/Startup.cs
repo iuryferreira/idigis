@@ -17,13 +17,13 @@ namespace Server
         }
 
         private IConfiguration Configuration { get; }
-        
-        
+
+
         private const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-        
+
         public void ConfigureServices (IServiceCollection services)
-        {   
-            
+        {
+
             services.AddCors(opt =>
             {
                 opt.AddPolicy(name: MyAllowSpecificOrigins, builder =>
@@ -37,12 +37,12 @@ namespace Server
             });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new() {Title = "Server", Version = "v1"});
+                c.SwaggerDoc("v1", new() { Title = "Server", Version = "v1" });
             });
             services.AddApplication(Configuration);
         }
 
-        public  static void Configure (IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure (IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
