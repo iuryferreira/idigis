@@ -16,10 +16,10 @@ namespace Shared.Entities
         public bool Invalid => !Valid;
         public ValidationResult ValidationResult { get; private set; }
 
-        protected void Validate<T> (T entity, AbstractValidator<T> validator)
+        protected bool Validate<T> (T entity, AbstractValidator<T> validator)
         {
             ValidationResult = validator.Validate(entity);
-            Valid = ValidationResult.IsValid;
+            return Valid = ValidationResult.IsValid;
         }
     }
 
