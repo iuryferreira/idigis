@@ -1,5 +1,13 @@
 {
     "FormattingOptions": {
         "SpacingAfterMethodDeclarationName": true
+    },
+    "FileOptions": {
+        "SystemExcludeSearchPatterns": [
+            "**/node_modules/**/*",
+            "**/bin/**/*",
+            "**/obj/**/*",
+            "**/.git/**/*"
+        ]
     }
 }
