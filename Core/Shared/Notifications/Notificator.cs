@@ -20,7 +20,7 @@ namespace Shared.Notifications
         {
             foreach (var error in validationResult.Errors)
             {
-                AddNotification(error.ErrorCode, error.ErrorMessage);
+                AddNotification(error.PropertyName.Substring(error.PropertyName.IndexOf('.') + 1), error.ErrorMessage);
             }
         }
 
