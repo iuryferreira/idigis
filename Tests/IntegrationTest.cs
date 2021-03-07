@@ -14,7 +14,6 @@ namespace Tests
     {
         protected IntegrationTest ()
         {
-            Env.TraversePath().Load();
             var factory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
             {
                 builder.ConfigureTestServices(services =>
