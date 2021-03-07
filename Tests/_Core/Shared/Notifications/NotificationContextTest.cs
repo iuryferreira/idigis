@@ -42,5 +42,11 @@ namespace Tests._Core.Shared.Notifications
             firstContext.AddNotifications(secondContext.Notifications.ToList());
             Assert.AreEqual(2, firstContext.Notifications.Count);
         }
+
+        [TestMethod]
+        public void Must_Return_Different_Messages_When_the_Type_Is_Different ()
+        {
+            Assert.AreNotEqual(Messages.Minimum(8), Messages.Minimum(8, false));
+        }
     }
 }
