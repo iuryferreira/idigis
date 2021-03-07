@@ -1,8 +1,6 @@
 @using Client.Models
-@using System.Net
-@inject HttpClient Http
 @inject NavigationManager NavigationManager
-@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject IAccountService AccountService
 
 <EditForm OnValidSubmit="HandleValidSubmit" EditContext="_context">
     <DataAnnotationsValidator/>
@@ -10,7 +8,8 @@
         <div class="column has-text-centered">
             <div class="field">
                 <div class="control has-icons-left">
-                    <InputText id="name" @bind-Value="_model.Name" class="input" placeholder="Digite o nome da sua igreja"/>
+                    <InputText id="name" @bind-Value="_model.Name" class="input"
+                               placeholder="Digite o nome da sua igreja"/>
                     <span class="icon is-small is-left">
                         <i class="fas fa-signature"></i>
                     </span>
@@ -73,20 +72,18 @@
 
     private async Task HandleValidSubmit()
     {
-        var response = await Http.PostAsJsonAsync("/api/churches", _model);
-        var register = await response.Content.ReadFromJsonAsync<CreateChurchResponse>();
-
-        switch (response.StatusCode)
+        var response = await AccountService.Signup(_model);
+        if (response)
         {
-            case HttpStatusCode.BadRequest:
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            foreach (var error in AccountService.Errors)
             {
-                _context.NotifyValidationStateChanged();
-                break;
+                _messageStore.Add(_context.Field(error.Key), error.Message);
             }
-            case HttpStatusCode.Created:
-                await LocalStorage.SetItemAsync("church", register);
-                NavigationManager.NavigateTo("/");
-                break;
+            _context.NotifyValidationStateChanged();
         }
     }
 
