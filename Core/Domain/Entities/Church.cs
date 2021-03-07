@@ -2,6 +2,7 @@ using Domain.ValueObjects;
 using FluentValidation;
 using Hash;
 using Shared.Entities;
+using Shared.Notifications;
 
 namespace Domain.Entities
 {
@@ -35,7 +36,7 @@ namespace Domain.Entities
         {
             Include(new EntityValidator());
             RuleFor(church => church.Credentials).SetValidator(new CredentialsValidator());
-            RuleFor(church => church.Name).NotEmpty().NotNull();
+            RuleFor(church => church.Name).NotEmpty().WithMessage(Messages.NotEmpty);
         }
     }
 }

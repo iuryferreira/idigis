@@ -1,4 +1,5 @@
 using FluentValidation;
+using Shared.Notifications;
 using Shared.ValueObjects;
 
 namespace Domain.ValueObjects
@@ -19,8 +20,12 @@ namespace Domain.ValueObjects
     {
         public CredentialsValidator ()
         {
-            RuleFor(credential => credential.Email).NotNull().NotEmpty().EmailAddress();
-            RuleFor(credential => credential.Password).NotNull().NotEmpty().MinimumLength(8);
+            RuleFor(credential => credential.Email)
+                .NotEmpty().WithMessage(Messages.NotEmpty)
+                .EmailAddress().WithMessage(Messages.Email);
+            RuleFor(credential => credential.Password)
+                .NotEmpty().WithMessage(Messages.NotEmpty)
+                .MinimumLength(8).WithMessage(Messages.Minimum(8));
         }
     }
 }
