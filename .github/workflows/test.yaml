@@ -17,7 +17,8 @@ jobs:
       env:
         Client: "https://0.0.0.0/"
       run: dotnet test --nologo /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../coverage/lcov.info /p:ExcludeByFile=\"**/Migrations/*.cs\
-    - name: Publish coverage report to Coveralls
-      uses: coverallsapp/github-action@master
+    - name: Publish coverage report to Codecov
+      uses: codecov/codecov-action@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        files: ./coverage/lcov.info
+        fail_ci_if_error: true
