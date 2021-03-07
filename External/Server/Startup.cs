@@ -1,4 +1,3 @@
-using System;
 using Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +10,8 @@ namespace Server
 {
     public class Startup
     {
+        private const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup (IConfiguration configuration)
         {
             Configuration = configuration;
@@ -18,17 +19,13 @@ namespace Server
 
         private IConfiguration Configuration { get; }
 
-
-        private const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
         public void ConfigureServices (IServiceCollection services)
         {
-
             services.AddCors(opt =>
             {
-                opt.AddPolicy(name: MyAllowSpecificOrigins, builder =>
+                opt.AddPolicy(MyAllowSpecificOrigins, builder =>
                 {
-                    builder.WithOrigins(Configuration.GetValue<string>("Client").ToString()).AllowAnyHeader().AllowAnyMethod();
+                    builder.WithOrigins(Configuration.GetValue<string>("Client")).AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.AddControllers(options =>
@@ -37,7 +34,7 @@ namespace Server
             });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new() { Title = "Server", Version = "v1" });
+                c.SwaggerDoc("v1", new() {Title = "Server", Version = "v1"});
             });
             services.AddApplication(Configuration);
         }
