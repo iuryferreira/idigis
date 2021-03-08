@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.Entities;
+using Core.Domain.Entities;
 using Shared.Notifications;
 
 namespace Persistence.Contracts

@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Requests;
 using Application.Responses;
-using Domain.Entities;
+using Core.Domain.Entities;
 using Persistence.Contracts;
 using Shared.Notifications;
 

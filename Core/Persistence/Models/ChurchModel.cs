@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Domain.Entities;
+using Core.Domain.Entities;
 using Shared.Models;
 
 namespace Persistence.Models

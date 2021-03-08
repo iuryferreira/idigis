@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Application.Handlers;
 using Application.Requests;
 using Application.Responses;
-using Domain.Entities;
+using Core.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Persistence.Contracts;

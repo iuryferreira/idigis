@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Domain.Entities;
+using Core.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Persistence.Contexts;

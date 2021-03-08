@@ -1,4 +1,4 @@
-using Domain.Entities;
+using Core.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests._Core.Domain.Entities
