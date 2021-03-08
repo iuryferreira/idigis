@@ -1,0 +1,30 @@
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Authentication.Contracts;
+using Microsoft.IdentityModel.Tokens;
+
+namespace Authentication.Services
+{
+    public class JwtService : IJwtService
+    {
+        public string GenerateToken (string email, string id)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JwtSecret"));
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[] {
+                    new Claim(ClaimTypes.Email, email),
+                    new Claim(ClaimTypes.Name, id),
+                    new(ClaimTypes.Uri, Environment.GetEnvironmentVariable("ServerUrl"))
+                }),
+                Expires = DateTime.UtcNow.AddHours(Double.Parse(Environment.GetEnvironmentVariable("JwtExpirationInHours"))),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+    }
+}
