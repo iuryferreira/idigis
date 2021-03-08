@@ -17,9 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Persistence", "Core\Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{89D5F2A9-6769-48AB-B16A-2E12E4448B80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "External\Server\Server.csproj", "{7420C208-8F22-43BE-9A8E-5BE7978A3E56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "External.Server", "External\External.Server\External.Server.csproj", "{7420C208-8F22-43BE-9A8E-5BE7978A3E56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "External\Client\Client.csproj", "{C430DDC5-9894-417D-ACB5-E0CDF7E79B1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "External.Client", "External\External.Client\External.Client.csproj", "{C430DDC5-9894-417D-ACB5-E0CDF7E79B1B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Authentication", "Core\Core.Authentication\Core.Authentication.csproj", "{30EF44EC-0C25-4B23-97B6-661B8076A77F}"
 EndProject
