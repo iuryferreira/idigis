@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Core\Shared\Share
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Application", "Core\Core.Application\Core.Application.csproj", "{0C26B0A4-237B-466D-A1E0-F4EAC3B8BE82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Core\Persistence\Persistence.csproj", "{43987953-B305-468E-859E-67920C00B90A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Persistence", "Core\Core.Persistence\Core.Persistence.csproj", "{43987953-B305-468E-859E-67920C00B90A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{89D5F2A9-6769-48AB-B16A-2E12E4448B80}"
 EndProject
@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "External\Server\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "External\Client\Client.csproj", "{C430DDC5-9894-417D-ACB5-E0CDF7E79B1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "Core\Authentication\Authentication.csproj", "{30EF44EC-0C25-4B23-97B6-661B8076A77F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Authentication", "Core\Core.Authentication\Core.Authentication.csproj", "{30EF44EC-0C25-4B23-97B6-661B8076A77F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
