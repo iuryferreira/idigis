@@ -38,7 +38,7 @@
     <ProjectReference Include="..\Core\Core.Domain\Core.Domain.csproj" />
     <ProjectReference Include="..\Core\Core.Persistence\Core.Persistence.csproj" />
     <ProjectReference Include="..\Core\Core.Shared\Core.Shared.csproj" />
-    <ProjectReference Include="..\External\Server\Server.csproj" />
+    <ProjectReference Include="..\External\External.Server\External.Server.csproj" />
   </ItemGroup>
 
 </Project>
