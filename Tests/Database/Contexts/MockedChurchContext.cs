@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using Persistence.Contracts;
-using Persistence.Models;
+using Core.Persistence.Contracts;
+using Core.Persistence.Models;
 
 namespace Tests.Database.Contexts
 {

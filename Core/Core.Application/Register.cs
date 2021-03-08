@@ -4,7 +4,7 @@ using Core.Application.Handlers;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence;
+using Core.Persistence;
 using Shared;
 
 namespace Core.Application

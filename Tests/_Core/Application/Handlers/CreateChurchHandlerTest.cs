@@ -7,7 +7,7 @@ using Core.Application.Responses;
 using Core.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Persistence.Contracts;
+using Core.Persistence.Contracts;
 using Shared.Notifications;
 
 namespace Tests._Core.Application.Handlers

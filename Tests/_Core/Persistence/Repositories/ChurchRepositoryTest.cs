@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Core.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Persistence.Contexts;
-using Persistence.Contracts;
-using Persistence.Repositories;
+using Core.Persistence.Contexts;
+using Core.Persistence.Contracts;
+using Core.Persistence.Repositories;
 using Tests.Database.Factories;
 
 namespace Tests._Core.Persistence.Repositories

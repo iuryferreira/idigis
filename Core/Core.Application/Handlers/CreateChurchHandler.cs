@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Core.Domain.Entities;
-using Persistence.Contracts;
+using Core.Persistence.Contracts;
 using Shared.Notifications;
 
 namespace Core.Application.Handlers

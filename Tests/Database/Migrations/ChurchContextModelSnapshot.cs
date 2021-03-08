@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Persistence.Contexts;
+using Core.Persistence.Contexts;
 
 namespace Tests.Database.Migrations
 {
@@ -14,7 +14,7 @@ namespace Tests.Database.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.3");
-            modelBuilder.Entity("Persistence.Models.ChurchModel", b =>
+            modelBuilder.Entity("Core.Persistence.Models.ChurchModel", b =>
             {
                 b.Property<string>("Id")
                     .HasColumnType("TEXT");

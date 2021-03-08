@@ -1,7 +1,7 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Persistence.Contexts;
+using Core.Persistence.Contexts;
 
 namespace Tests.Database.Factories
 {
