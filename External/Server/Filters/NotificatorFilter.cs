@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
-using Shared.Notifications;
+using Core.Shared.Notifications;
 
 namespace Server.Filters
 {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Domain.Entities;
-using Shared.Models;
+using Core.Shared.Models;
 
 namespace Core.Persistence.Models
 {

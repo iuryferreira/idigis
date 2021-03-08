@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Core.Persistence;
-using Shared;
+using Core.Shared;
 
 namespace Core.Application
 {

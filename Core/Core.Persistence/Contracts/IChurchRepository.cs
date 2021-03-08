@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Domain.Entities;
-using Shared.Notifications;
+using Core.Shared.Notifications;
 
 namespace Core.Persistence.Contracts
 {

@@ -4,7 +4,7 @@ using Core.Application.Requests;
 using Core.Application.Responses;
 using Core.Domain.Entities;
 using Core.Persistence.Contracts;
-using Shared.Notifications;
+using Core.Shared.Notifications;
 
 namespace Core.Application.Handlers
 {

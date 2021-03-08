@@ -1,8 +1,8 @@
 using Core.Domain.ValueObjects;
 using FluentValidation;
 using Hash;
-using Shared.Entities;
-using Shared.Notifications;
+using Core.Shared.Entities;
+using Core.Shared.Notifications;
 
 namespace Core.Domain.Entities
 {

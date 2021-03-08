@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Core.Domain.Entities;
 using Core.Persistence.Contracts;
 using Core.Persistence.Models;
-using Shared.Notifications;
+using Core.Shared.Notifications;
 
 namespace Core.Persistence.Repositories
 {

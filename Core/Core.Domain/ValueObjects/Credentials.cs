@@ -1,6 +1,6 @@
 using FluentValidation;
-using Shared.Notifications;
-using Shared.ValueObjects;
+using Core.Shared.Notifications;
+using Core.Shared.ValueObjects;
 
 namespace Core.Domain.ValueObjects
 {
