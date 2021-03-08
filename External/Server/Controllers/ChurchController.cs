@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using Application.Requests;
-using Application.Responses;
+using Core.Application.Requests;
+using Core.Application.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;

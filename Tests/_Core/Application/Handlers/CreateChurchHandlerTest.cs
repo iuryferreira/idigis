@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application.Handlers;
-using Application.Requests;
-using Application.Responses;
+using Core.Application.Handlers;
+using Core.Application.Requests;
+using Core.Application.Responses;
 using Core.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
