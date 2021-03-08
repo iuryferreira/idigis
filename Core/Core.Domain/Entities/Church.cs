@@ -1,10 +1,10 @@
-using Domain.ValueObjects;
+using Core.Domain.ValueObjects;
 using FluentValidation;
 using Hash;
 using Shared.Entities;
 using Shared.Notifications;
 
-namespace Domain.Entities
+namespace Core.Domain.Entities
 {
     public class Church : Entity
     {

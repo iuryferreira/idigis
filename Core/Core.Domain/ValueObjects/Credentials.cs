@@ -2,7 +2,7 @@ using FluentValidation;
 using Shared.Notifications;
 using Shared.ValueObjects;
 
-namespace Domain.ValueObjects
+namespace Core.Domain.ValueObjects
 {
     public class Credentials : ValueObject
     {
