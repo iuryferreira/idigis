@@ -1,11 +1,11 @@
 // using System;
 // using System.IdentityModel.Tokens.Jwt;
-// using Authentication.Contracts;
-// using Authentication.Services;
+// using Core.Authentication.Contracts;
+// using Core.Authentication.Services;
 // using DotNetEnv;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-// namespace Tests._Core.Authentication
+// namespace Tests._Core.Core.Authentication
 // {
 //     [TestClass]
 //     public class JwtServiceTest
