@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Core.Application.Contracts;
 using Core.Application.Handlers;
 using Core.Persistence;
 using Core.Shared;
