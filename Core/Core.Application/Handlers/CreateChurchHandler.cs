@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Core.Application.Contracts;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Core.Domain.Entities;
