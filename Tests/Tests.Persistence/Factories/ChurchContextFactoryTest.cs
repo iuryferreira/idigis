@@ -10,17 +10,7 @@ namespace Tests.Persistence.Factories
         [TestMethod]
         public void An_Exception_Must_Be_Returned_If_the_Context_Cannot_Be_Created ()
         {
-            Exception exception = null;
-            try
-            {
-                ChurchContextFactoryForTests.CreateDbContext("invalid");
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            Assert.IsNotNull(exception);
+            var exception = Assert.ThrowsException<Exception>(() => ChurchContextFactoryForTests.CreateDbContext("invalid"));
             Assert.AreEqual("Could not connect to the database.", exception.Message);
         }
     }
