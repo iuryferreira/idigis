@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Persistence.Contracts;
 using Core.Persistence.Models;
+using Core.Shared.Type;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -46,7 +47,7 @@ namespace Core.Persistence.Contexts
             return await SaveChangesAsync();
         }
 
-        public Task<ChurchModel> Get (string property, string value)
+        public Task<ChurchModel> Get (Property property)
         {
             throw new NotImplementedException();
         }

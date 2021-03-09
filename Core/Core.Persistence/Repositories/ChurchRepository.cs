@@ -5,6 +5,7 @@ using Core.Domain.Entities;
 using Core.Persistence.Contracts;
 using Core.Persistence.Models;
 using Core.Shared.Notifications;
+using Core.Shared.Type;
 
 namespace Core.Persistence.Repositories
 {
@@ -38,9 +39,9 @@ namespace Core.Persistence.Repositories
             return false;
         }
 
-        public async Task<Church> Get (Login entity)
+        public async Task<Church> Get (Property property)
         {
-            Church result = await _context.Get("Email", entity.Email);
+            Church result = await _context.Get(property);
             if (result is not null)
             {
                 return result;
