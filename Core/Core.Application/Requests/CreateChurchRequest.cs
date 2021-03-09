@@ -3,9 +3,9 @@ using MediatR;
 
 namespace Core.Application.Requests
 {
-    public class CreateChurch : IRequest<CreateChurchResponse>
+    public class CreateChurchRequest : IRequest<CreateChurchResponse>
     {
-        public CreateChurch (string name, string email, string password)
+        public CreateChurchRequest (string name, string email, string password)
         {
             Name = name;
             Email = email;
