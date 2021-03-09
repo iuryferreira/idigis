@@ -46,6 +46,11 @@ namespace Core.Persistence.Contexts
             return await SaveChangesAsync();
         }
 
+        public Task<ChurchModel> Get (string property, string value)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void OnModelCreating (ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ChurchTypeConfiguration());
