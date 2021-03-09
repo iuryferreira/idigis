@@ -7,6 +7,7 @@ using Core.Authentication.Contracts;
 using Core.Domain.Entities;
 using Core.Persistence.Contracts;
 using Core.Shared.Notifications;
+using Hash;
 
 namespace Core.Application.Handlers
 {
@@ -32,9 +33,9 @@ namespace Core.Application.Handlers
                 Notificator.AddNotifications(login.ValidationResult);
                 return null;
             }
-
-            var user = await _repository.Get(login);
-            if (user is not null)
+            
+            var user = await _repository.Get(new(){ Key = "Email", Value = login.Email});
+            if (user is not null && new Hashio().Check(user.Credentials.Password, login.Password))
             {
                 return new()
                 {
