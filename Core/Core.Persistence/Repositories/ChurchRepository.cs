@@ -34,13 +34,19 @@ namespace Core.Persistence.Repositories
                 return result;
             }
 
-            Notifications.Add(new("Repository", "O usuário já existe, faça o login."));
+            Notifications.Add(new("Repository", "Este registro já existe, faça o login."));
             return false;
         }
 
-        public Task<Church> Get (Login entity)
+        public async Task<Church> Get (Login entity)
         {
-            throw new NotImplementedException();
+            Church result = await _context.Get("Email", entity.Email);
+            if (result is not null)
+            {
+                return result;
+            }
+            Notifications.Add(new("Repository", "Registro não encontrado. Verifique as informações inseridas."));
+            return null;
         }
     }
 }
