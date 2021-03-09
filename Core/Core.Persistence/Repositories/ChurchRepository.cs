@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Domain.Entities;
@@ -35,6 +36,11 @@ namespace Core.Persistence.Repositories
 
             Notifications.Add(new("Repository", "O usuário já existe, faça o login."));
             return false;
+        }
+
+        public Task<Church> Get (Login entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

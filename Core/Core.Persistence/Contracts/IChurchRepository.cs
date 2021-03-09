@@ -9,5 +9,6 @@ namespace Core.Persistence.Contracts
     {
         List<Notification> Notifications { get; }
         Task<bool> Add (Church entity);
+        Task<Church> Get (Login entity);
     }
 }
