@@ -20,7 +20,7 @@ namespace External.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CreateChurchResponse>> Store ([FromBody] CreateChurch request)
+        public async Task<ActionResult<CreateChurchResponse>> Store ([FromBody] CreateChurchRequest request)
         {
             Console.WriteLine(request.Password);
             var response = await _mediator.Send(request);
