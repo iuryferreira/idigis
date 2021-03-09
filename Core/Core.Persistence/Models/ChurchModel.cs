@@ -14,6 +14,7 @@ namespace Core.Persistence.Models
 
         public static implicit operator ChurchModel (Church entity)
         {
+            if (entity is null) { return null; }
             return new()
             {
                 Id = entity.Id,
@@ -21,6 +22,11 @@ namespace Core.Persistence.Models
                 Email = entity.Credentials.Email,
                 Password = entity.Credentials.Password
             };
+        }
+        public static implicit operator Church (ChurchModel model)
+        {
+            if (model is null) { return null; }
+            return new(model.Id, model.Name, new(model.Email, model.Password));
         }
     }
 }
