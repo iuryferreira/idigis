@@ -7,9 +7,11 @@ using Core.Persistence.Contexts;
 using Core.Persistence.Contracts;
 using Core.Persistence.Models;
 using Core.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Tests.Persistence.Database.Factories;
+using Property = Core.Shared.Type.Property;
 
 namespace Tests.Persistence.Repositories
 {
@@ -67,20 +69,20 @@ namespace Tests.Persistence.Repositories
         [TestMethod]
         public async Task Must_Return_Null_If_the_Entity_Not_Found ()
         {
-            _context.Setup(c => c.Get(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync((ChurchModel)null);
+            _context.Setup(c => c.Get(It.IsAny<Property>())).ReturnsAsync((ChurchModel)null);
             var entity = new Login("not_found@email.com", "any_password");
             var sut = new ChurchRepository(_context.Object);
-            var result = await sut.Get(entity);
+            var result = await sut.Get(new (){Key = "Email", Value = entity.Email});
             Assert.IsNull(result);
         }
         
         [TestMethod]
         public async Task Must_Return_Notification_If_the_Entity_Not_Found ()
         {
-            _context.Setup(c => c.Get(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync((ChurchModel)null);
+            _context.Setup(c => c.Get(It.IsAny<Property>())).ReturnsAsync((ChurchModel)null);
             var entity = new Login("not_found@email.com", "any_password");
             var sut = new ChurchRepository(_context.Object);
-            var result = await sut.Get(entity);
+            var result = await sut.Get(new (){Key = "Email", Value = entity.Email});
             Assert.IsTrue(sut.Notifications.Count > 0);
             Assert.AreEqual("Repository", sut.Notifications.First().Key);
             Assert.AreEqual("Registro não encontrado. Verifique as informações inseridas.", sut.Notifications.First().Message);
@@ -91,9 +93,9 @@ namespace Tests.Persistence.Repositories
         {
             var login = new Login("found@email.com", "any_password");
             var entity = new Church(Guid.NewGuid().ToString(), "Found", new Credentials(login.Email, login.Password));
-            _context.Setup(c => c.Get(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(entity);
+            _context.Setup(c => c.Get(It.IsAny<Property>())).ReturnsAsync(entity);
             var sut = new ChurchRepository(_context.Object);
-            Assert.IsNotNull( await sut.Get(login));
+            Assert.IsNotNull(await sut.Get(new (){Key = "Email", Value = login.Email}));
         }
     }
 }
