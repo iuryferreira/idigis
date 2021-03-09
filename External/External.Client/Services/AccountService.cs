@@ -43,7 +43,7 @@ namespace External.Client.Services
                     Errors = await response.Content.ReadFromJsonAsync<List<Error>>();
                     return false;
                 default:
-                    Errors.Add(new() {Key = "Server", Message = "Ops! Ocorreu um erro. Contate o suporte"});
+                    Errors.Add(new() { Key = "Server", Message = "Ops! Ocorreu um erro. Contate o suporte" });
                     return false;
             }
         }

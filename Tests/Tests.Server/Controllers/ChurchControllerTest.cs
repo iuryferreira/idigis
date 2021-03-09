@@ -1,24 +1,24 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using External.Server.Contracts;
 using Core.Persistence.Contracts;
-using Moq;
-using Microsoft.AspNetCore.Mvc.Testing;
-using External.Server;
 using Core.Persistence.Models;
+using External.Server;
+using External.Server.Contracts;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Tests.Server.Controllers
 {
     [TestClass]
     public class ChurchControllerTest
     {
-        private Mock<IChurchContext> _context;
-        private WebApplicationFactory<Startup> _factory;
+        private readonly Mock<IChurchContext> _context;
+        private readonly WebApplicationFactory<Startup> _factory;
 
         public ChurchControllerTest ()
         {
@@ -28,7 +28,7 @@ namespace Tests.Server.Controllers
                 builder.ConfigureTestServices(services =>
                 {
                     services.RemoveAll<IChurchContext>();
-                    services.AddScoped<IChurchContext>((service) => _context.Object);
+                    services.AddScoped(service => _context.Object);
                 });
             });
         }
@@ -38,7 +38,6 @@ namespace Tests.Server.Controllers
         {
             _context.Setup(c => c.Add(It.IsAny<ChurchModel>())).ReturnsAsync(false);
             _context.Setup(c => c.Exists(It.IsAny<ChurchModel>())).ReturnsAsync(false);
-
             var user = new { Name = "valid_name", Email = "valid_email@email.com", Password = "" };
             var response = await _factory.CreateClient().PostAsJsonAsync(ApiRoutes.Church.Store, user);
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
@@ -50,7 +49,6 @@ namespace Tests.Server.Controllers
         {
             _context.Setup(c => c.Add(It.IsAny<ChurchModel>())).ReturnsAsync(true);
             _context.Setup(c => c.Exists(It.IsAny<ChurchModel>())).ReturnsAsync(false);
-
             var user = new { Name = "valid_name", Email = "valid_email@email.com", Password = "valid_password" };
             var response = await _factory.CreateClient().PostAsJsonAsync(ApiRoutes.Church.Store, user);
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);

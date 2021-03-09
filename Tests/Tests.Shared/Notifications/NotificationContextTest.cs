@@ -1,6 +1,6 @@
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Core.Shared.Notifications;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Shared.Notifications
 {

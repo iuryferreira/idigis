@@ -1,11 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Core.Application.Handlers;
+using Core.Persistence;
+using Core.Shared;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Core.Persistence;
-using Core.Shared;
 
 namespace Core.Application
 {

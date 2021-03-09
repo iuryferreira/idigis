@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Core.Persistence.Contexts;
 using Core.Persistence.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tests.Persistence.Database.Factories;
 
 namespace Tests.Persistence.Contexts

@@ -1,11 +1,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Domain.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using Core.Persistence.Contexts;
 using Core.Persistence.Contracts;
 using Core.Persistence.Repositories;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Tests.Persistence.Database.Factories;
 
 namespace Tests.Persistence.Repositories

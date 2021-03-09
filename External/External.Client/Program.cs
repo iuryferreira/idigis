@@ -15,7 +15,7 @@ namespace External.Client
             builder.RootComponents.Add<App>("#app");
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddBlazoredLocalStorage(config => config.JsonSerializerOptions.WriteIndented = true);
-            builder.Services.AddScoped(_ => new HttpClient {BaseAddress = new("https://localhost:5001")});
+            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new("https://localhost:5001") });
             await builder.Build().RunAsync();
         }
     }

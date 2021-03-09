@@ -1,9 +1,9 @@
 using System.Net;
 using System.Threading.Tasks;
+using Core.Shared.Notifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
-using Core.Shared.Notifications;
 
 namespace External.Server.Filters
 {

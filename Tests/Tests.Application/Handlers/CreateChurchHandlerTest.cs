@@ -5,10 +5,10 @@ using Core.Application.Handlers;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Core.Domain.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using Core.Persistence.Contracts;
 using Core.Shared.Notifications;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Tests.Application.Handlers
 {
