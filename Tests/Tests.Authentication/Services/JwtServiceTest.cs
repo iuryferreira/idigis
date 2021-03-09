@@ -5,7 +5,7 @@ using Core.Authentication.Services;
 using DotNetEnv;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests._Core.Core.Authentication
+namespace Tests.Services.Authentication
 {
     [TestClass]
     public class JwtServiceTest

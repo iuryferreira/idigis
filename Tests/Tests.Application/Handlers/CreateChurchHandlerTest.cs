@@ -10,7 +10,7 @@ using Moq;
 using Core.Persistence.Contracts;
 using Core.Shared.Notifications;
 
-namespace Tests._Core.Application.Handlers
+namespace Tests.Application.Handlers
 {
     [TestClass]
     public class CreateChurchHandlerTest
