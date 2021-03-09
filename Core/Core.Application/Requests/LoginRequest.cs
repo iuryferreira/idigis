@@ -5,7 +5,7 @@ namespace Core.Application.Requests
 {
     public class LoginRequest : IRequest<LoginResponse>
     {
-        public LoginRequest(string email, string password)
+        public LoginRequest (string email, string password)
         {
             Email = email;
             Password = password;

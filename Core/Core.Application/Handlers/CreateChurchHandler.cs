@@ -21,7 +21,8 @@ namespace Core.Application.Handlers
 
         public INotificator Notificator { get; }
 
-        public async Task<CreateChurchResponse> Handle (CreateChurchRequest request, CancellationToken cancellationToken)
+        public async Task<CreateChurchResponse> Handle (CreateChurchRequest request,
+            CancellationToken cancellationToken)
         {
             Church entity = new(request.Name, new(request.Email, request.Password));
             if (entity.Invalid)
