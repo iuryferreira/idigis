@@ -6,6 +6,5 @@ namespace Core.Application.Contracts
 {
     public interface ILoginHandler : IRequestHandler<LoginRequest, LoginResponse>
     {
-        
     }
 }
