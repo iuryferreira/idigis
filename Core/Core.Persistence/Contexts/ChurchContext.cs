@@ -37,9 +37,9 @@ namespace Core.Persistence.Contexts
 
         public async Task<bool> Exists (ChurchModel data)
         {
-            var entity =
+            var model =
                 await Entity.Where(e => e.Email == data.Email || e.Id == data.Id).FirstOrDefaultAsync();
-            return entity is not null;
+            return model is not null;
         }
 
         public async Task<int> Save ()
@@ -47,9 +47,11 @@ namespace Core.Persistence.Contexts
             return await SaveChangesAsync();
         }
 
-        public Task<ChurchModel> Get (Property property)
+        public async Task<ChurchModel> Get (Property property)
         {
-            throw new NotImplementedException();
+            var model = await Entity.Where(e => e.Email == property.Value || e.Id == property.Value)
+                .FirstOrDefaultAsync();
+            return model;
         }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder)
