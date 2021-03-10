@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Core.Shared.Notifications;
@@ -20,9 +21,16 @@ namespace External.Server.Filters
         {
             if (_notificator.HasNotifications)
             {
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.HttpContext.Response.StatusCode = _notificator.NotificationType switch
+                {
+                    NotificationType.Internal => (int)HttpStatusCode.InternalServerError,
+                    NotificationType.Validation => (int)HttpStatusCode.BadRequest,
+                    NotificationType.Authentication => (int)HttpStatusCode.Unauthorized,
+                    NotificationType.NotFound => (int)HttpStatusCode.NotFound,
+                    _ => (int)HttpStatusCode.InternalServerError
+                };
                 context.HttpContext.Response.ContentType = "application/json";
-                var notifications = JsonConvert.SerializeObject(_notificator.Notifications);
+                var notifications = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(_notificator.Notifications));
                 await context.HttpContext.Response.WriteAsync(notifications);
                 return;
             }
