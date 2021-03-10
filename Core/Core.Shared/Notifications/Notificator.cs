@@ -15,20 +15,18 @@ namespace Core.Shared.Notifications
 
         public IReadOnlyCollection<Notification> Notifications => _notifications;
         public bool HasNotifications => _notifications.Any();
+        public NotificationType NotificationType { get; set; } = NotificationType.Internal;
 
         public void AddNotifications (ValidationResult validationResult)
         {
+            NotificationType = NotificationType.Validation;
+            
             foreach (var error in validationResult.Errors)
             {
                 AddNotification(error.PropertyName.Substring(error.PropertyName.IndexOf('.') + 1), error.ErrorMessage);
             }
         }
-
-        public void AddNotifications (IEnumerable<Notification> notifications)
-        {
-            _notifications.AddRange(notifications);
-        }
-
+        
         public void AddNotification (string key, string message)
         {
             _notifications.Add(new(key, message));
