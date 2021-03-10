@@ -19,7 +19,7 @@ namespace Core.Application.Handlers
             _repository = repository;
         }
 
-        public INotificator Notificator { get; }
+        private INotificator Notificator { get; }
 
         public async Task<CreateChurchResponse> Handle (CreateChurchRequest request,
             CancellationToken cancellationToken)
@@ -30,10 +30,9 @@ namespace Core.Application.Handlers
                 Notificator.AddNotifications(entity.ValidationResult);
                 return null;
             }
-
+            
             if (!await _repository.Add(entity))
             {
-                Notificator.AddNotifications(_repository.Notifications);
                 return null;
             }
 
