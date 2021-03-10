@@ -1,4 +1,4 @@
-namespace Core.Shared.Type
+namespace Core.Shared.Types
 {
     public class Property
     {

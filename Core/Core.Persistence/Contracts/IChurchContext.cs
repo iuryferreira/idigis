@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Core.Persistence.Models;
-using Core.Shared.Type;
+using Core.Shared.Types;
 
 namespace Core.Persistence.Contracts
 {

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Persistence.Contracts;
 using Core.Persistence.Models;
-using Core.Shared.Type;
+using Core.Shared.Types;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

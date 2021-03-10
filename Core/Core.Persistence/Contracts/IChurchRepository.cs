@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Domain.Entities;
 using Core.Shared.Notifications;
-using Core.Shared.Type;
+using Core.Shared.Types;
 
 namespace Core.Persistence.Contracts
 {
     public interface IChurchRepository
     {
-        List<Notification> Notifications { get; }
+        INotificator Notificator { get; }
         Task<bool> Add (Church entity);
         Task<Church> Get (Property property);
     }
