@@ -5,7 +5,7 @@ using Core.Domain.Entities;
 using Core.Persistence.Contracts;
 using Core.Persistence.Models;
 using Core.Shared.Notifications;
-using Core.Shared.Type;
+using Core.Shared.Types;
 
 namespace Core.Persistence.Repositories
 {
@@ -13,13 +13,13 @@ namespace Core.Persistence.Repositories
     {
         private readonly IChurchContext _context;
 
-        public ChurchRepository (IChurchContext context)
+        public ChurchRepository (IChurchContext context, INotificator notificator)
         {
             _context = context;
-            Notifications = new();
+            Notificator = notificator;
         }
 
-        public List<Notification> Notifications { get; }
+        public INotificator Notificator { get; }
 
         public async Task<bool> Add (Church entity)
         {
@@ -29,13 +29,13 @@ namespace Core.Persistence.Repositories
                 var result = await _context.Add(model);
                 if (!result)
                 {
-                    Notifications.Add(new("Repository", "Ocorreu um erro na inserção."));
+                    Notificator.AddNotification("Repository", "Ocorreu um erro na inserção.");
                 }
 
                 return result;
             }
-
-            Notifications.Add(new("Repository", "Este registro já existe, faça o login."));
+            Notificator.NotificationType = NotificationType.Validation;
+            Notificator.AddNotification("Repository", "Este registro já existe, faça o login.");
             return false;
         }
 
@@ -46,7 +46,8 @@ namespace Core.Persistence.Repositories
             {
                 return result;
             }
-            Notifications.Add(new("Repository", "Registro não encontrado. Verifique as informações inseridas."));
+            Notificator.NotificationType = NotificationType.NotFound;
+            Notificator.AddNotification("Repository", "Registro não encontrado. Verifique as informações inseridas.");
             return null;
         }
     }
