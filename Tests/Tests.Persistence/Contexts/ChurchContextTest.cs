@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Core.Persistence.Contexts;
 using Core.Persistence.Models;
+using Core.Shared.Type;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tests.Persistence.Database.Factories;
 
@@ -51,6 +52,39 @@ namespace Tests.Persistence.Contexts
         {
             var model = new ChurchModel { Id = Guid.NewGuid().ToString(), Name = "Testing", Password = "Password123" };
             Assert.IsFalse(await _context.Add(model));
+        }
+        
+        [TestMethod]
+        public async Task Must_Return_ChurchModel_Instance_If_the_Church_Already_Exists_in_the_Database ()
+        {
+            var model = new ChurchModel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Testing",
+                Email = "testing@email.com",
+                Password = "Password123"
+            };
+            await _context.Add(model);
+            var property = new Property(){Key = "Email", Value = model.Email};
+            var result = await _context.Get(property);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ChurchModel));
+        }
+        
+        [TestMethod]
+        public async Task Must_Return_Null_If_the_Church_Not_Exists_in_The_Database ()
+        {
+            var model = new ChurchModel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Testing",
+                Email = "testing@email.com",
+                Password = "Password123"
+            };
+            await _context.Add(model);
+            var property = new Property(){Key = "Email", Value = "invalid"};
+            var result = await _context.Get(property);
+            Assert.IsNull(result);
         }
     }
 }
