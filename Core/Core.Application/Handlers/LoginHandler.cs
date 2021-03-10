@@ -35,7 +35,7 @@ namespace Core.Application.Handlers
             }
             
             var user = await _repository.Get(new(){ Key = "Email", Value = login.Email});
-            if (user is not null && new Hashio().Check(user.Credentials.Password, login.Password))
+            if (user is not null && CredentialsIsValid(login.Password, user.Credentials.Password))
             {
                 return new()
                 {
@@ -45,9 +45,19 @@ namespace Core.Application.Handlers
                     Token = _jwtService.GenerateToken(user.Credentials.Email, user.Id)
                 };
             }
-
-            Notificator.AddNotifications(_repository.Notifications);
             return null;
+        }
+
+        private bool CredentialsIsValid (string passwordInserted, string password)
+        {
+            var isValid = new Hashio().Check(password ,passwordInserted);
+            if (isValid)
+            {
+                return true;
+            }
+            Notificator.NotificationType = NotificationType.Authentication;
+            Notificator.AddNotification("Authentication", "Credenciais inválidas. Verifique as informações inseridas.");
+            return false;
         }
     }
 }
