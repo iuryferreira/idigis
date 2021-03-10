@@ -15,25 +15,17 @@ namespace Tests.Application.Handlers
     [TestClass]
     public class CreateChurchHandlerTest
     {
-        private Mock<IChurchRepository> _mockRepository;
-        private Mock<IChurchRepository> _mockRepositoryFailed;
+        private readonly Mock<IChurchRepository> _repository;
 
-
-        [TestInitialize]
-        public void SetUp ()
+        public CreateChurchHandlerTest ()
         {
-            _mockRepository = new();
-            _mockRepositoryFailed = new();
-            _mockRepository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(true);
-            _mockRepositoryFailed.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(false);
-            _mockRepositoryFailed.SetupGet(repository => repository.Notifications)
-                .Returns(new List<Notification> { new("Repository", "") });
+            _repository = new();
         }
-
+        
         [TestMethod]
         public async Task Should_Return_Null_If_the_Entity_Is_Invalid ()
         {
-            CreateChurchHandler sut = new(new Notificator(), _mockRepository.Object);
+            CreateChurchHandler sut = new(new Notificator(), _repository.Object);
             CreateChurchRequest data = new("", "", "");
             var result = await sut.Handle(data, new());
             Assert.IsNull(result);
@@ -42,7 +34,8 @@ namespace Tests.Application.Handlers
         [TestMethod]
         public async Task Should_Return_Response_If_the_Entity_Is_Valid ()
         {
-            CreateChurchHandler sut = new(new Notificator(), _mockRepository.Object);
+            _repository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(true);
+            CreateChurchHandler sut = new(new Notificator(), _repository.Object);
             CreateChurchRequest data = new("valid_name", "valid_email@email.com", "valid_password");
             var result = await sut.Handle(data, new());
             Assert.IsNotNull(result);
@@ -52,11 +45,11 @@ namespace Tests.Application.Handlers
         [TestMethod]
         public async Task Should_Return_Null_If_the_Entity_Is_Not_Saved ()
         {
-            CreateChurchHandler sut = new(new Notificator(), _mockRepositoryFailed.Object);
+            _repository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(false);
+            CreateChurchHandler sut = new(new Notificator(), _repository.Object);
             CreateChurchRequest data = new("valid_name", "valid_email@email.com", "valid_password");
             var result = await sut.Handle(data, new());
             Assert.IsNull(result);
-            Assert.AreEqual("Repository", sut.Notificator.Notifications.First().Key);
         }
     }
 }

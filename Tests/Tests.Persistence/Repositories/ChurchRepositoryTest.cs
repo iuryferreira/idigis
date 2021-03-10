@@ -7,11 +7,12 @@ using Core.Persistence.Contexts;
 using Core.Persistence.Contracts;
 using Core.Persistence.Models;
 using Core.Persistence.Repositories;
+using Core.Shared.Notifications;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Tests.Persistence.Database.Factories;
-using Property = Core.Shared.Type.Property;
+using Property = Core.Shared.Types.Property;
 
 namespace Tests.Persistence.Repositories
 {
@@ -38,31 +39,31 @@ namespace Tests.Persistence.Repositories
         [TestMethod]
         public async Task Must_Notify_If_Church_Already_Exists_in_the_Database ()
         {
-            ChurchRepository sut = new(_oldContext);
-            await sut.Add(_entity);
-            await sut.Add(_entity);
-            Assert.IsTrue(sut.Notifications.Count > 0);
-            Assert.AreEqual("Repository", sut.Notifications.First().Key);
-            Assert.AreEqual("Este registro já existe, faça o login.", sut.Notifications.First().Message);
+            _context.Setup(c => c.Exists(It.IsAny<ChurchModel>())).ReturnsAsync(true);
+            var sut = new ChurchRepository(_context.Object, new Notificator());
+            var entity = new Church("valid_name", new("found@email.com", "valid_password"));
+            await sut.Add(entity);
+            Assert.IsTrue(sut.Notificator.HasNotifications);
+            Assert.AreEqual("Repository", sut.Notificator.Notifications.First().Key);
+            Assert.AreEqual("Este registro já existe, faça o login.", sut.Notificator.Notifications.First().Message);
         }
 
         [TestMethod]
         public async Task If_the_Entity_Is_Valid_and_There_Is_an_Error_in_the_Insertion_in_the_Database ()
         {
-            var mockedContext = new Mock<IChurchContext>();
-            mockedContext.Setup(c => c.Save()).Throws(new());
-            ChurchRepository sut = new(mockedContext.Object);
+            _context.Setup(c => c.Save()).Throws(new());
+            var sut = new ChurchRepository(_context.Object, new Notificator());
             await sut.Add(_entity);
-            Assert.IsTrue(sut.Notifications.Count > 0);
-            Assert.AreEqual("Repository", sut.Notifications.First().Key);
-            Assert.AreEqual("Ocorreu um erro na inserção.", sut.Notifications.First().Message);
+            Assert.IsTrue(sut.Notificator.Notifications.Count > 0);
+            Assert.AreEqual("Repository", sut.Notificator.Notifications.First().Key);
+            Assert.AreEqual("Ocorreu um erro na inserção.", sut.Notificator.Notifications.First().Message);
         }
 
         [TestMethod]
         public async Task Must_Return_Null_If_the_Entity_Is_Not_Added ()
         {
-            ChurchRepository sut = new(_oldContext);
-            await sut.Add(_entity);
+            _context.Setup(c => c.Add(It.IsAny<ChurchModel>())).ReturnsAsync(false);
+            var sut = new ChurchRepository(_context.Object, new Notificator());
             Assert.IsFalse(await sut.Add(_entity));
         }
         
@@ -71,7 +72,7 @@ namespace Tests.Persistence.Repositories
         {
             _context.Setup(c => c.Get(It.IsAny<Property>())).ReturnsAsync((ChurchModel)null);
             var entity = new Login("not_found@email.com", "any_password");
-            var sut = new ChurchRepository(_context.Object);
+            var sut = new ChurchRepository(_context.Object, new Notificator());
             var result = await sut.Get(new (){Key = "Email", Value = entity.Email});
             Assert.IsNull(result);
         }
@@ -81,20 +82,20 @@ namespace Tests.Persistence.Repositories
         {
             _context.Setup(c => c.Get(It.IsAny<Property>())).ReturnsAsync((ChurchModel)null);
             var entity = new Login("not_found@email.com", "any_password");
-            var sut = new ChurchRepository(_context.Object);
+            var sut = new ChurchRepository(_context.Object, new Notificator());
             var result = await sut.Get(new (){Key = "Email", Value = entity.Email});
-            Assert.IsTrue(sut.Notifications.Count > 0);
-            Assert.AreEqual("Repository", sut.Notifications.First().Key);
-            Assert.AreEqual("Registro não encontrado. Verifique as informações inseridas.", sut.Notifications.First().Message);
+            Assert.IsTrue(sut.Notificator.Notifications.Count > 0);
+            Assert.AreEqual("Repository", sut.Notificator.Notifications.First().Key);
+            Assert.AreEqual("Registro não encontrado. Verifique as informações inseridas.", sut.Notificator.Notifications.First().Message);
         }
         
         [TestMethod]
         public async Task Must_Return_A_Church_If_Found ()
         {
             var login = new Login("found@email.com", "any_password");
-            var entity = new Church(Guid.NewGuid().ToString(), "Found", new Credentials(login.Email, login.Password));
+            var entity = new Church(Guid.NewGuid().ToString(), "Found", new(login.Email, login.Password));
             _context.Setup(c => c.Get(It.IsAny<Property>())).ReturnsAsync(entity);
-            var sut = new ChurchRepository(_context.Object);
+            var sut = new ChurchRepository(_context.Object, new Notificator());
             Assert.IsNotNull(await sut.Get(new (){Key = "Email", Value = login.Email}));
         }
     }

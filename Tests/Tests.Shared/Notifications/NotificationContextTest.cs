@@ -33,17 +33,6 @@ namespace Tests.Shared.Notifications
         }
 
         [TestMethod]
-        public void Should_Allow_Concatenating_Two_Notification_Contexts ()
-        {
-            Notificator firstContext = new();
-            Notificator secondContext = new();
-            firstContext.AddNotification("valid_key", "valid_message");
-            secondContext.AddNotification("second_valid_key", "second_valid_message");
-            firstContext.AddNotifications(secondContext.Notifications.ToList());
-            Assert.AreEqual(2, firstContext.Notifications.Count);
-        }
-
-        [TestMethod]
         public void Must_Return_Different_Messages_When_the_Type_Is_Different ()
         {
             Assert.AreNotEqual(Messages.Minimum(8), Messages.Minimum(8, false));

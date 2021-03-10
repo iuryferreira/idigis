@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Core.Persistence.Contexts;
 using Core.Persistence.Models;
-using Core.Shared.Type;
+using Core.Shared.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tests.Persistence.Database.Factories;
 

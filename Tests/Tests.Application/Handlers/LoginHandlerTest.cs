@@ -8,7 +8,7 @@ using Core.Authentication.Services;
 using Core.Domain.Entities;
 using Core.Persistence.Contracts;
 using Core.Shared.Notifications;
-using Core.Shared.Type;
+using Core.Shared.Types;
 using DotNetEnv;
 using Hash;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -50,24 +50,11 @@ namespace Tests.Application.Handlers
         public async Task Must_Return_Null_If_the_Entity_Does_Not_Exist ()
         {
             _repository.Setup(repository => repository.Get(It.IsAny<Property>())).ReturnsAsync((Church)null);
-            _repository.SetupGet(repository => repository.Notifications)
-                .Returns(new List<Notification>());
+            _repository.SetupGet(repository => repository.Notificator).Returns(new Notificator());
             var sut = new LoginHandler(new Notificator(), _repository.Object, _jwtService);
             var data = new LoginRequest("not_found@email.com", "any_password");
             var result = await sut.Handle(data, new());
             Assert.IsNull(result);
-        }
-
-        [TestMethod]
-        public async Task Must_Have_Notification_If_Church_Not_Found ()
-        {
-            _repository.Setup(repository => repository.Get(It.IsAny<Property>())).ReturnsAsync((Church)null);
-            var notifications = new List<Notification> { new("Repository", "Registro não encontrado.") };
-            _repository.SetupGet(repository => repository.Notifications).Returns(notifications);
-            var sut = new LoginHandler(new Notificator(), _repository.Object, _jwtService);
-            var data = new LoginRequest("not_found@email.com", "any_password");
-            var result = await sut.Handle(data, new());
-            Assert.IsTrue(sut.Notificator.HasNotifications);
         }
 
         [TestMethod]
@@ -83,5 +70,18 @@ namespace Tests.Application.Handlers
             Assert.IsNotNull(result.Email);
             Assert.IsNotNull(result.Token);
         }
+        
+        [TestMethod] 
+        public async Task Must_Return_Null_If_the_Password_Is_Not_Correct ()
+        {
+            var entity = new Church(Guid.NewGuid().ToString(), "Valid Name", new("found@email.com", new Hashio().Hash("any_password")));
+            _repository.Setup(repository => repository.Get(It.IsAny<Property>())).ReturnsAsync(entity);
+            var sut = new LoginHandler(new Notificator(), _repository.Object, _jwtService);
+            var data = new LoginRequest("not_found@email.com", "any");
+            var result = await sut.Handle(data, new());
+            Assert.IsNull(result);
+        }
+        
+        
     }
 }
