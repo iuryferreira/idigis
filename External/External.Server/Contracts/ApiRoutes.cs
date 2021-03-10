@@ -4,9 +4,10 @@ namespace External.Server.Contracts
     {
         private const string Base = "api/";
 
-        public static class Church
+        public static class Index
         {
-            public const string Store = Base + "churches";
+            public const string Signup = Base + "signup";
+            public const string Signin = Base + "login";
         }
     }
 }
