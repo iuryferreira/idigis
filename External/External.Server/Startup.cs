@@ -25,7 +25,7 @@ namespace External.Server
             {
                 opt.AddPolicy(MyAllowSpecificOrigins, builder =>
                 {
-                    builder.WithOrigins(Configuration.GetValue<string>("Client")).AllowAnyHeader().AllowAnyMethod();
+                    builder.WithOrigins(Configuration.GetValue<string>("ClientUrl")).AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.AddControllers(options =>
