@@ -15,7 +15,7 @@
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue">
   
   <a href="https://coveralls.io/github/iuryferreira/idigis">
-    <img alt="Made by Iury Ferreira" src="https://img.shields.io/badge/coverage-100%25-blue">
+    <img alt="Made by Iury Ferreira" src="https://img.shields.io/badge/coverage-98.5%25%0A-blue">
   </a>
 
 ### ✌ Hello!

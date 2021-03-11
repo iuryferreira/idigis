@@ -1,0 +1,94 @@
+@using External.Client.Models
+@using Blazored.LocalStorage
+@inject NavigationManager NavigationManager
+@inject IAccountService AccountService
+@inject ILocalStorageService LocalStorageService 
+
+<p class="help is-danger has-text-centered mt-5">
+    @AnyError
+</p>
+
+<EditForm OnValidSubmit="HandleValidSubmit" EditContext="_context">
+    <DataAnnotationsValidator/>
+    <div class="box">
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left is-expanded">
+                <InputText name="email" id="email" @bind-Value="_model.Email" class="input"
+                           placeholder="ex.: conta@email.com"/>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <p class="help is-danger has-text-left">
+                    <ValidationMessage class="help" For="() => _model.Email"/>
+                </p>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Senha</label>
+            <div class="control has-icons-left is-expanded">
+                <InputText type="password" id="password" @bind-Value="_model.Password" class="input"
+                           placeholder="*********"/>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                </span>
+                <p class="help is-danger has-text-left">
+                    <ValidationMessage For="() => _model.Password"/>
+                </p>
+            </div>
+        </div>
+        <div class="field has-text-centered pt-3">
+            <Button Text="Entrar" Size="is-fullwidth" Props="is-outlined"></Button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    private readonly LoginRequest _model = new();
+    private EditContext _context;
+    private ValidationMessageStore _messageStore;
+
+    private string AnyError { get; set; } = "";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _context = new(_model);
+        _messageStore = new(_context);
+        _context.OnValidationRequested += (_, _) => _messageStore.Clear();
+        _context.OnFieldChanged += (_, e) => _messageStore.Clear(e.FieldIdentifier);
+        var email =  await LocalStorageService.GetItemAsStringAsync("email_auto_fill");
+        if (email is not "")
+        {
+            _model.Email = CustomEncoder.Decode<string>(email);
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        AnyError = "";
+        var response = await AccountService.Login(_model);
+        if (response)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            foreach (var error in AccountService.Errors)
+            {
+                _messageStore.Add(_context.Field(error.Key), error.Message);
+
+                if (error.Key is "Authentication" || error.Key is "Repository")
+                {
+                    AnyError = error.Message;
+                }
+                
+            }
+            _context.NotifyValidationStateChanged();
+        }
+    }
+
+
+}
