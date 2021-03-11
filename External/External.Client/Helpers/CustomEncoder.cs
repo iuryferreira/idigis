@@ -13,7 +13,7 @@ namespace External.Client.Helpers
                 return string.Empty;
             }
             var serialized = JsonSerializer.Serialize(value);
-           return Convert.ToBase64String(Encoding.UTF8.GetBytes(serialized));
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(serialized));
         }
 
         public static T Decode<T> (string value)

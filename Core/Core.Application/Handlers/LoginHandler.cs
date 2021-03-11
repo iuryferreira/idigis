@@ -33,8 +33,8 @@ namespace Core.Application.Handlers
                 Notificator.AddNotifications(login.ValidationResult);
                 return null;
             }
-            
-            var user = await _repository.Get(new(){ Key = "Email", Value = login.Email});
+
+            var user = await _repository.Get(new() { Key = "Email", Value = login.Email });
             if (user is not null && CredentialsIsValid(login.Password, user.Credentials.Password))
             {
                 return new()
@@ -50,7 +50,7 @@ namespace Core.Application.Handlers
 
         private bool CredentialsIsValid (string passwordInserted, string password)
         {
-            var isValid = new Hashio().Check(password ,passwordInserted);
+            var isValid = new Hashio().Check(password, passwordInserted);
             if (isValid)
             {
                 return true;

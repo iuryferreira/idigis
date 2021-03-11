@@ -17,7 +17,7 @@ namespace External.Server.Controllers
         {
             _mediator = mediator;
         }
-        
+
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]
@@ -30,7 +30,7 @@ namespace External.Server.Controllers
             }
             return BadRequest();
         }
-        
+
         [AllowAnonymous]
         [HttpPost]
         [Route("signup")]
@@ -43,6 +43,6 @@ namespace External.Server.Controllers
             }
             return BadRequest();
         }
-        
+
     }
 }

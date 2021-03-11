@@ -24,7 +24,7 @@ namespace External.Client.Services
         private readonly HttpClient _httpClient;
         private readonly ILocalStorageService _localStorageService;
         private readonly AuthenticationStateProvider _authenticationStateProvider;
-        
+
         public AccountService (HttpClient httpClient, ILocalStorageService localStorageService, AuthenticationStateProvider authenticationStateProvider)
         {
             _httpClient = httpClient;
@@ -40,11 +40,11 @@ namespace External.Client.Services
             switch (response.StatusCode)
             {
                 case HttpStatusCode.Created:
-                {
-                    var church = await response.Content.ReadFromJsonAsync<CreateChurchResponse>();
-                    await _localStorageService.SetItemAsync("email_auto_fill", CustomEncoder.Encode(church?.Email));
-                    return true;
-                }
+                    {
+                        var church = await response.Content.ReadFromJsonAsync<CreateChurchResponse>();
+                        await _localStorageService.SetItemAsync("email_auto_fill", CustomEncoder.Encode(church?.Email));
+                        return true;
+                    }
                 case HttpStatusCode.BadRequest:
                     Errors = await response.Content.ReadFromJsonAsync<List<Error>>();
                     return false;
@@ -53,22 +53,22 @@ namespace External.Client.Services
                     return false;
             }
         }
-        
+
         public async Task<bool> Login (LoginRequest model)
         {
             var response = await _httpClient.PostAsJsonAsync(ServerRoutes.Church.Signin, model);
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
-                {
-                    var login = await response.Content.ReadFromJsonAsync<LoginResponse>();
-                    var church = new Church{ Id = login?.Id, Name = login?.Name, Email = login?.Email};
-                    await _localStorageService.SetItemAsync("church", CustomEncoder.Encode(church));
-                    await _localStorageService.SetItemAsync("token", CustomEncoder.Encode(login?.Token));
-                    ((AuthStateProvider)_authenticationStateProvider).DefineAsAuthenticated(church.Email);
-                    _httpClient.DefaultRequestHeaders.Authorization = new("Bearer", login?.Token);
-                    return true;
-                }
+                    {
+                        var login = await response.Content.ReadFromJsonAsync<LoginResponse>();
+                        var church = new Church { Id = login?.Id, Name = login?.Name, Email = login?.Email };
+                        await _localStorageService.SetItemAsync("church", CustomEncoder.Encode(church));
+                        await _localStorageService.SetItemAsync("token", CustomEncoder.Encode(login?.Token));
+                        ((AuthStateProvider)_authenticationStateProvider).DefineAsAuthenticated(church.Email);
+                        _httpClient.DefaultRequestHeaders.Authorization = new("Bearer", login?.Token);
+                        return true;
+                    }
                 case HttpStatusCode.BadRequest:
                 case HttpStatusCode.Unauthorized:
                     Errors = await response.Content.ReadFromJsonAsync<List<Error>>();

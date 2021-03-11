@@ -20,13 +20,13 @@ namespace Core.Shared.Notifications
         public void AddNotifications (ValidationResult validationResult)
         {
             NotificationType = NotificationType.Validation;
-            
+
             foreach (var error in validationResult.Errors)
             {
                 AddNotification(error.PropertyName.Substring(error.PropertyName.IndexOf('.') + 1), error.ErrorMessage);
             }
         }
-        
+
         public void AddNotification (string key, string message)
         {
             _notifications.Add(new(key, message));

@@ -30,7 +30,7 @@ namespace Core.Application.Handlers
                 Notificator.AddNotifications(entity.ValidationResult);
                 return null;
             }
-            
+
             if (!await _repository.Add(entity))
             {
                 return null;

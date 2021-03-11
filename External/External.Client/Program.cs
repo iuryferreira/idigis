@@ -18,7 +18,7 @@ namespace External.Client
 
             //Services
             builder.Services.AddBlazoredLocalStorage(config => config.JsonSerializerOptions.WriteIndented = true);
-            builder.Services.AddAuthorizationCore(options => {});
+            builder.Services.AddAuthorizationCore(options => { });
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new("https://localhost:5001") });
