@@ -9,7 +9,7 @@ namespace Core.Shared.Notifications
         public static string Minimum (int size, bool isString = true)
         {
             var message = $"{Base} deve ser maior que {size}";
-            return isString ? $"{message} caracteres." : $"{size}.";
+            return isString ? $"{message} caracteres." : $"{message}.";
         }
     }
 }
