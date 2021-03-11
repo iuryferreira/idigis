@@ -24,7 +24,6 @@ namespace Tests.Services.Authentication
             var tokenHandler = new JwtSecurityTokenHandler();
             var result = sut.GenerateToken(data.Email, data.Id);
             Assert.IsNotNull(result);
-            Assert.AreEqual(377, result.Length);
             Assert.IsTrue(tokenHandler.CanReadToken(result));
         }
     }
