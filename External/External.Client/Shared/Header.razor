@@ -1,9 +1,11 @@
+@inject NavigationManager NavigationManager
+
 <div class="container mt-5">
     <nav class=" navbar navbar-transparent" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="ml-4">
+            <NavLink class="ml-4" Match="NavLinkMatch.All" href="/login" >
                 <img src="img/logo.svg" width="130" alt="">
-            </a>
+            </NavLink>
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -14,17 +16,17 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-light is-warning is-outlined">
+                        <NavLink Match="NavLinkMatch.All" href="/signup" class="button is-light is-warning is-outlined">
                             <span>Cadastre-se</span>
-                        </a>
-                        <a class="button is-light is-info is-outlined">
+                        </NavLink>
+                        <NavLink Match="NavLinkMatch.All" href="/login" class="button is-light is-info is-outlined">
                             <span class="icon">
                                 <i class="fas fa-sign-in-alt"></i>
                             </span>
                             <span>
                                 <strong>Entrar</strong>
                             </span>
-                        </a>
+                        </NavLink>
                     </div>
                 </div>
             </div>

@@ -48,9 +48,7 @@
     </div>
     <div class="field has-text-right">
         <div class="control">
-            <button type="submit" class="button btn-large is-info is-light">
-                Vamos lá!
-            </button>
+            <Button Text="Vamos lá!"></Button>
         </div>
     </div>
 </EditForm>
@@ -75,7 +73,7 @@
         var response = await AccountService.Signup(_model);
         if (response)
         {
-            NavigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo("/login");
         }
         else
         {
@@ -86,5 +84,4 @@
             _context.NotifyValidationStateChanged();
         }
     }
-
 }
