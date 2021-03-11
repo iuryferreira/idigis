@@ -48,5 +48,17 @@ namespace Core.Persistence.Repositories
             Notificator.AddNotification("Repository", "Registro não encontrado. Verifique as informações inseridas.");
             return null;
         }
+
+        public async Task<bool> Update (Church entity)
+        {
+            ChurchModel model = entity;
+            var result = await _context.Update(model);
+            if (!result)
+            {
+                Notificator.NotificationType = NotificationType.Internal;
+                Notificator.AddNotification("Repository", "Ocorreu um erro na atualização do registro. Tente novamente.");
+            }
+            return result;
+        }
     }
 }

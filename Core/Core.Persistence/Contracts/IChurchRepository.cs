@@ -9,6 +9,7 @@ namespace Core.Persistence.Contracts
     {
         INotificator Notificator { get; }
         Task<bool> Add (Church entity);
+        Task<bool> Update (Church entity);
         Task<Church> Get (Property property);
     }
 }

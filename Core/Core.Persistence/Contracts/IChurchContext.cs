@@ -8,7 +8,9 @@ namespace Core.Persistence.Contracts
     {
         Task<bool> Add (ChurchModel data);
         Task<bool> Exists (ChurchModel data);
+        Task<bool> Update (ChurchModel data);
         Task<int> Save ();
         Task<ChurchModel> Get (Property property);
+
     }
 }

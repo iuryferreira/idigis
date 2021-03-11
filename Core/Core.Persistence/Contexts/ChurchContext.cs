@@ -5,7 +5,6 @@ using Core.Persistence.Contracts;
 using Core.Persistence.Models;
 using Core.Shared.Types;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Core.Persistence.Contexts
 {
@@ -54,17 +53,19 @@ namespace Core.Persistence.Contexts
             return model;
         }
 
-        protected override void OnModelCreating (ModelBuilder modelBuilder)
+        public async Task<bool> Update (ChurchModel data)
         {
-            modelBuilder.ApplyConfiguration(new ChurchTypeConfiguration());
-        }
-    }
+            var entry = Entity.Update(data);
+            try
+            {
+                await Save();
+                return entry.State is EntityState.Unchanged;
+            }
+            catch (Exception)
+            {
 
-    internal class ChurchTypeConfiguration : IEntityTypeConfiguration<ChurchModel>
-    {
-        public void Configure (EntityTypeBuilder<ChurchModel> builder)
-        {
-            builder.ToTable("churches");
+                return false;
+            }
         }
     }
 }
