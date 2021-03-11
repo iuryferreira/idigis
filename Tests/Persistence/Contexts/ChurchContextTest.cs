@@ -86,5 +86,39 @@ namespace Tests.Persistence.Contexts
             var result = await _context.Get(property);
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        public async Task Must_Return_False_If_the_Church_Is_Not_Updated ()
+        {
+            var model = new ChurchModel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Testing",
+                Email = "testing@email.com",
+                Password = "Password123"
+            };
+            await _context.Add(model);
+            model.Email = null;
+            var result = await _context.Update(model);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public async Task Must_Return_True_If_the_Church_Is_Updated ()
+        {
+            var model = new ChurchModel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Testing",
+                Email = "testing@email.com",
+                Password = "Password123"
+            };
+            await _context.Add(model);
+            model.Email = "new_email@email.com";
+            var result = await _context.Update(model);
+            var newModel = await _context.Get(new() { Key = "Id", Value = model.Id });
+            Assert.IsTrue(result);
+            Assert.AreEqual("new_email@email.com", newModel.Email);
+        }
     }
 }

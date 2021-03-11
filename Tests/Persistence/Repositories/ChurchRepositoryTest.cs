@@ -6,9 +6,9 @@ using Core.Persistence.Contracts;
 using Core.Persistence.Models;
 using Core.Persistence.Repositories;
 using Core.Shared.Notifications;
+using Core.Shared.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Core.Shared.Types;
 
 namespace Tests.Persistence.Repositories
 {
@@ -92,5 +92,34 @@ namespace Tests.Persistence.Repositories
             var sut = new ChurchRepository(_context.Object, new Notificator());
             Assert.IsNotNull(await sut.Get(new() { Key = "Email", Value = login.Email }));
         }
+
+        [TestMethod]
+        public async Task Must_Return_Notification_And_False_If_the_Entity_Not_Updated ()
+        {
+            var church = new Church(Guid.NewGuid().ToString(), "valid_name", new("valid_email@email.com", "valid_password"), new() { new(20), new(30) });
+
+            _context.Setup(c => c.Update(It.IsAny<ChurchModel>())).ReturnsAsync(false);
+            var entity = new Login("not_found@email.com", "any_password");
+            var sut = new ChurchRepository(_context.Object, new Notificator());
+            var result = await sut.Update(church);
+            Assert.IsTrue(sut.Notificator.HasNotifications);
+            Assert.AreEqual("Repository", sut.Notificator.Notifications.First().Key);
+            Assert.AreEqual("Ocorreu um erro na atualização do registro. Tente novamente.", sut.Notificator.Notifications.First().Message);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public async Task Must_Return_True_If_the_Entity_Is_Updated ()
+        {
+            var church = new Church(Guid.NewGuid().ToString(), "valid_name", new("valid_email@email.com", "valid_password"), new() { new(20), new(30) });
+
+            _context.Setup(c => c.Update(It.IsAny<ChurchModel>())).ReturnsAsync(true);
+            var entity = new Login("not_found@email.com", "any_password");
+            var sut = new ChurchRepository(_context.Object, new Notificator());
+            var result = await sut.Update(church);
+            Assert.IsFalse(sut.Notificator.HasNotifications);
+            Assert.IsTrue(result);
+        }
+
     }
 }
