@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Tests\Tests.Authentication\Tests.Authentication.csproj" />
     <ProjectReference Include="..\Core.Domain\Core.Domain.csproj" />
     <ProjectReference Include="..\Core.Persistence\Core.Persistence.csproj" />
+    <ProjectReference Include="..\Core.Authentication\Core.Authentication.csproj" />
     <ProjectReference Include="..\Core.Shared\Core.Shared.csproj" />
   </ItemGroup>
 
