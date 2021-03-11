@@ -2,14 +2,16 @@
 using Core.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Tests.Persistence.Database.Migrations
 {
     [DbContext(typeof(ChurchContext))]
-    partial class ChurchContextModelSnapshot : ModelSnapshot
+    [Migration("20210311183034_AddOffer")]
+    partial class AddOffer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
