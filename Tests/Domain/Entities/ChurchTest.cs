@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Domain.Aggregates;
 using Core.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -43,5 +46,24 @@ namespace Tests.Domain.Entities
             Assert.AreNotEqual("valid_password", sut.Credentials.Password);
             Assert.AreEqual(75, sut.Credentials.Password.Length);
         }
+
+        [TestMethod]
+        public void Must_Add_the_Offer_To_the_List ()
+        {
+            var offer = new Offer((decimal)3.25);
+            var sut = new Church("valid_name", new("not_valid_email", "valid_password"));
+            sut.AddOffer(offer);
+
+            Assert.AreEqual(1, sut.Offers.Count);
+        }
+
+        [TestMethod]
+        public void Must_Receive_The_Offers_List_In_Constructor ()
+        {
+            var offers = new List<Offer>() { new((decimal)3.25), new((decimal)3.2) };
+            var sut = new Church(Guid.NewGuid().ToString(), "valid_name", new("not_valid_email", "valid_password"), offers);
+            Assert.AreEqual(2, sut.Offers.Count);
+        }
+
     }
 }
