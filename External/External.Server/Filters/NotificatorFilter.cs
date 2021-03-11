@@ -1,10 +1,9 @@
-using System;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Shared.Notifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
 
 namespace External.Server.Filters
 {
@@ -30,7 +29,7 @@ namespace External.Server.Filters
                     _ => (int)HttpStatusCode.InternalServerError
                 };
                 context.HttpContext.Response.ContentType = "application/json";
-                var notifications = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(_notificator.Notifications));
+                var notifications = await Task.Factory.StartNew(() => JsonSerializer.Serialize(_notificator.Notifications));
                 await context.HttpContext.Response.WriteAsync(notifications);
                 return;
             }
