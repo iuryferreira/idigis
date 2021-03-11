@@ -9,5 +9,8 @@
             "**/obj/**/*",
             "**/.git/**/*"
         ]
+    },
+    "RoslynExtensionsOptions": {
+        "EnableAnalyzersSupport": true
     }
 }
