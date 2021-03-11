@@ -10,6 +10,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="DotNetEnv" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.3" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,7 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Core.Persistence\Core.Persistence.csproj" />
+    <ProjectReference Include="..\Core\Core.Domain\Core.Domain.csproj" />
+    <ProjectReference Include="..\Core\Core.Application\Core.Application.csproj" />
+    <ProjectReference Include="..\Core\Core.Authentication\Core.Authentication.csproj" />
+    <ProjectReference Include="..\Core\Core.Persistence\Core.Persistence.csproj" />
+    <ProjectReference Include="..\External\External.Server\External.Server.csproj" />
+    <ProjectReference Include="..\Core\Core.Shared\Core.Shared.csproj" />
   </ItemGroup>
 
 </Project>

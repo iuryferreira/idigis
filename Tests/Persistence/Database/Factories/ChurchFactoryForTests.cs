@@ -27,11 +27,11 @@ namespace Tests.Persistence.Database.Factories
             connection.Open();
             if (connectionString is not null)
             {
-                optionsBuilder.UseSqlite(connectionString, c => c.MigrationsAssembly("Tests.Persistence"));
+                optionsBuilder.UseSqlite(connectionString, c => c.MigrationsAssembly("Tests"));
             }
             else
             {
-                optionsBuilder.UseSqlite(connection, c => c.MigrationsAssembly("Tests.Persistence"));
+                optionsBuilder.UseSqlite(connection, c => c.MigrationsAssembly("Tests"));
             }
 
             return new(optionsBuilder.Options);

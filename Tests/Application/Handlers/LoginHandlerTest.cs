@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Application.Handlers;
 using Core.Application.Requests;
@@ -21,7 +20,7 @@ namespace Tests.Application.Handlers
     {
         private readonly IJwtService _jwtService;
         private readonly Mock<IChurchRepository> _repository;
-        
+
         public LoginHandlerTest ()
         {
             Env.TraversePath().Load();
@@ -70,8 +69,8 @@ namespace Tests.Application.Handlers
             Assert.IsNotNull(result.Email);
             Assert.IsNotNull(result.Token);
         }
-        
-        [TestMethod] 
+
+        [TestMethod]
         public async Task Must_Return_Null_If_the_Password_Is_Not_Correct ()
         {
             var entity = new Church(Guid.NewGuid().ToString(), "Valid Name", new("found@email.com", new Hashio().Hash("any_password")));
@@ -81,7 +80,7 @@ namespace Tests.Application.Handlers
             var result = await sut.Handle(data, new());
             Assert.IsNull(result);
         }
-        
-        
+
+
     }
 }

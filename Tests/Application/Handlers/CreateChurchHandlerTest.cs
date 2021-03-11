@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Core.Application.Handlers;
 using Core.Application.Requests;
@@ -21,7 +19,7 @@ namespace Tests.Application.Handlers
         {
             _repository = new();
         }
-        
+
         [TestMethod]
         public async Task Should_Return_Null_If_the_Entity_Is_Invalid ()
         {

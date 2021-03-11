@@ -2,13 +2,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Domain.Entities;
-using Core.Domain.ValueObjects;
 using Core.Persistence.Contexts;
 using Core.Persistence.Contracts;
 using Core.Persistence.Models;
 using Core.Persistence.Repositories;
 using Core.Shared.Notifications;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Tests.Persistence.Database.Factories;
@@ -66,29 +64,29 @@ namespace Tests.Persistence.Repositories
             var sut = new ChurchRepository(_context.Object, new Notificator());
             Assert.IsFalse(await sut.Add(_entity));
         }
-        
+
         [TestMethod]
         public async Task Must_Return_Null_If_the_Entity_Not_Found ()
         {
             _context.Setup(c => c.Get(It.IsAny<Property>())).ReturnsAsync((ChurchModel)null);
             var entity = new Login("not_found@email.com", "any_password");
             var sut = new ChurchRepository(_context.Object, new Notificator());
-            var result = await sut.Get(new (){Key = "Email", Value = entity.Email});
+            var result = await sut.Get(new() { Key = "Email", Value = entity.Email });
             Assert.IsNull(result);
         }
-        
+
         [TestMethod]
         public async Task Must_Return_Notification_If_the_Entity_Not_Found ()
         {
             _context.Setup(c => c.Get(It.IsAny<Property>())).ReturnsAsync((ChurchModel)null);
             var entity = new Login("not_found@email.com", "any_password");
             var sut = new ChurchRepository(_context.Object, new Notificator());
-            var result = await sut.Get(new (){Key = "Email", Value = entity.Email});
+            var result = await sut.Get(new() { Key = "Email", Value = entity.Email });
             Assert.IsTrue(sut.Notificator.Notifications.Count > 0);
             Assert.AreEqual("Repository", sut.Notificator.Notifications.First().Key);
             Assert.AreEqual("Registro não encontrado. Verifique as informações inseridas.", sut.Notificator.Notifications.First().Message);
         }
-        
+
         [TestMethod]
         public async Task Must_Return_A_Church_If_Found ()
         {
@@ -96,7 +94,7 @@ namespace Tests.Persistence.Repositories
             var entity = new Church(Guid.NewGuid().ToString(), "Found", new(login.Email, login.Password));
             _context.Setup(c => c.Get(It.IsAny<Property>())).ReturnsAsync(entity);
             var sut = new ChurchRepository(_context.Object, new Notificator());
-            Assert.IsNotNull(await sut.Get(new (){Key = "Email", Value = login.Email}));
+            Assert.IsNotNull(await sut.Get(new() { Key = "Email", Value = login.Email }));
         }
     }
 }
