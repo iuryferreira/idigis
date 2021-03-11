@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using Core.Domain.Aggregates;
 using Core.Domain.ValueObjects;
 using Core.Shared.Entities;
-using Core.Domain.Aggregates;
 using Core.Shared.Notifications;
 using FluentValidation;
 using Hash;
@@ -28,6 +28,7 @@ namespace Core.Domain.Entities
             Id = id;
             Name = name;
             Credentials = credentials;
+            _offers = new List<Offer>();
         }
 
         public Church (string id, string name, Credentials credentials, List<Offer> offers)
