@@ -2,22 +2,19 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Domain.Entities;
-using Core.Persistence.Contexts;
 using Core.Persistence.Contracts;
 using Core.Persistence.Models;
 using Core.Persistence.Repositories;
 using Core.Shared.Notifications;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Tests.Persistence.Database.Factories;
-using Property = Core.Shared.Types.Property;
+using Core.Shared.Types;
 
 namespace Tests.Persistence.Repositories
 {
     [TestClass]
     public class ChurchRepositoryTest
     {
-        private ChurchContext _oldContext;
         private readonly Mock<IChurchContext> _context;
         private Church _entity;
 
@@ -30,7 +27,6 @@ namespace Tests.Persistence.Repositories
         [TestInitialize]
         public void BeforeEach ()
         {
-            _oldContext = ChurchContextFactoryForTests.CreateDbContext();
             _entity = new("name", new("", "valid_password"));
         }
 

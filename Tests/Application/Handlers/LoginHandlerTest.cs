@@ -41,7 +41,7 @@ namespace Tests.Application.Handlers
         {
             var sut = new LoginHandler(new Notificator(), _repository.Object, _jwtService);
             var data = new LoginRequest("invalid", "");
-            var result = await sut.Handle(data, new());
+            _ = await sut.Handle(data, new());
             Assert.IsTrue(sut.Notificator.HasNotifications);
         }
 
