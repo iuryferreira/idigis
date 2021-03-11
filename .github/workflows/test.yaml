@@ -16,6 +16,8 @@ jobs:
       - name: Testing
         env:
           Client: "https://0.0.0.0/"
+          JwtSecret: "example"
+          JwtExpirationInHours: 2
         run: dotnet test --nologo /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../coverage/lcov.info /p:ExcludeByFile=\"**/Migrations/*.cs\"
       - name: Publish coverage report to coveralls.io
         uses: coverallsapp/github-action@master
