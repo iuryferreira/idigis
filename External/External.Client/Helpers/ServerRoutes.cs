@@ -6,7 +6,8 @@ namespace External.Client.Helpers
 
         public static class Church
         {
-            public const string Signup = Base + "churches";
+            public const string Signup = Base + "signup";
+            public const string Signin = Base + "login";
         }
     }
 }
