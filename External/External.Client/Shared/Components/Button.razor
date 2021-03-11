@@ -1,0 +1,17 @@
+<button type="@Type" class="button @Size is-info is-light @Props">@Text</button>
+
+@code {
+
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public string Type { get; set; } = "submit";
+
+    [Parameter]
+    public string Size { get; set; } = "";
+
+    [Parameter]
+    public string Props { get; set; } = "";
+
+}
