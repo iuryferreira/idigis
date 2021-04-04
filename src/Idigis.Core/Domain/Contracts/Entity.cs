@@ -14,7 +14,7 @@ namespace Idigis.Core.Domain.Contracts
         public string Id { get; }
         private bool Valid { get; set; }
         public bool Invalid => !Valid;
-        private ValidationResult ValidationResult { get; set; }
+        internal ValidationResult ValidationResult { get; private set; }
 
         protected bool Validate<T> (T entity, AbstractValidator<T> validator)
         {
