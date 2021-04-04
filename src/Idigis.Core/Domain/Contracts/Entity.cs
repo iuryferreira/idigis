@@ -11,10 +11,10 @@ namespace Idigis.Core.Domain.Contracts
             Id = Guid.NewGuid().ToString();
         }
 
-        public string Id { get; protected init; }
-        public bool Valid { get; private set; }
+        public string Id { get; }
+        private bool Valid { get; set; }
         public bool Invalid => !Valid;
-        public ValidationResult ValidationResult { get; private set; }
+        private ValidationResult ValidationResult { get; set; }
 
         protected bool Validate<T> (T entity, AbstractValidator<T> validator)
         {
