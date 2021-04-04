@@ -2,7 +2,10 @@
 # Core EditorConfig Options   #
 ###############################
 # All files
-[*]
+root = true
+[*.{sh}]
+end_of_line = lf
+[src/**]
 indent_style = space
 end_of_line = crlf
 # Code files
