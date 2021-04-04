@@ -19,4 +19,4 @@ jobs:
           ServerUrl: "https://0.0.0.0/"
           JwtSecret: "example_example_example_example_example_example_example_example"
           JwtExpirationInHours: 2
-        run: ./run test
+        run: chmod +x run && ./run test:coverage
