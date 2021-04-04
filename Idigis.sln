@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FCA14A86-3B17-4981-9120-71A2CE0C7D83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idigis.Core", "src\Idigis.Core\Idigis.Core.csproj", "{0C74CEDC-A0A2-46FA-A85D-031441CD551C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idigis.Shared", "src\Idigis.Shared\Idigis.Shared.csproj", "{05983CE4-668E-4161-82B5-BD75FCDC645F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idigis.Tests", "src\Idigis.Tests\Idigis.Tests.csproj", "{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,5 +22,48 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Debug|x64.Build.0 = Debug|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Debug|x86.Build.0 = Debug|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Release|x64.ActiveCfg = Release|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Release|x64.Build.0 = Release|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Release|x86.ActiveCfg = Release|Any CPU
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C}.Release|x86.Build.0 = Release|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Debug|x64.Build.0 = Debug|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Debug|x86.Build.0 = Debug|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Release|x64.ActiveCfg = Release|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Release|x64.Build.0 = Release|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Release|x86.ActiveCfg = Release|Any CPU
+		{05983CE4-668E-4161-82B5-BD75FCDC645F}.Release|x86.Build.0 = Release|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Debug|x64.Build.0 = Debug|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Debug|x86.Build.0 = Debug|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Release|x64.ActiveCfg = Release|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Release|x64.Build.0 = Release|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Release|x86.ActiveCfg = Release|Any CPU
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0C74CEDC-A0A2-46FA-A85D-031441CD551C} = {FCA14A86-3B17-4981-9120-71A2CE0C7D83}
+		{05983CE4-668E-4161-82B5-BD75FCDC645F} = {FCA14A86-3B17-4981-9120-71A2CE0C7D83}
+		{CD1865C8-A9BC-46A7-8F10-55F86CB4F0B2} = {FCA14A86-3B17-4981-9120-71A2CE0C7D83}
 	EndGlobalSection
 EndGlobal
