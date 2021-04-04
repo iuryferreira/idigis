@@ -1,7 +1,7 @@
 #!/bin/bash
 
 case $1 in
-test:run) dotnet test --nologo && rm -rf `find -type d -name TestResults` ; stty echo ;;
+test) dotnet test --nologo && rm -rf `find -type d -name TestResults` ; stty echo ;;
 test:coverage) dotnet test --nologo -v q /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../lcov.info /p:ExcludeByFile=\"**/Migrations/*.cs\" && rm -rf `find -type d -name TestResults` ; stty echo ;;
 test:silent) dotnet test --nologo -v q && rm -rf `find -type d -name TestResults` ; stty echo ;;
 test:nobuild) dotnet test --no-build --nologo && rm -rf `find -type d -name TestResults` ; stty echo ;;
