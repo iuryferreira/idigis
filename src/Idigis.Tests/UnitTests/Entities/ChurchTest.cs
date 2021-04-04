@@ -19,5 +19,13 @@ namespace Idigis.Tests.UnitTests.Entities
             Church sut = new("valid_name", new("valid@email.com", "valid_password"));
             Assert.IsFalse(sut.Invalid);
         }
+
+        [TestMethod]
+        public void Must_Return_False_If_the_Creation_of_Offers_Is_Invalid ()
+        {
+            Church sut = new("valid_name", new("valid@email.com", "valid_password"));
+            var offer = sut.AddOffer(0);
+            Assert.IsTrue(offer.Invalid);
+        }
     }
 }
