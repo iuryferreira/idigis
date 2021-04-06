@@ -2,21 +2,21 @@ using FluentValidation;
 using Idigis.Core.Domain.Contracts;
 using Idigis.Core.Domain.Helpers;
 
-namespace Idigis.Core.Domain.Aggregates
+namespace Idigis.Core.Domain.Entities
 {
     internal class Offer : Entity
     {
-        public Offer (decimal value)
+        internal Offer (decimal value)
         {
             Value = value;
             Validate(this, new OfferValidator());
         }
 
-        internal decimal Value { get; }
+        private decimal Value { get; }
 
         private class OfferValidator : AbstractValidator<Offer>
         {
-            public OfferValidator ()
+            internal OfferValidator ()
             {
                 Include(new EntityValidator());
                 RuleFor(o => o.Value).NotNull()
