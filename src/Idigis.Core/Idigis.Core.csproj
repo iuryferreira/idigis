@@ -10,9 +10,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-            <_Parameter1>Idigis.Tests</_Parameter1>
-        </AssemblyAttribute>
+        <InternalsVisibleTo Include="Idigis.Tests"/>
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
     </ItemGroup>
     
 </Project>
