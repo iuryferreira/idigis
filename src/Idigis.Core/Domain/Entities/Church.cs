@@ -17,8 +17,8 @@ namespace Idigis.Core.Domain.Entities
                 Credentials.Password = new Hashio().Hash(Credentials.Password);
             }
         }
-        private string Name { get; }
-        private Credentials Credentials { get; }
+        internal string Name { get; }
+        internal Credentials Credentials { get; }
 
         private class ChurchValidator : AbstractValidator<Church>
         {
