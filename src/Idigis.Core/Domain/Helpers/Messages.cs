@@ -5,6 +5,7 @@ namespace Idigis.Core.Domain.Helpers
         private const string Base = "Este campo";
         public const string NotEmpty = Base + " deve ser informado(a).";
         public const string Email = "Forneça um email válido.";
+        public const string Date = "Esta data não é valida.";
 
         public static string Minimum (int size, bool isString = true)
         {
