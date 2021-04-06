@@ -12,7 +12,7 @@ namespace Idigis.Core.Domain.Aggregates
             Validate(this, new OfferValidator());
         }
 
-        private decimal Value { get; }
+        internal decimal Value { get; }
 
         private class OfferValidator : AbstractValidator<Offer>
         {
