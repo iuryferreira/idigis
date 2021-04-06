@@ -41,7 +41,6 @@ namespace Idigis.Tests.UnitTests.Entities
             Assert.AreEqual(messages[0], "FullName - Este campo deve ser informado(a).");
             Assert.AreEqual(messages[1], "BirthDate - Esta data não é valida.");
             Assert.AreEqual(messages[2], "BaptismDate - Esta data não é valida.");
-
         }
 
         [TestMethod]
