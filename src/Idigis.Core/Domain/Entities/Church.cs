@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FluentValidation;
 using Hash;
 using Idigis.Core.Domain.Aggregates;
@@ -26,6 +27,7 @@ namespace Idigis.Core.Domain.Entities
         private string Name { get; }
         private Credentials Credentials { get; }
         public IReadOnlyCollection<Offer> Offers => _offers;
+        public decimal TotalOffers => _offers.Sum(o => o.Value);
 
         internal Offer AddOffer (decimal value)
         {
@@ -33,6 +35,17 @@ namespace Idigis.Core.Domain.Entities
             if (!offer.Invalid)
             {
                 _offers.Add(offer);
+            }
+
+            return offer;
+        }
+
+        internal Offer RemoveOffer (string id)
+        {
+            var offer = _offers.FirstOrDefault(o => o.Id == id);
+            if (offer is not null)
+            {
+                _offers.Remove(offer);
             }
 
             return offer;
