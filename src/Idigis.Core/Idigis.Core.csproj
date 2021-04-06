@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Hashio" Version="1.1.1"/>
-        <PackageReference Include="Notie" Version="1.0.2"/>
+        <PackageReference Include="Hashio" Version="1.1.1" />
+        <PackageReference Include="Notie" Version="1.0.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -14,5 +14,5 @@
             <_Parameter1>Idigis.Tests</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
-
+    
 </Project>
