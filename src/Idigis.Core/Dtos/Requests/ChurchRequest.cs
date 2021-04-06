@@ -1,4 +1,4 @@
-namespace Idigis.Core.Domain.Dtos.Requests
+namespace Idigis.Core.Dtos.Requests
 {
     public class CreateChurchRequest
     {

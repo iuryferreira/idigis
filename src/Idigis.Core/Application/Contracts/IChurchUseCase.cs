@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using Idigis.Core.Domain.Dtos.Requests;
-using Idigis.Core.Domain.Dtos.Responses;
+using Idigis.Core.Dtos.Requests;
+using Idigis.Core.Dtos.Responses;
 using Notie.Contracts;
 
-namespace Idigis.Core.Application
+namespace Idigis.Core.Application.Contracts
 {
     public interface IChurchUseCase
     {

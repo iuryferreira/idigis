@@ -17,6 +17,7 @@ namespace Idigis.Core.Domain.Entities
                 Credentials.Password = new Hashio().Hash(Credentials.Password);
             }
         }
+
         internal string Name { get; }
         internal Credentials Credentials { get; }
 

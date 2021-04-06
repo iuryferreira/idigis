@@ -19,14 +19,12 @@ namespace Idigis.Core.Domain.ValueObjects
         internal string Street { get; }
         internal string District { get; }
         internal string City { get; }
-
     }
 
     internal class ContactValidator : AbstractValidator<Contact>
     {
         internal ContactValidator ()
         {
-
             RuleFor(contact => contact.PhoneNumber)
                 .MinimumLength(11).WithMessage(Messages.Minimum(11));
             RuleFor(contact => contact.HouseNumber)

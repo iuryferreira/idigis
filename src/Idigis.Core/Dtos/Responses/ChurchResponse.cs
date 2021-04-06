@@ -1,4 +1,4 @@
-namespace Idigis.Core.Domain.Dtos.Responses
+namespace Idigis.Core.Dtos.Responses
 {
     public class CreateChurchResponse
     {
