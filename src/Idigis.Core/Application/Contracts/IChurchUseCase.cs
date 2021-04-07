@@ -10,5 +10,7 @@ namespace Idigis.Core.Application.Contracts
         AbstractNotificator Notificator { get; }
 
         public Task<CreateChurchResponse> Add (CreateChurchRequest data);
+        public Task<EditChurchResponse> Edit (EditChurchRequest data);
+        public Task<DeleteChurchResponse> Delete (DeleteChurchRequest data);
     }
 }
