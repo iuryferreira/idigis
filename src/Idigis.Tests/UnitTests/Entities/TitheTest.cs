@@ -13,8 +13,8 @@ namespace Idigis.Tests.UnitTests.Entities
         [TestInitialize]
         public void BeforeEach ()
         {
-            _titheValid = new(20, DateTime.Now, "valid_id");
-            _titheInvalid = new(0, DateTime.Now, "");
+            _titheValid = new(20, DateTime.Now);
+            _titheInvalid = new(0, DateTime.Now);
         }
 
         [TestMethod]
@@ -28,9 +28,8 @@ namespace Idigis.Tests.UnitTests.Entities
         {
             var messages = _titheInvalid.ValidationResult.Errors.Select(e => $"{e.PropertyName} - {e.ErrorMessage}")
                 .ToArray();
-            Assert.AreEqual(2, messages.Length);
+            Assert.AreEqual(1, messages.Length);
             Assert.AreEqual(messages[0], "Value - Este campo deve ser maior que 0.");
-            Assert.AreEqual(messages[1], "MemberId - Este campo deve ser informado(a).");
         }
 
         [TestMethod]
