@@ -18,6 +18,17 @@ namespace Idigis.Core.Domain.Entities
             }
         }
 
+        internal Church (string id, string name, Credentials credentials)
+        {
+            Id = id;
+            Name = name;
+            Credentials = credentials;
+            if (Validate(this, new ChurchValidator()))
+            {
+                Credentials.Password = new Hashio().Hash(Credentials.Password);
+            }
+        }
+
         internal string Name { get; }
         internal Credentials Credentials { get; }
 
