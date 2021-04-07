@@ -68,6 +68,9 @@ namespace Idigis.Tests.UnitTests.UseCases
         [TestMethod]
         public async Task Must_Return_Null_if_Entity_is_Not_Persisted_In_Add_Method ()
         {
+            _churchRepository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync(new Church(
+                "valid_id",
+                "valid_name", new("valid_email@email.com", "valid_password")));
             _repository.Setup(repository => repository.Add(It.IsAny<Offer>())).ReturnsAsync(false);
             Assert.IsNull(await _sut.Add(new("valid_id", 1)));
         }
@@ -124,7 +127,18 @@ namespace Idigis.Tests.UnitTests.UseCases
             _churchRepository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync(new Church(
                 "valid_id",
                 "valid_name", new("valid_email@email.com", "valid_password")));
+            _repository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync(new Offer(3));
             _repository.Setup(repository => repository.Update(It.IsAny<Offer>())).ReturnsAsync(false);
+            Assert.IsNull(await _sut.Edit(new("valid_id", Guid.NewGuid().ToString(), 30)));
+        }
+
+        [TestMethod]
+        public async Task Must_Return_Null_if_Offer_Is_Not_Found_In_Edit_Method ()
+        {
+            _churchRepository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync(new Church(
+                "valid_id",
+                "valid_name", new("valid_email@email.com", "valid_password")));
+            _repository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync((Offer)null);
             Assert.IsNull(await _sut.Edit(new("valid_id", Guid.NewGuid().ToString(), 30)));
         }
 
@@ -148,7 +162,7 @@ namespace Idigis.Tests.UnitTests.UseCases
         public async Task Must_Return_Null_if_Church_To_Delete_Offer_Is_Not_Found ()
         {
             _churchRepository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync((Church)null);
-            Assert.IsNull(await _sut.Edit(new("invalid_id", "offer_id", (decimal)32.1)));
+            Assert.IsNull(await _sut.Delete(new("invalid_id", "offer_id")));
         }
 
         [TestMethod]
