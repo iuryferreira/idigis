@@ -11,7 +11,7 @@ namespace Idigis.Core.Domain.Contracts
             Id = Guid.NewGuid().ToString();
         }
 
-        public string Id { get; }
+        public string Id { get; protected init; }
         private bool Valid { get; set; }
         public bool Invalid => !Valid;
         internal ValidationResult ValidationResult { get; private set; }
