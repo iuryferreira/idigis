@@ -7,15 +7,13 @@ namespace Idigis.Core.Domain.Entities
 {
     internal class Tithe : Entity
     {
-        internal Tithe (decimal value, DateTime date, string memberId)
+        internal Tithe (decimal value, DateTime date)
         {
             Value = value;
             Date = date;
-            MemberId = memberId;
             Validate(this, new TitheValidator());
         }
 
-        private string MemberId { get; }
         private DateTime Date { get; }
         private decimal Value { get; }
 
@@ -28,8 +26,6 @@ namespace Idigis.Core.Domain.Entities
                     .WithMessage(Messages.NotEmpty)
                     .GreaterThan(0)
                     .WithMessage(Messages.Minimum(0, false));
-                RuleFor(tithe => tithe.MemberId).NotEmpty()
-                    .WithMessage(Messages.NotEmpty);
                 RuleFor(tithe => tithe.Date)
                     .NotEmpty().WithMessage(Messages.NotEmpty);
             }
