@@ -36,5 +36,38 @@ namespace Idigis.Core.Application.UseCases
 
             return new() { Id = entity.Id, Name = entity.Name, Email = entity.Credentials.Email };
         }
+
+        public async Task<EditChurchResponse> Edit (EditChurchRequest data)
+        {
+            var church = await _repository.GetById(data.Id);
+            if (church is null)
+            {
+                return null;
+            }
+
+            var entity = new Church(data.Id, data.Name, new(data.Email, data.Password));
+            if (entity.Invalid)
+            {
+                Notificator.AddNotificationsByFluent(entity.ValidationResult);
+                return null;
+            }
+
+            if (!await _repository.Update(entity))
+            {
+                return null;
+            }
+
+            return new() { Id = entity.Id, Name = entity.Name, Email = entity.Credentials.Email };
+        }
+
+        public async Task<DeleteChurchResponse> Delete (DeleteChurchRequest data)
+        {
+            if (!await _repository.Remove(data.Id))
+            {
+                return null;
+            }
+
+            return new();
+        }
     }
 }
