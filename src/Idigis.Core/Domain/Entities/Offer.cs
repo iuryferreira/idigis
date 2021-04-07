@@ -12,7 +12,14 @@ namespace Idigis.Core.Domain.Entities
             Validate(this, new OfferValidator());
         }
 
-        private decimal Value { get; }
+        internal Offer (string id, decimal value)
+        {
+            Id = id;
+            Value = value;
+            Validate(this, new OfferValidator());
+        }
+
+        internal decimal Value { get; }
 
         private class OfferValidator : AbstractValidator<Offer>
         {
