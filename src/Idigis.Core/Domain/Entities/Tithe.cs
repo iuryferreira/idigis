@@ -14,8 +14,16 @@ namespace Idigis.Core.Domain.Entities
             Validate(this, new TitheValidator());
         }
 
-        private DateTime Date { get; }
-        private decimal Value { get; }
+        internal Tithe (string id, decimal value, DateTime date)
+        {
+            Id = id;
+            Value = value;
+            Date = date;
+            Validate(this, new TitheValidator());
+        }
+
+        internal DateTime Date { get; }
+        internal decimal Value { get; }
 
         private class TitheValidator : AbstractValidator<Tithe>
         {
