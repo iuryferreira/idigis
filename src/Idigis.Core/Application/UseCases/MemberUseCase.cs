@@ -12,27 +12,18 @@ namespace Idigis.Core.Application.UseCases
 {
     internal class MemberUseCase : IMemberUseCase
     {
-        private readonly IChurchRepository _churchRepository;
         private readonly IMemberRepository _repository;
 
-        public MemberUseCase (AbstractNotificator notificator, IMemberRepository repository,
-            IChurchRepository churchRepository)
+        public MemberUseCase (AbstractNotificator notificator, IMemberRepository repository)
         {
             Notificator = notificator;
             _repository = repository;
-            _churchRepository = churchRepository;
         }
 
         public AbstractNotificator Notificator { get; }
 
         public async Task<CreateMemberResponse> Add (CreateMemberRequest data)
         {
-            var church = await _churchRepository.GetById(data.ChurchId);
-            if (church is null)
-            {
-                return null;
-            }
-
             var contact = data.Contact is not null
                 ? new Contact(data.Contact.PhoneNumber,
                     data.Contact.HouseNumber,
@@ -47,7 +38,7 @@ namespace Idigis.Core.Application.UseCases
                 return null;
             }
 
-            if (!await _repository.Add(entity))
+            if (!await _repository.Add(data.ChurchId, entity))
             {
                 return null;
             }
@@ -70,18 +61,6 @@ namespace Idigis.Core.Application.UseCases
 
         public async Task<EditMemberResponse> Edit (EditMemberRequest data)
         {
-            var church = await _churchRepository.GetById(data.ChurchId);
-            if (church is null)
-            {
-                return null;
-            }
-
-            var member = await _repository.GetById(data.Id);
-            if (member is null)
-            {
-                return null;
-            }
-
             var contact = data.Contact is not null
                 ? new Contact(data.Contact.PhoneNumber,
                     data.Contact.HouseNumber,
@@ -89,14 +68,14 @@ namespace Idigis.Core.Application.UseCases
                     data.Contact.District,
                     data.Contact.City)
                 : null;
-            var entity = new Member(data.FullName, data.BirthDate, data.BaptismDate, contact);
+            var entity = new Member(data.Id, data.FullName, data.BirthDate, data.BaptismDate, contact);
             if (entity.Invalid)
             {
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }
 
-            if (!await _repository.Update(entity))
+            if (!await _repository.Update(data.ChurchId, entity))
             {
                 return null;
             }
@@ -119,13 +98,7 @@ namespace Idigis.Core.Application.UseCases
 
         public async Task<DeleteMemberResponse> Delete (DeleteMemberRequest data)
         {
-            var church = await _churchRepository.GetById(data.ChurchId);
-            if (church is null)
-            {
-                return null;
-            }
-
-            if (!await _repository.Remove(data.Id))
+            if (!await _repository.Remove(data.ChurchId, data.Id))
             {
                 return null;
             }

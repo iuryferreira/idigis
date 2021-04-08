@@ -5,9 +5,9 @@ namespace Idigis.Core.Persistence.Contracts
 {
     internal interface IMemberRepository
     {
-        Task<bool> Add (Member entity);
-        Task<Member> GetById (string id);
-        Task<bool> Update (Member entity);
-        Task<bool> Remove (string id);
+        Task<bool> Add (string churchId, Member entity);
+        Task<Member> GetById (string churchId, string id);
+        Task<bool> Update (string churchId, Member entity);
+        Task<bool> Remove (string churchId, string id);
     }
 }
