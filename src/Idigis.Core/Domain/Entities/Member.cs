@@ -18,6 +18,17 @@ namespace Idigis.Core.Domain.Entities
             Validate(this, new MemberValidator());
         }
 
+        internal Member (string id, string fullName, DateTime? birthDate = null, DateTime? baptismDate = null,
+            Contact contact = null)
+        {
+            Id = id;
+            FullName = fullName;
+            BirthDate = birthDate;
+            BaptismDate = baptismDate;
+            Contact = contact;
+            Validate(this, new MemberValidator());
+        }
+
         internal string FullName { get; }
         internal DateTime? BirthDate { get; }
         internal DateTime? BaptismDate { get; }
