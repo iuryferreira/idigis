@@ -34,17 +34,12 @@ namespace Idigis.Tests.UnitTests.UseCases
         }
 
         [TestMethod]
-        public async Task Must_Return_Null_if_Data_Provided_To_Create_Is_Invalid ()
+        public async Task Must_Return_Null_And_Notifications_if_Data_Provided_To_Create_Is_Invalid ()
         {
-            Assert.IsNull(await _sut.Add(new("", "", "")));
-        }
-
-        [TestMethod]
-        public async Task Must_Add_Notifications_if_Data_Provided_To_Create_Is_Invalid ()
-        {
-            await _sut.Add(new("", "", ""));
+            var response = await _sut.Add(new("", "", ""));
             var messages = _sut.Notificator.Notifications
                 .Select(notification => $"{notification.Key} - {notification.Message}").ToArray();
+            Assert.IsNull(response);
             Assert.IsTrue(_sut.Notificator.HasNotifications);
             Assert.AreEqual(5, messages.Length);
             Assert.AreEqual(messages[0], "Email - Este campo deve ser informado(a).");
@@ -74,44 +69,20 @@ namespace Idigis.Tests.UnitTests.UseCases
         }
 
         [TestMethod]
-        public async Task Must_Return_Null_if_Id_To_Edit_Is_Not_Found ()
+        public async Task Must_Return_Null_And_Notifications_if_Data_Provided_To_Edit_Is_Invalid ()
         {
-            _repository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync((Church)null);
-            Assert.IsNull(await _sut.Edit(new("", "", "", "")));
-        }
-
-
-        [TestMethod]
-        public async Task Must_Return_Null_if_Data_Provided_To_Edit_Is_Invalid ()
-        {
-            _repository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync(new Church("valid_id",
-                "valid_name", new("valid_email@email.com", "valid_password")));
-            Assert.IsNull(await _sut.Edit(new("", "", "", "")));
-        }
-
-        [TestMethod]
-        public async Task Must_Add_Notifications_if_Data_Provided_To_Edit_Is_Invalid ()
-        {
-            _repository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync(new Church("valid_id",
-                "valid_name", new("valid_email@email.com", "valid_password")));
-            await _sut.Edit(new(Guid.NewGuid().ToString(), "", "", ""));
+            var response = await _sut.Edit(new("", "", "", ""));
             var messages = _sut.Notificator.Notifications
                 .Select(notification => $"{notification.Key} - {notification.Message}").ToArray();
+            Assert.IsNull(response);
             Assert.IsTrue(_sut.Notificator.HasNotifications);
-            Assert.AreEqual(5, messages.Length);
-            Assert.AreEqual(messages[0], "Email - Este campo deve ser informado(a).");
-            Assert.AreEqual(messages[1], "Email - Forneça um email válido.");
-            Assert.AreEqual(messages[2], "Password - Este campo deve ser informado(a).");
-            Assert.AreEqual(messages[3], "Password - Este campo deve ser maior que 8 caracteres.");
-            Assert.AreEqual(messages[4], "Name - Este campo deve ser informado(a).");
+            Assert.AreEqual(7, messages.Length);
         }
 
         [TestMethod]
         public async Task Must_Return_Null_if_Entity_is_Not_Persisted_In_Edit_Method ()
         {
-            _repository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync(new Church("valid_id",
-                "valid_name", new("valid_email@email.com", "valid_password")));
-            _repository.Setup(repository => repository.Update(It.IsAny<Church>())).ReturnsAsync(false);
+            _repository.Setup(repository => repository.Add(It.IsAny<Church>())).ReturnsAsync(false);
             Assert.IsNull(await _sut.Edit(new(Guid.NewGuid().ToString(), "valid_name", "valid_email@email.com",
                 "valid_password")));
         }
@@ -119,8 +90,6 @@ namespace Idigis.Tests.UnitTests.UseCases
         [TestMethod]
         public async Task Must_Return_a_Response_If_the_Entity_Is_Valid_And_Persisted_In_Edit_Method ()
         {
-            _repository.Setup(repository => repository.GetById(It.IsAny<string>())).ReturnsAsync(new Church("valid_id",
-                "valid_name", new("valid_email@email.com", "valid_password")));
             _repository.Setup(repository => repository.Update(It.IsAny<Church>())).ReturnsAsync(true);
             var data = new EditChurchRequest(Guid.NewGuid().ToString(), "valid_name", "valid_email@email.com",
                 "valid_password");
