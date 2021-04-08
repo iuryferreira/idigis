@@ -2,7 +2,7 @@ namespace Idigis.Core.Dtos.Responses
 {
     public class CreateOfferResponse
     {
-        public string Id { get; set; }
+        public string Id { get; init; }
         public decimal Value { get; init; }
     }
 
