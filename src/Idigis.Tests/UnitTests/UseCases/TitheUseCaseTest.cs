@@ -29,6 +29,7 @@ namespace Idigis.Tests.UnitTests.UseCases
 
         [TestInitialize]
         public void BeforeEach ()
+
         {
             _notificator = new Notificator();
             _sut = new TitheUseCase(_notificator, _repository.Object);
@@ -51,7 +52,7 @@ namespace Idigis.Tests.UnitTests.UseCases
         {
             _repository.Setup(repository => repository.Add(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Tithe>()))
                 .ReturnsAsync(false);
-            Assert.IsNull(await _sut.Add(new("valid_id", "valid_id", 0, DateTime.Now.AddYears(1))));
+            Assert.IsNull(await _sut.Add(new("valid_id", "valid_id", 10, DateTime.Now.AddYears(1))));
         }
 
         [TestMethod]
@@ -87,7 +88,8 @@ namespace Idigis.Tests.UnitTests.UseCases
             _repository.Setup(
                     repository => repository.Update(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Tithe>()))
                 .ReturnsAsync(false);
-            Assert.IsNull(await _sut.Add(new("valid_id", "valid_id", 0, DateTime.Now.AddYears(1))));
+            Assert.IsNull(await _sut.Edit(new("valid_id", "valid_id", Guid.NewGuid().ToString(), 1,
+                DateTime.Now.AddYears(1))));
         }
 
         [TestMethod]
