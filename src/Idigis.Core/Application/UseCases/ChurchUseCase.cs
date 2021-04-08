@@ -39,12 +39,6 @@ namespace Idigis.Core.Application.UseCases
 
         public async Task<EditChurchResponse> Edit (EditChurchRequest data)
         {
-            var church = await _repository.GetById(data.Id);
-            if (church is null)
-            {
-                return null;
-            }
-
             var entity = new Church(data.Id, data.Name, new(data.Email, data.Password));
             if (entity.Invalid)
             {
