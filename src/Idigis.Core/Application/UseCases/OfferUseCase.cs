@@ -10,15 +10,12 @@ namespace Idigis.Core.Application.UseCases
 {
     internal class OfferUseCase : IOfferUseCase
     {
-        private readonly IChurchRepository _churchRepository;
         private readonly IOfferRepository _repository;
 
 
-        public OfferUseCase (AbstractNotificator notificator, IOfferRepository repository,
-            IChurchRepository churchRepository)
+        public OfferUseCase (AbstractNotificator notificator, IOfferRepository repository)
         {
             _repository = repository;
-            _churchRepository = churchRepository;
             Notificator = notificator;
         }
 
@@ -26,12 +23,6 @@ namespace Idigis.Core.Application.UseCases
 
         public async Task<CreateOfferResponse> Add (CreateOfferRequest data)
         {
-            var church = await _churchRepository.GetById(data.ChurchId);
-            if (church is null)
-            {
-                return null;
-            }
-
             var entity = new Offer(data.Value);
             if (entity.Invalid)
             {
@@ -39,7 +30,7 @@ namespace Idigis.Core.Application.UseCases
                 return null;
             }
 
-            if (!await _repository.Add(entity))
+            if (!await _repository.Add(data.ChurchId, entity))
             {
                 return null;
             }
@@ -49,18 +40,6 @@ namespace Idigis.Core.Application.UseCases
 
         public async Task<EditOfferResponse> Edit (EditOfferRequest data)
         {
-            var church = await _churchRepository.GetById(data.ChurchId);
-            if (church is null)
-            {
-                return null;
-            }
-
-            var offer = await _repository.GetById(data.Id);
-            if (offer is null)
-            {
-                return null;
-            }
-
             var entity = new Offer(data.Id, data.Value);
             if (entity.Invalid)
             {
@@ -68,7 +47,7 @@ namespace Idigis.Core.Application.UseCases
                 return null;
             }
 
-            if (!await _repository.Update(entity))
+            if (!await _repository.Update(data.ChurchId, entity))
             {
                 return null;
             }
@@ -78,13 +57,7 @@ namespace Idigis.Core.Application.UseCases
 
         public async Task<DeleteOfferResponse> Delete (DeleteOfferRequest data)
         {
-            var church = await _churchRepository.GetById(data.ChurchId);
-            if (church is null)
-            {
-                return null;
-            }
-
-            if (!await _repository.Remove(data.Id))
+            if (!await _repository.Remove(data.ChurchId, data.Id))
             {
                 return null;
             }
