@@ -18,10 +18,10 @@ namespace Idigis.Core.Domain.Entities
             Validate(this, new MemberValidator());
         }
 
-        private string FullName { get; }
-        private DateTime? BirthDate { get; }
-        private DateTime? BaptismDate { get; }
-        private Contact Contact { get; }
+        internal string FullName { get; }
+        internal DateTime? BirthDate { get; }
+        internal DateTime? BaptismDate { get; }
+        internal Contact Contact { get; }
 
         private class MemberValidator : AbstractValidator<Member>
         {
