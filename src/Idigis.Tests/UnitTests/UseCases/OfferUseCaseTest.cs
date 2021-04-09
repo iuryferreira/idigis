@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Idigis.Core.Application.Contracts;
@@ -110,6 +111,40 @@ namespace Idigis.Tests.UnitTests.UseCases
             _repository.Setup(repository => repository.Remove(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(true);
             Assert.IsNotNull(await _sut.Delete(new("valid_id", "valid_id")));
+        }
+
+        [TestMethod]
+        public async Task Must_Return_Null_if_the_Entity_To_Get_Is_Not_Found ()
+        {
+            _repository.Setup(repository => repository.GetById(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync((Offer)null);
+            Assert.IsNull(await _sut.Get(new("invalid_id", "invalid_id")));
+        }
+
+        [TestMethod]
+        public async Task Must_Return_a_Response_If_the_Entity_To_Get_Is_Found ()
+        {
+            _repository.Setup(repository => repository.GetById(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync(new Offer(1));
+            Assert.IsNotNull(await _sut.Get(new("valid_id", "valid_id")));
+        }
+
+        [TestMethod]
+        public async Task Must_Return_Empty_List_if_the_Entity_To_List_Is_Not_Found ()
+        {
+            _repository.Setup(repository => repository.All(It.IsAny<string>()))
+                .ReturnsAsync((List<Offer>)null);
+            var members = await _sut.List(new("invalid_id"));
+            Assert.AreEqual(0, members.Count);
+        }
+
+        [TestMethod]
+        public async Task Must_Return_an_List_if_the_Entity_To_List_Is_Found ()
+        {
+            _repository.Setup(repository => repository.All(It.IsAny<string>()))
+                .ReturnsAsync(new List<Offer> { new(1) });
+            var members = await _sut.List(new("invalid_id"));
+            Assert.AreEqual(1, members.Count);
         }
     }
 }

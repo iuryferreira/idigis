@@ -114,5 +114,20 @@ namespace Idigis.Tests.UnitTests.UseCases
             _repository.Setup(repository => repository.Remove(It.IsAny<string>())).ReturnsAsync(true);
             Assert.IsNotNull(await _sut.Delete(new("valid_id")));
         }
+
+        [TestMethod]
+        public async Task Must_Return_Null_if_Church_To_Get_Is_Not_Found ()
+        {
+            _repository.Setup(repository => repository.GetByEmail(It.IsAny<string>())).ReturnsAsync((Church)null);
+            Assert.IsNull(await _sut.Get(new("not_found_email")));
+        }
+
+        [TestMethod]
+        public async Task Must_Return_a_Response_If_the_Entity_Is_Found ()
+        {
+            _repository.Setup(repository => repository.GetByEmail(It.IsAny<string>()))
+                .ReturnsAsync(new Church("valid_name", new("valid_email@email.com", "valid_password")));
+            Assert.IsNotNull(await _sut.Get(new("found_email")));
+        }
     }
 }
