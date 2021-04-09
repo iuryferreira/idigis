@@ -7,6 +7,7 @@ namespace Idigis.Core.Persistence.Contracts
     {
         Task<bool> Add (Church entity);
         Task<Church> GetById (string id);
+        Task<Church> GetByEmail (string email);
         Task<bool> Update (Church entity);
         Task<bool> Remove (string id);
     }

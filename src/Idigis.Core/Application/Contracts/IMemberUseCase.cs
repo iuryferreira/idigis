@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Idigis.Core.Dtos.Requests;
 using Idigis.Core.Dtos.Responses;
@@ -9,6 +10,8 @@ namespace Idigis.Core.Application.Contracts
     {
         AbstractNotificator Notificator { get; }
         public Task<CreateMemberResponse> Add (CreateMemberRequest data);
+        public Task<GetMemberResponse> Get (GetMemberRequest data);
+        public Task<List<GetMemberResponse>> List (ListMemberRequest data);
         public Task<EditMemberResponse> Edit (EditMemberRequest data);
         public Task<DeleteMemberResponse> Delete (DeleteMemberRequest data);
     }

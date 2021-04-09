@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Idigis.Core.Dtos.Requests;
 using Idigis.Core.Dtos.Responses;
@@ -9,6 +10,8 @@ namespace Idigis.Core.Application.Contracts
     {
         AbstractNotificator Notificator { get; }
         public Task<CreateOfferResponse> Add (CreateOfferRequest data);
+        public Task<GetOfferResponse> Get (GetOfferRequest data);
+        public Task<List<GetOfferResponse>> List (ListOfferRequest data);
         public Task<EditOfferResponse> Edit (EditOfferRequest data);
         public Task<DeleteOfferResponse> Delete (DeleteOfferRequest data);
     }
