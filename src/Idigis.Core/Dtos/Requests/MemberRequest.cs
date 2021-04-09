@@ -3,6 +3,28 @@ using Idigis.Core.Dtos.Types;
 
 namespace Idigis.Core.Dtos.Requests
 {
+    public class GetMemberRequest
+    {
+        public GetMemberRequest (string churchId, string id)
+        {
+            ChurchId = churchId;
+            Id = id;
+        }
+
+        public string Id { get; }
+        public string ChurchId { get; }
+    }
+
+    public class ListMemberRequest
+    {
+        public ListMemberRequest (string churchId)
+        {
+            ChurchId = churchId;
+        }
+
+        public string ChurchId { get; }
+    }
+
     public class CreateMemberRequest
     {
         public CreateMemberRequest (string churchId, string fullName, DateTime? birthDate = null,

@@ -1,5 +1,17 @@
 namespace Idigis.Core.Dtos.Requests
 {
+    public class GetChurchRequest
+    {
+        public GetChurchRequest (string email, string id = "")
+        {
+            Id = id;
+            Email = email;
+        }
+
+        public string Id { get; }
+        public string Email { get; }
+    }
+
     public class CreateChurchRequest
     {
         public CreateChurchRequest (string name, string email, string password)

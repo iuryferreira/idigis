@@ -2,6 +2,32 @@ using System;
 
 namespace Idigis.Core.Dtos.Requests
 {
+    public class GetTitheRequest
+    {
+        public GetTitheRequest (string churchId, string memberId, string id)
+        {
+            ChurchId = churchId;
+            Id = id;
+            MemberId = memberId;
+        }
+
+        public string Id { get; }
+        public string ChurchId { get; }
+        public string MemberId { get; }
+    }
+
+    public class ListTitheRequest
+    {
+        public ListTitheRequest (string churchId, string memberId)
+        {
+            ChurchId = churchId;
+            MemberId = memberId;
+        }
+
+        public string ChurchId { get; }
+        public string MemberId { get; }
+    }
+
     public class CreateTitheRequest
     {
         public CreateTitheRequest (string churchId, string memberId, decimal value, DateTime date)
