@@ -5,8 +5,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Hashio" Version="1.1.1" />
-        <PackageReference Include="Notie" Version="1.0.2" />
+        <PackageReference Include="DotNetEnv" Version="2.1.1"/>
+        <PackageReference Include="Hashio" Version="1.1.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="5.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0"/>
+        <PackageReference Include="Notie" Version="1.0.2"/>
+        <PackageReference Include="Npgsql" Version="5.0.4"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
