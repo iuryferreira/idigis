@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Idigis.Core.Application.Contracts;
 using Idigis.Core.Domain.Entities;
@@ -57,6 +59,45 @@ namespace Idigis.Core.Application.UseCases
                         entity.Contact.City)
                     : null
             };
+        }
+
+        public async Task<GetMemberResponse> Get (GetMemberRequest data)
+        {
+            var member = await _repository.GetById(data.ChurchId, data.Id);
+            return member is null
+                ? null
+                : new()
+                {
+                    Id = member.Id,
+                    FullName = member.FullName,
+                    BaptismDate = member.BaptismDate,
+                    BirthDate = member.BirthDate,
+                    Contact = member.Contact is not null
+                        ? new ContactType(member.Contact.PhoneNumber,
+                            member.Contact.HouseNumber,
+                            member.Contact.Street,
+                            member.Contact.District,
+                            member.Contact.City)
+                        : null
+                };
+        }
+
+        public async Task<List<GetMemberResponse>> List (ListMemberRequest data)
+        {
+            var members = await _repository.All(data.ChurchId);
+            return members is null
+                ? new()
+                : members.Select(member => new GetMemberResponse
+                {
+                    Id = member.Id,
+                    FullName = member.FullName,
+                    BaptismDate = member.BaptismDate,
+                    BirthDate = member.BirthDate,
+                    Contact = member.Contact is not null
+                        ? new ContactType(member.Contact.PhoneNumber, member.Contact.HouseNumber, member.Contact.Street,
+                            member.Contact.District, member.Contact.City)
+                        : null
+                }).ToList();
         }
 
         public async Task<EditMemberResponse> Edit (EditMemberRequest data)

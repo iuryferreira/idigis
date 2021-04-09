@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Idigis.Core.Application.Contracts;
 using Idigis.Core.Domain.Entities;
@@ -36,6 +38,20 @@ namespace Idigis.Core.Application.UseCases
             }
 
             return new() { Id = entity.Id, Value = entity.Value };
+        }
+
+        public async Task<GetOfferResponse> Get (GetOfferRequest data)
+        {
+            var offer = await _repository.GetById(data.ChurchId, data.Id);
+            return offer is null ? null : new() { Id = offer.Id, Value = offer.Value };
+        }
+
+        public async Task<List<GetOfferResponse>> List (ListOfferRequest data)
+        {
+            var offers = await _repository.All(data.ChurchId);
+            return offers is null
+                ? new()
+                : offers.Select(offer => new GetOfferResponse { Id = offer.Id, Value = offer.Value }).ToList();
         }
 
         public async Task<EditOfferResponse> Edit (EditOfferRequest data)

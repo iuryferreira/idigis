@@ -37,6 +37,19 @@ namespace Idigis.Core.Application.UseCases
             return new() { Id = entity.Id, Name = entity.Name, Email = entity.Credentials.Email };
         }
 
+        public async Task<GetChurchResponse> Get (GetChurchRequest data)
+        {
+            var church = string.IsNullOrEmpty(data.Id)
+                ? await _repository.GetByEmail(data.Email)
+                : await _repository.GetById(data.Id);
+            if (church is null)
+            {
+                return null;
+            }
+
+            return new() { Id = church.Id, Name = church.Name, Email = church.Credentials.Email };
+        }
+
         public async Task<EditChurchResponse> Edit (EditChurchRequest data)
         {
             var entity = new Church(data.Id, data.Name, new(data.Email, data.Password));
