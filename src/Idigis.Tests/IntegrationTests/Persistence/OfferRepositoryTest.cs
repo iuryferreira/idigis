@@ -46,7 +46,6 @@ namespace Idigis.Tests.IntegrationTests.Persistence
             Assert.AreEqual(messages[0], "Repository - Esta igreja não existe no sistema.");
         }
 
-
         [TestMethod]
         public async Task The_Add_Method_Must_Return_False_If_the_Entity_Cannot_Be_Added ()
         {
@@ -68,7 +67,6 @@ namespace Idigis.Tests.IntegrationTests.Persistence
             Assert.IsTrue(await _sut.Add(_church.Id, entity));
         }
 
-
         [TestMethod]
         public async Task The_Get_Method_Should_Return_Null_If_the_Church_Does_Not_Exist_in_the_Database ()
         {
@@ -80,7 +78,6 @@ namespace Idigis.Tests.IntegrationTests.Persistence
             Assert.AreEqual(1, messages.Length);
             Assert.AreEqual(messages[0], "Repository - Esta igreja não existe no sistema.");
         }
-
 
         [TestMethod]
         public async Task The_Get_Method_Should_Return_Null_If_the_Entity_Does_Not_Exist_in_the_Database ()
@@ -170,7 +167,6 @@ namespace Idigis.Tests.IntegrationTests.Persistence
             Assert.AreEqual(1, messages.Length);
             Assert.AreEqual(messages[0], "Repository - Registro não encontrado.");
         }
-
 
         [TestMethod]
         public async Task The_Update_Method_Should_Return_False_If_the_Entity_Cannot_Be_Updated ()
