@@ -23,10 +23,7 @@ namespace Idigis.Core.Domain.Entities
             Id = id;
             Name = name;
             Credentials = credentials;
-            if (Validate(this, new ChurchValidator()))
-            {
-                Credentials.Password = new Hashio().Hash(Credentials.Password);
-            }
+            Validate(this, new ChurchValidator());
         }
 
         internal string Name { get; }
