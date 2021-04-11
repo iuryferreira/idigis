@@ -2,7 +2,7 @@
 
 case $1 in
 test) dotnet test --nologo && rm -rf `find -type d -name TestResults` ;;
-test:coverage) dotnet test --nologo -v q /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../../coverage/lcov.info /p:ExcludeByFile=\"**/Migrations/*.cs\" && rm -rf `find -type d -name TestResults` ;;
+test:coverage) dotnet test --nologo -v q /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../../coverage/lcov.info /p:ExcludeByFile=\"**/Migrations/*.cs,**/Models/*.cs\" && rm -rf `find -type d -name TestResults` ;;
 test:silent) dotnet test --nologo -v q && rm -rf `find -type d -name TestResults` ;;
 test:nobuild) dotnet test --no-build --nologo && rm -rf `find -type d -name TestResults` ;;
 db:migrate) dotnet ef migrations --project src/Idigis.Core -o Persistence/Migrations add $2 ;;
