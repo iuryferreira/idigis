@@ -1,4 +1,7 @@
+using System;
+using DotNetEnv;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace Idigis.Api
@@ -12,9 +15,14 @@ namespace Idigis.Api
 
         public static IHostBuilder CreateHostBuilder (string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
+                .ConfigureAppConfiguration(configurationBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                    {
+                        Env.TraversePath().Load();
+                    }
+                    configurationBuilder.AddEnvironmentVariables();
                 });
     }
 }
