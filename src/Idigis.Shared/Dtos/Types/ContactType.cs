@@ -1,4 +1,4 @@
-namespace Idigis.Core.Dtos.Types
+namespace Idigis.Shared.Dtos.Types
 {
     public class ContactType
     {

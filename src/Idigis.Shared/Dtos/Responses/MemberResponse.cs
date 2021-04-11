@@ -1,7 +1,7 @@
 using System;
-using Idigis.Core.Dtos.Types;
+using Idigis.Shared.Dtos.Types;
 
-namespace Idigis.Core.Dtos.Responses
+namespace Idigis.Shared.Dtos.Responses
 {
     public class GetMemberResponse
     {

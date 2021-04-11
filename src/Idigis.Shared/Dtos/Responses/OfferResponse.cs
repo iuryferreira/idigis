@@ -1,4 +1,4 @@
-namespace Idigis.Core.Dtos.Responses
+namespace Idigis.Shared.Dtos.Responses
 {
     public class GetOfferResponse
     {

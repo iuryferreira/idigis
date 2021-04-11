@@ -1,7 +1,7 @@
 using System;
-using Idigis.Core.Dtos.Types;
+using Idigis.Shared.Dtos.Types;
 
-namespace Idigis.Core.Dtos.Requests
+namespace Idigis.Shared.Dtos.Requests
 {
     public class GetMemberRequest
     {
