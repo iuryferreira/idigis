@@ -1,6 +1,7 @@
 #!/bin/bash
 
 case $1 in
+api:serve) dotnet watch run --project src/Idigis.Api ;;
 test) dotnet test --nologo && rm -rf `find -type d -name TestResults` ;;
 test:coverage) dotnet test --nologo -v q /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../../coverage/lcov.info /p:ExcludeByFile=\"**/Migrations/*.cs,**/Models/*.cs\" && rm -rf `find -type d -name TestResults` ;;
 test:silent) dotnet test --nologo -v q && rm -rf `find -type d -name TestResults` ;;
