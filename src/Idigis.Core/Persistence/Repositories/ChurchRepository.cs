@@ -50,12 +50,14 @@ namespace Idigis.Core.Persistence.Repositories
             try
             {
                 var model = await _context.ChurchContext.FirstOrDefaultAsync(church => church.Id == id);
-                if (model is null)
+                if (model is not null)
                 {
-                    Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                    return model;
                 }
 
-                return model;
+                Notificator.SetNotificationType(new("NotFound"));
+                Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                return null;
             }
             catch
             {
@@ -69,15 +71,18 @@ namespace Idigis.Core.Persistence.Repositories
             try
             {
                 var model = await _context.ChurchContext.FirstOrDefaultAsync(church => church.Email == email);
-                if (model is null)
+                if (model is not null)
                 {
-                    Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                    return model;
                 }
 
-                return model;
+                Notificator.SetNotificationType(new("NotFound"));
+                Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                return null;
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na busca."));
                 return null;
             }
@@ -90,6 +95,7 @@ namespace Idigis.Core.Persistence.Repositories
                 var model = await _context.ChurchContext.FirstOrDefaultAsync(church => church.Id == entity.Id);
                 if (model is null)
                 {
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Registro não encontrado."));
                     return false;
                 }
@@ -114,6 +120,7 @@ namespace Idigis.Core.Persistence.Repositories
                 var model = await _context.ChurchContext.FirstOrDefaultAsync(church => church.Id == id);
                 if (model is null)
                 {
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Registro não encontrado."));
                     return false;
                 }

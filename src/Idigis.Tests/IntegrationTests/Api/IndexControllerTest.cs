@@ -1,15 +1,14 @@
-using System;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Idigis.Api;
 using Idigis.Core.Persistence;
 using Idigis.Tests.IntegrationTests.Persistence.Helpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Idigis.Tests.IntegrationTests.Api
 {
@@ -30,7 +29,7 @@ namespace Idigis.Tests.IntegrationTests.Api
                 });
             });
         }
-        
+
         [TestMethod]
         public async Task The_Signup_Method_Must_Return_a_Bad_Request_When_Receiving_Invalid_Data ()
         {
@@ -40,7 +39,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
         }
-        
+
         [TestMethod]
         public async Task The_Signup_Method_Must_Return_Created_When_Receiving_Valid_Data ()
         {
