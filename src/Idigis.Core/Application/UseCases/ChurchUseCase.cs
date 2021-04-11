@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Idigis.Core.Application.Contracts;
 using Idigis.Core.Domain.Entities;
-using Idigis.Core.Dtos.Requests;
-using Idigis.Core.Dtos.Responses;
 using Idigis.Core.Persistence.Contracts;
+using Idigis.Shared.Dtos.Requests;
+using Idigis.Shared.Dtos.Responses;
 using Notie.Contracts;
 
 namespace Idigis.Core.Application.UseCases

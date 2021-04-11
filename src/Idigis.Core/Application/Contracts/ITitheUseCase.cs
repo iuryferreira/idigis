@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Idigis.Core.Dtos.Requests;
-using Idigis.Core.Dtos.Responses;
+using Idigis.Shared.Dtos.Requests;
+using Idigis.Shared.Dtos.Responses;
 using Notie.Contracts;
 
 namespace Idigis.Core.Application.Contracts
