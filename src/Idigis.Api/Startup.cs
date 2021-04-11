@@ -1,3 +1,4 @@
+using Idigis.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,11 +19,11 @@ namespace Idigis.Api
 
         public void ConfigureServices (IServiceCollection services)
         {
-
+            services.AddCore(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Idigis.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Idigis", Version = "v1" });
             });
         }
 
@@ -32,7 +33,7 @@ namespace Idigis.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Idigis.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Idigis v1"));
             }
 
             app.UseHttpsRedirection();
