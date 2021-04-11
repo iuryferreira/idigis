@@ -25,7 +25,8 @@ namespace Idigis.Core.Persistence.Repositories
             try
             {
                 var exists =
-                    await _context.ChurchContext.FirstOrDefaultAsync(church => church.Id == model.Id) is not null;
+                    await _context.ChurchContext.FirstOrDefaultAsync(church =>
+                        church.Id == model.Id || church.Email == model.Email) is not null;
                 if (exists)
                 {
                     Notificator.SetNotificationType(new("Validation"));
