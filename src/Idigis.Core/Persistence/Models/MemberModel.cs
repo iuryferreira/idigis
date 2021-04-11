@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Idigis.Core.Domain.Entities;
@@ -20,6 +21,7 @@ namespace Idigis.Core.Persistence.Models
 
         [Required] public string ChurchId { get; set; }
         [Required] public ChurchModel Church { get; set; }
+        public List<TitheModel> Tithes { get; set; }
 
         public static implicit operator MemberModel (Member entity)
         {
