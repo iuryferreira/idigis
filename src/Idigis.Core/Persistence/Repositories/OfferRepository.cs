@@ -153,7 +153,6 @@ namespace Idigis.Core.Persistence.Repositories
                 }
 
                 _context.OfferContext.Remove(model);
-                ;
                 await _context.SaveChangesAsync();
                 return true;
             }
