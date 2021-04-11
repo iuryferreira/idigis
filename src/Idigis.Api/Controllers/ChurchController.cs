@@ -27,9 +27,12 @@ namespace Idigis.Api.Controllers
                 return Ok(response);
             }
 
-            return _usecase.Notificator.NotificationType.Name is "Internal"
-                ? StatusCode(500, _usecase.Notificator.Notifications)
-                : BadRequest(_usecase.Notificator.Notifications);
+            return _usecase.Notificator.NotificationType.Name switch
+            {
+                "NotFound" => NotFound(_usecase.Notificator.Notifications),
+                "Internal" => StatusCode(500, _usecase.Notificator.Notifications),
+                _ => BadRequest(_usecase.Notificator.Notifications)
+            };
         }
 
         //TODO : Testar
@@ -50,12 +53,11 @@ namespace Idigis.Api.Controllers
                 : BadRequest(_usecase.Notificator.Notifications);
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("{id}")]
-        public async Task<ActionResult<DeleteChurchResponse>> Update ([FromBody] DeleteChurchRequest request,
-            [FromRoute] string id)
+        public async Task<ActionResult<DeleteChurchResponse>> Delete ([FromRoute] string id)
         {
-            request.Id = id;
+            var request = new DeleteChurchRequest(id);
             var response = await _usecase.Delete(request);
             if (response is not null)
             {
