@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Idigis.Api.Controllers
 {
-    [Route(Routes.Base)]
+    [Route(Routes.Index.Base)]
     public class IndexController : ControllerBase
     {
         private readonly IChurchUseCase _churchUseCase;
