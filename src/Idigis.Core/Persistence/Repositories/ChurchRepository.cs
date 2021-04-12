@@ -40,6 +40,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na inserção."));
                 return false;
             }
@@ -61,6 +62,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na busca."));
                 return null;
             }
@@ -108,6 +110,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na atualização."));
                 return false;
             }
@@ -131,6 +134,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na remoção."));
                 return false;
             }

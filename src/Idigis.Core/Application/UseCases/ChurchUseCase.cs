@@ -25,6 +25,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Church(data.Name, new(data.Email, data.Password));
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }
@@ -55,6 +56,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Church(data.Id, data.Name, new(data.Email, data.Password));
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }
