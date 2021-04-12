@@ -10,7 +10,12 @@ namespace Idigis.Api
 
         public static class Church
         {
-            public const string Base = "api/church/";
+            public const string Base = "api/churches/";
+        }
+
+        public static class Offer
+        {
+            public const string Base = "api/offers";
         }
     }
 }
