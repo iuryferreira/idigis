@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Idigis.Core.Application.Contracts;
 using Idigis.Core.Application.UseCases;
 using Idigis.Core.Persistence;
@@ -11,6 +12,7 @@ using Notie.Contracts;
 
 namespace Idigis.Core
 {
+    [ExcludeFromCodeCoverage]
     public static class Register
     {
         public static void AddCore (this IServiceCollection services, IConfiguration configuration)

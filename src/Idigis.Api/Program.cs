@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using DotNetEnv;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Idigis.Api
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         public static void Main (string[] args)
@@ -13,8 +15,9 @@ namespace Idigis.Api
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder (string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder (string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
                 .ConfigureAppConfiguration(configurationBuilder =>
                 {
@@ -22,7 +25,9 @@ namespace Idigis.Api
                     {
                         Env.TraversePath().Load();
                     }
+
                     configurationBuilder.AddEnvironmentVariables();
                 });
+        }
     }
 }
