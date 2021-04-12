@@ -32,7 +32,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
                     return false;
                 }
@@ -44,6 +44,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na inserção."));
                 return false;
             }
@@ -59,7 +60,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
                     return null;
                 }
@@ -68,6 +69,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .Select(m => m.Tithes.FirstOrDefault(t => t.Id == id)).FirstOrDefaultAsync();
                 if (model is null)
                 {
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Registro não encontrado."));
                 }
 
@@ -75,6 +77,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na busca."));
                 return null;
             }
@@ -90,7 +93,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
                     return null;
                 }
@@ -101,6 +104,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na listagem."));
                 return null;
             }
@@ -116,7 +120,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
                     return false;
                 }
@@ -125,6 +129,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .Select(m => m.Tithes.FirstOrDefault(t => t.Id == entity.Id)).FirstOrDefaultAsync();
                 if (model is null)
                 {
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Registro não encontrado."));
                     return false;
                 }
@@ -136,6 +141,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na atualização."));
                 return false;
             }
@@ -151,7 +157,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
                     return false;
                 }
@@ -160,6 +166,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .Select(m => m.Tithes.FirstOrDefault(t => t.Id == id)).FirstOrDefaultAsync();
                 if (model is null)
                 {
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Registro não encontrado."));
                     return false;
                 }
@@ -170,6 +177,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na remoção."));
                 return false;
             }
