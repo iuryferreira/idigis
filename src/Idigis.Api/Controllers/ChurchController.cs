@@ -30,12 +30,10 @@ namespace Idigis.Api.Controllers
             return _usecase.Notificator.NotificationType.Name switch
             {
                 "NotFound" => NotFound(_usecase.Notificator.Notifications),
-                "Internal" => StatusCode(500, _usecase.Notificator.Notifications),
-                _ => BadRequest(_usecase.Notificator.Notifications)
+                _ => StatusCode(500, _usecase.Notificator.Notifications)
             };
         }
 
-        //TODO : Testar
         [HttpPut]
         [Route("{id}")]
         public async Task<ActionResult<EditChurchResponse>> Update ([FromBody] EditChurchRequest request,
@@ -48,9 +46,12 @@ namespace Idigis.Api.Controllers
                 return Ok(response);
             }
 
-            return _usecase.Notificator.NotificationType.Name is "NotFound"
-                ? NotFound(_usecase.Notificator.Notifications)
-                : BadRequest(_usecase.Notificator.Notifications);
+            return _usecase.Notificator.NotificationType.Name switch
+            {
+                "NotFound" => NotFound(_usecase.Notificator.Notifications),
+                "Validation" => BadRequest(_usecase.Notificator.Notifications),
+                _ => StatusCode(500, _usecase.Notificator.Notifications)
+            };
         }
 
         [HttpDelete]
@@ -64,9 +65,11 @@ namespace Idigis.Api.Controllers
                 return NoContent();
             }
 
-            return _usecase.Notificator.NotificationType.Name is "NotFound"
-                ? NotFound(_usecase.Notificator.Notifications)
-                : BadRequest(_usecase.Notificator.Notifications);
+            return _usecase.Notificator.NotificationType.Name switch
+            {
+                "NotFound" => NotFound(_usecase.Notificator.Notifications),
+                _ => StatusCode(500, _usecase.Notificator.Notifications)
+            };
         }
     }
 }
