@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Idigis.Api.Controllers
 {
+    [ApiController]
     [Route(Routes.Church.Base)]
     public class ChurchController : ControllerBase
     {
