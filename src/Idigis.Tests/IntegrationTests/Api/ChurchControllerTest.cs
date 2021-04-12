@@ -18,10 +18,11 @@ namespace Idigis.Tests.IntegrationTests.Api
     [TestClass]
     public class ChurchControllerTest
     {
-        private readonly WebApplicationFactory<Startup> _factory;
-        private readonly Context _context;
+        private Context _context;
+        private WebApplicationFactory<Startup> _factory;
 
-        public ChurchControllerTest ()
+        [TestInitialize]
+        public void BeforeEach ()
         {
             _context = TestContextFactory.CreateDbContext();
             _factory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
@@ -32,6 +33,16 @@ namespace Idigis.Tests.IntegrationTests.Api
                     services.AddScoped(_ => _context);
                 });
             });
+        }
+
+        [TestMethod]
+        public async Task The_Get_Method_Must_Return_a_Internal_Error_When_the_Request_Failed ()
+        {
+            await _context.DisposeAsync();
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync($"{Routes.Church.Base}any_id");
+            Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
         [TestMethod]
@@ -64,15 +75,22 @@ namespace Idigis.Tests.IntegrationTests.Api
             Assert.AreEqual(content?.Name, model.Name);
         }
 
+
+        [TestMethod]
+        public async Task The_Update_Method_Must_Return_a_Internal_Error_When_the_Request_Failed ()
+        {
+            await _context.DisposeAsync();
+            var data = new { Name = "other_name", Email = "any_email@email.com", Password = "any_password" };
+            var client = _factory.CreateClient();
+            var response = await client.PutAsJsonAsync($"{Routes.Church.Base}{Guid.NewGuid().ToString()}", data);
+            Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
+        }
+
         [TestMethod]
         public async Task The_Update_Method_Must_Return_a_Not_Found_When_Receiving_Invalid_Id ()
         {
-            var data = new
-            {
-                Name = "other_name",
-                Email = "any_email@email.com",
-                Password = "any_password"
-            };
+            var data = new { Name = "other_name", Email = "any_email@email.com", Password = "any_password" };
             var client = _factory.CreateClient();
             var response = await client.PutAsJsonAsync($"{Routes.Church.Base}{Guid.NewGuid().ToString()}", data);
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
@@ -91,12 +109,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             };
             await _context.ChurchContext.AddAsync(model);
             await _context.SaveChangesAsync();
-            var data = new
-            {
-                Name = "other_name",
-                Email = "invalid_email",
-                Password = "any_password"
-            };
+            var data = new { Name = "other_name", Email = "invalid_email", Password = "any_password" };
             var client = _factory.CreateClient();
             var response = await client.PutAsJsonAsync($"{Routes.Church.Base}{model.Id}", data);
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
@@ -115,15 +128,47 @@ namespace Idigis.Tests.IntegrationTests.Api
             };
             await _context.ChurchContext.AddAsync(model);
             await _context.SaveChangesAsync();
-            var data = new
-            {
-                Name = "other_name",
-                Email = "valid_email@email.com",
-                Password = "any_password"
-            };
+            var data = new { Name = "other_name", Email = "valid_email@email.com", Password = "any_password" };
             var client = _factory.CreateClient();
             var response = await client.PutAsJsonAsync($"{Routes.Church.Base}{model.Id}", data);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public async Task The_Delete_Method_Must_Return_a_Internal_Error_When_the_Request_Failed ()
+        {
+            await _context.DisposeAsync();
+            var client = _factory.CreateClient();
+            var response = await client.DeleteAsync($"{Routes.Church.Base}any_id");
+            Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public async Task The_Delete_Method_Must_Return_a_Not_Found_When_Receiving_Invalid_Data ()
+        {
+            var client = _factory.CreateClient();
+            var response = await client.DeleteAsync($"{Routes.Church.Base}any_id");
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public async Task The_Delete_Method_Must_Return_NoContent_When_Receiving_Valid_Data ()
+        {
+            var model = new ChurchModel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "any_name",
+                Password = "any_password",
+                Email = "email@email.com"
+            };
+            await _context.ChurchContext.AddAsync(model);
+            await _context.SaveChangesAsync();
+            var client = _factory.CreateClient();
+            var response = await client.DeleteAsync($"{Routes.Church.Base}{model.Id}");
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
     }
