@@ -65,7 +65,6 @@ namespace Idigis.Tests.IntegrationTests.Persistence
         [TestMethod]
         public async Task The_Get_Method_Should_Return_Null_If_the_Entity_Does_Not_Exist_in_the_Database ()
         {
-            var entity = new Church("any_name", new("any_email@email.com", "any_password"));
             var responseById = await _sut.GetById(Guid.NewGuid().ToString());
             var responseByEmail = await _sut.GetByEmail("any_email@email.com");
             var messages = _sut.Notificator.Notifications
