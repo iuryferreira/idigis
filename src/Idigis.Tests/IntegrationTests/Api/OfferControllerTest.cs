@@ -164,7 +164,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.DisposeAsync();
             var data = new { ChurchId = Guid.NewGuid().ToString(), Value = 2 };
             var client = _factory.CreateClient();
-            var response = await client.PutAsJsonAsync($"{Routes.Offer.Base}/{Guid.NewGuid().ToString()}", data);
+            var response = await client.PutAsJsonAsync($"{Routes.Offer.Base}/{Guid.NewGuid()}", data);
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
         }
@@ -174,7 +174,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         {
             var data = new { ChurchId = Guid.NewGuid().ToString(), Value = 2 };
             var client = _factory.CreateClient();
-            var response = await client.PutAsJsonAsync($"{Routes.Offer.Base}/{Guid.NewGuid().ToString()}", data);
+            var response = await client.PutAsJsonAsync($"{Routes.Offer.Base}/{Guid.NewGuid()}", data);
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
         }

@@ -82,7 +82,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.DisposeAsync();
             var data = new { Name = "other_name", Email = "any_email@email.com", Password = "any_password" };
             var client = _factory.CreateClient();
-            var response = await client.PutAsJsonAsync($"{Routes.Church.Base}{Guid.NewGuid().ToString()}", data);
+            var response = await client.PutAsJsonAsync($"{Routes.Church.Base}{Guid.NewGuid()}", data);
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
         }
@@ -92,7 +92,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         {
             var data = new { Name = "other_name", Email = "any_email@email.com", Password = "any_password" };
             var client = _factory.CreateClient();
-            var response = await client.PutAsJsonAsync($"{Routes.Church.Base}{Guid.NewGuid().ToString()}", data);
+            var response = await client.PutAsJsonAsync($"{Routes.Church.Base}{Guid.NewGuid()}", data);
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
         }
