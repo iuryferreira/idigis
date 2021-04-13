@@ -1,3 +1,5 @@
+using Idigis.Api.Auth;
+using Idigis.Api.Auth.Contracts;
 using Idigis.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +21,7 @@ namespace Idigis.Api
         public void ConfigureServices (IServiceCollection services)
         {
             services.AddCore(Configuration);
+            services.AddScoped<IAuthService, AuthService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
