@@ -57,19 +57,20 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync();
                 if (members is null)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja não existe no sistema."));
                     return null;
                 }
 
                 var model = members.Find(member => member.Id == id);
-                if (model is null)
+                if (model is not null)
                 {
-                    Notificator.SetNotificationType(new("NotFound"));
-                    Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                    return model;
                 }
 
-                return model;
+                Notificator.SetNotificationType(new("NotFound"));
+                Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                return null;
             }
             catch
             {
@@ -112,7 +113,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync();
                 if (members is null)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja não existe no sistema."));
                     return false;
                 }
@@ -153,7 +154,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync();
                 if (members is null)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja não existe no sistema."));
                     return false;
                 }
