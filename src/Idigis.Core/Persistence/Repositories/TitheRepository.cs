@@ -84,22 +84,22 @@ namespace Idigis.Core.Persistence.Repositories
             }
         }
 
-        public async Task<List<Tithe>> All (string churchId, string memberId)
+        public async Task<List<Tithe>> All (string churchId)
         {
             try
             {
                 var churchAndMemberExists = await _context.ChurchContext
                     .Where(c => c.Id == churchId)
-                    .Select(c => c.Members.FirstOrDefault(m => m.Id == memberId))
+                    .Select(c => c.Members)
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
                     Notificator.SetNotificationType(new("NotFound"));
-                    Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
+                    Notificator.AddNotification(new("Repository", "Esta igreja não existe no sistema."));
                     return null;
                 }
 
-                var tithes = await _context.MemberContext.Where(m => m.Id == memberId)
+                var tithes = await _context.MemberContext
                     .Select(m => m.Tithes.Select(t => (Tithe)t).ToList()).FirstOrDefaultAsync();
                 return tithes;
             }

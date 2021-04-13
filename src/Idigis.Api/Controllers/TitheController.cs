@@ -36,10 +36,9 @@ namespace Idigis.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetTitheResponse>>> List ([FromQuery] string churchId,
-            [FromQuery] string memberId)
+        public async Task<ActionResult<List<GetTitheResponse>>> List ([FromQuery] string churchId)
         {
-            var request = new ListTitheRequest(churchId, memberId);
+            var request = new ListTitheRequest(churchId);
             var response = await _usecase.List(request);
             if (response is not null)
             {

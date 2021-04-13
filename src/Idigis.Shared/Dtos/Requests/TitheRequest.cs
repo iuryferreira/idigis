@@ -18,14 +18,12 @@ namespace Idigis.Shared.Dtos.Requests
 
     public class ListTitheRequest
     {
-        public ListTitheRequest (string churchId, string memberId)
+        public ListTitheRequest (string churchId)
         {
             ChurchId = churchId;
-            MemberId = memberId;
         }
 
         public string ChurchId { get; set; }
-        public string MemberId { get; set; }
     }
 
     public class CreateTitheRequest

@@ -48,9 +48,16 @@ namespace Idigis.Core.Application.UseCases
 
         public async Task<List<GetTitheResponse>> List (ListTitheRequest data)
         {
-            var tithes = await _repository.All(data.ChurchId, data.MemberId);
+            var tithes = await _repository.All(data.ChurchId);
             return tithes?.Select(tithe =>
-                    new GetTitheResponse { Id = tithe.Id, Value = tithe.Value, Date = tithe.Date })
+                    new GetTitheResponse
+                    {
+                        Id = tithe.Id,
+                        Value = tithe.Value,
+                        Date = tithe.Date,
+                        MemberId = tithe.MemberId,
+                        MemberName = tithe.MemberName
+                    })
                 .ToList();
         }
 
