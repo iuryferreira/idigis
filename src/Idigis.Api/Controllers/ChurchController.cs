@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Idigis.Api.Controllers
 {
     [ApiController]
-    [Route(Routes.Church.Base)]
+    [Route(Routes.Church.Base + "{id}")]
     public class ChurchController : ControllerBase
     {
         private readonly IChurchUseCase _usecase;
@@ -18,25 +18,24 @@ namespace Idigis.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
         public async Task<ActionResult<GetChurchResponse>> Get ([FromRoute] string id)
         {
             var request = new GetChurchRequest("", id);
             var response = await _usecase.Get(request);
-            if (response is not null)
+            if (response is null)
             {
-                return Ok(response);
+                return _usecase.Notificator.NotificationType.Name switch
+                {
+                    "NotFound" => NotFound(_usecase.Notificator.Notifications),
+                    _ => StatusCode(500, _usecase.Notificator.Notifications)
+                };
             }
 
-            return _usecase.Notificator.NotificationType.Name switch
-            {
-                "NotFound" => NotFound(_usecase.Notificator.Notifications),
-                _ => StatusCode(500, _usecase.Notificator.Notifications)
-            };
+            response.Password = "";
+            return Ok(response);
         }
 
         [HttpPut]
-        [Route("{id}")]
         public async Task<ActionResult<EditChurchResponse>> Update ([FromBody] EditChurchRequest request,
             [FromRoute] string id)
         {
@@ -56,7 +55,6 @@ namespace Idigis.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
         public async Task<ActionResult<DeleteChurchResponse>> Delete ([FromRoute] string id)
         {
             var request = new DeleteChurchRequest(id);
