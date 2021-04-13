@@ -11,8 +11,8 @@ namespace Idigis.Shared.Dtos.Requests
             Id = id;
         }
 
-        public string Id { get; }
-        public string ChurchId { get; }
+        public string Id { get; set; }
+        public string ChurchId { get; set; }
     }
 
     public class ListMemberRequest
@@ -22,7 +22,7 @@ namespace Idigis.Shared.Dtos.Requests
             ChurchId = churchId;
         }
 
-        public string ChurchId { get; }
+        public string ChurchId { get; set; }
     }
 
     public class CreateMemberRequest
@@ -37,11 +37,11 @@ namespace Idigis.Shared.Dtos.Requests
             Contact = contact;
         }
 
-        public string ChurchId { get; }
-        public string FullName { get; }
-        public DateTime? BirthDate { get; }
-        public DateTime? BaptismDate { get; }
-        public ContactType Contact { get; }
+        public string ChurchId { get; set; }
+        public string FullName { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public DateTime? BaptismDate { get; set; }
+        public ContactType Contact { get; set; }
     }
 
     public class EditMemberRequest
@@ -57,12 +57,12 @@ namespace Idigis.Shared.Dtos.Requests
             Contact = contact;
         }
 
-        public string ChurchId { get; }
-        public string Id { get; }
-        public string FullName { get; }
-        public DateTime? BirthDate { get; }
-        public DateTime? BaptismDate { get; }
-        public ContactType Contact { get; }
+        public string ChurchId { get; set; }
+        public string Id { get; set; }
+        public string FullName { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public DateTime? BaptismDate { get; set; }
+        public ContactType Contact { get; set; }
     }
 
     public class DeleteMemberRequest
@@ -73,7 +73,7 @@ namespace Idigis.Shared.Dtos.Requests
             Id = id;
         }
 
-        public string ChurchId { get; }
-        public string Id { get; }
+        public string ChurchId { get; set; }
+        public string Id { get; set; }
     }
 }
