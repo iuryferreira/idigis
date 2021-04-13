@@ -17,5 +17,10 @@ namespace Idigis.Api
         {
             public const string Base = "api/offers";
         }
+
+        public static class Member
+        {
+            public const string Base = "api/members";
+        }
     }
 }
