@@ -27,6 +27,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Tithe(data.Value, data.Date);
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }
@@ -48,10 +49,9 @@ namespace Idigis.Core.Application.UseCases
         public async Task<List<GetTitheResponse>> List (ListTitheRequest data)
         {
             var tithes = await _repository.All(data.ChurchId, data.MemberId);
-            return tithes is null
-                ? new()
-                : tithes.Select(tithe => new GetTitheResponse { Id = tithe.Id, Value = tithe.Value, Date = tithe.Date })
-                    .ToList();
+            return tithes?.Select(tithe =>
+                    new GetTitheResponse { Id = tithe.Id, Value = tithe.Value, Date = tithe.Date })
+                .ToList();
         }
 
         public async Task<EditTitheResponse> Edit (EditTitheRequest data)
@@ -59,6 +59,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Tithe(data.Id, data.Value, data.Date);
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }
