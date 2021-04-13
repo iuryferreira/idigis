@@ -48,7 +48,13 @@ namespace Idigis.Core.Application.UseCases
                 return null;
             }
 
-            return new() { Id = church.Id, Name = church.Name, Email = church.Credentials.Email };
+            return new()
+            {
+                Id = church.Id,
+                Name = church.Name,
+                Email = church.Credentials.Email,
+                Password = church.Credentials.Password
+            };
         }
 
         public async Task<EditChurchResponse> Edit (EditChurchRequest data)
