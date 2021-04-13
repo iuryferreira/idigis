@@ -6,6 +6,8 @@ namespace Idigis.Api
         {
             public const string Base = "api/";
             public const string Signup = Base + "signup";
+            public const string Signin = Base + "signin";
+
         }
 
         public static class Church
