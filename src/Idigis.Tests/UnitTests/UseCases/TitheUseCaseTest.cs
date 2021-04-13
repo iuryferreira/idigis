@@ -145,18 +145,18 @@ namespace Idigis.Tests.UnitTests.UseCases
         [TestMethod]
         public async Task Must_Return_Null_if_the_Entity_To_List_Is_Not_Found ()
         {
-            _repository.Setup(repository => repository.All(It.IsAny<string>(), It.IsAny<string>()))
+            _repository.Setup(repository => repository.All(It.IsAny<string>()))
                 .ReturnsAsync((List<Tithe>)null);
-            var members = await _sut.List(new("valid_id", "valid_id"));
+            var members = await _sut.List(new("valid_id"));
             Assert.IsNull(members);
         }
 
         [TestMethod]
         public async Task Must_Return_an_List_if_the_Entity_To_List_Is_Found ()
         {
-            _repository.Setup(repository => repository.All(It.IsAny<string>(), It.IsAny<string>()))
+            _repository.Setup(repository => repository.All(It.IsAny<string>()))
                 .ReturnsAsync(new List<Tithe> { new(1, DateTime.Now) });
-            var members = await _sut.List(new("valid_id", "valid_id"));
+            var members = await _sut.List(new("valid_id"));
             Assert.AreEqual(1, members.Count);
         }
     }
