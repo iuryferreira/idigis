@@ -67,13 +67,14 @@ namespace Idigis.Core.Persistence.Repositories
 
                 var model = await _context.MemberContext.Where(m => m.Id == memberId)
                     .Select(m => m.Tithes.FirstOrDefault(t => t.Id == id)).FirstOrDefaultAsync();
-                if (model is null)
+                if (model is not null)
                 {
-                    Notificator.SetNotificationType(new("NotFound"));
-                    Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                    return model;
                 }
 
-                return model;
+                Notificator.SetNotificationType(new("NotFound"));
+                Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                return null;
             }
             catch
             {
