@@ -25,7 +25,8 @@ namespace Idigis.Core.Persistence.Repositories
             try
             {
                 var exists =
-                    await _context.ChurchContext.FirstOrDefaultAsync(church => church.Id == model.Id) is not null;
+                    await _context.ChurchContext.FirstOrDefaultAsync(church =>
+                        church.Id == model.Id || church.Email == model.Email) is not null;
                 if (exists)
                 {
                     Notificator.SetNotificationType(new("Validation"));
@@ -39,6 +40,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na inserção."));
                 return false;
             }
@@ -49,15 +51,18 @@ namespace Idigis.Core.Persistence.Repositories
             try
             {
                 var model = await _context.ChurchContext.FirstOrDefaultAsync(church => church.Id == id);
-                if (model is null)
+                if (model is not null)
                 {
-                    Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                    return model;
                 }
 
-                return model;
+                Notificator.SetNotificationType(new("NotFound"));
+                Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                return null;
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na busca."));
                 return null;
             }
@@ -68,15 +73,18 @@ namespace Idigis.Core.Persistence.Repositories
             try
             {
                 var model = await _context.ChurchContext.FirstOrDefaultAsync(church => church.Email == email);
-                if (model is null)
+                if (model is not null)
                 {
-                    Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                    return model;
                 }
 
-                return model;
+                Notificator.SetNotificationType(new("NotFound"));
+                Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                return null;
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na busca."));
                 return null;
             }
@@ -89,6 +97,7 @@ namespace Idigis.Core.Persistence.Repositories
                 var model = await _context.ChurchContext.FirstOrDefaultAsync(church => church.Id == entity.Id);
                 if (model is null)
                 {
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Registro não encontrado."));
                     return false;
                 }
@@ -101,6 +110,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na atualização."));
                 return false;
             }
@@ -113,6 +123,7 @@ namespace Idigis.Core.Persistence.Repositories
                 var model = await _context.ChurchContext.FirstOrDefaultAsync(church => church.Id == id);
                 if (model is null)
                 {
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Registro não encontrado."));
                     return false;
                 }
@@ -123,6 +134,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na remoção."));
                 return false;
             }

@@ -36,6 +36,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Member(data.FullName, data.BirthDate, data.BaptismDate, contact);
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }
@@ -85,19 +86,17 @@ namespace Idigis.Core.Application.UseCases
         public async Task<List<GetMemberResponse>> List (ListMemberRequest data)
         {
             var members = await _repository.All(data.ChurchId);
-            return members is null
-                ? new()
-                : members.Select(member => new GetMemberResponse
-                {
-                    Id = member.Id,
-                    FullName = member.FullName,
-                    BaptismDate = member.BaptismDate,
-                    BirthDate = member.BirthDate,
-                    Contact = member.Contact is not null
-                        ? new ContactType(member.Contact.PhoneNumber, member.Contact.HouseNumber, member.Contact.Street,
-                            member.Contact.District, member.Contact.City)
-                        : null
-                }).ToList();
+            return members?.Select(member => new GetMemberResponse
+            {
+                Id = member.Id,
+                FullName = member.FullName,
+                BaptismDate = member.BaptismDate,
+                BirthDate = member.BirthDate,
+                Contact = member.Contact is not null
+                    ? new ContactType(member.Contact.PhoneNumber, member.Contact.HouseNumber, member.Contact.Street,
+                        member.Contact.District, member.Contact.City)
+                    : null
+            }).ToList();
         }
 
         public async Task<EditMemberResponse> Edit (EditMemberRequest data)
@@ -112,6 +111,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Member(data.Id, data.FullName, data.BirthDate, data.BaptismDate, contact);
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }

@@ -32,7 +32,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
                     return false;
                 }
@@ -44,6 +44,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na inserção."));
                 return false;
             }
@@ -59,48 +60,52 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
                     return null;
                 }
 
                 var model = await _context.MemberContext.Where(m => m.Id == memberId)
                     .Select(m => m.Tithes.FirstOrDefault(t => t.Id == id)).FirstOrDefaultAsync();
-                if (model is null)
+                if (model is not null)
                 {
-                    Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                    return model;
                 }
 
-                return model;
+                Notificator.SetNotificationType(new("NotFound"));
+                Notificator.AddNotification(new("Repository", "Registro não encontrado."));
+                return null;
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na busca."));
                 return null;
             }
         }
 
-        public async Task<List<Tithe>> All (string churchId, string memberId)
+        public async Task<List<Tithe>> All (string churchId)
         {
             try
             {
                 var churchAndMemberExists = await _context.ChurchContext
                     .Where(c => c.Id == churchId)
-                    .Select(c => c.Members.FirstOrDefault(m => m.Id == memberId))
+                    .Select(c => c.Members)
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
-                    Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
+                    Notificator.SetNotificationType(new("NotFound"));
+                    Notificator.AddNotification(new("Repository", "Esta igreja não existe no sistema."));
                     return null;
                 }
 
-                var tithes = await _context.MemberContext.Where(m => m.Id == memberId)
+                var tithes = await _context.MemberContext
                     .Select(m => m.Tithes.Select(t => (Tithe)t).ToList()).FirstOrDefaultAsync();
                 return tithes;
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na listagem."));
                 return null;
             }
@@ -116,7 +121,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
                     return false;
                 }
@@ -125,6 +130,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .Select(m => m.Tithes.FirstOrDefault(t => t.Id == entity.Id)).FirstOrDefaultAsync();
                 if (model is null)
                 {
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Registro não encontrado."));
                     return false;
                 }
@@ -136,6 +142,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na atualização."));
                 return false;
             }
@@ -151,7 +158,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
-                    Notificator.SetNotificationType(new("Validation"));
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Esta igreja ou membro não existe no sistema."));
                     return false;
                 }
@@ -160,6 +167,7 @@ namespace Idigis.Core.Persistence.Repositories
                     .Select(m => m.Tithes.FirstOrDefault(t => t.Id == id)).FirstOrDefaultAsync();
                 if (model is null)
                 {
+                    Notificator.SetNotificationType(new("NotFound"));
                     Notificator.AddNotification(new("Repository", "Registro não encontrado."));
                     return false;
                 }
@@ -170,6 +178,7 @@ namespace Idigis.Core.Persistence.Repositories
             }
             catch
             {
+                Notificator.SetNotificationType(new("Internal"));
                 Notificator.AddNotification(new("Repository", "Ocorreu um erro na remoção."));
                 return false;
             }

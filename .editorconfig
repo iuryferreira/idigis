@@ -5,14 +5,19 @@
 root = true
 [*.{sh}]
 end_of_line = lf
+charset = utf-8
 [src/**]
 indent_style = space
+end_of_line = lf
+charset = utf-8
+[src/Idigis.Web/**]
 end_of_line = crlf
+charset = utf-8
 # Code files
 [*.{cs,csx,vb,vbx}]
+charset = utf-8
 indent_size = 4
 insert_final_newline = true
-charset = utf-8
 ###############################
 # .NET Coding Conventions     #
 ###############################

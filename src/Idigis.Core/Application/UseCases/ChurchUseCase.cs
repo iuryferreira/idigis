@@ -25,6 +25,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Church(data.Name, new(data.Email, data.Password));
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }
@@ -47,7 +48,13 @@ namespace Idigis.Core.Application.UseCases
                 return null;
             }
 
-            return new() { Id = church.Id, Name = church.Name, Email = church.Credentials.Email };
+            return new()
+            {
+                Id = church.Id,
+                Name = church.Name,
+                Email = church.Credentials.Email,
+                Password = church.Credentials.Password
+            };
         }
 
         public async Task<EditChurchResponse> Edit (EditChurchRequest data)
@@ -55,6 +62,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Church(data.Id, data.Name, new(data.Email, data.Password));
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
