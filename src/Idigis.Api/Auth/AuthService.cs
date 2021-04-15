@@ -11,7 +11,7 @@ using Notie.Models;
 
 namespace Idigis.Api.Auth
 {
-    internal class AuthService : IAuthService
+    public class AuthService : IAuthService
     {
         public AuthService (AbstractNotificator notificator)
         {
@@ -37,7 +37,7 @@ namespace Idigis.Api.Auth
             return null;
         }
 
-        private string GenerateToken (string email, string id)
+        public string GenerateToken (string email, string id)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             try
