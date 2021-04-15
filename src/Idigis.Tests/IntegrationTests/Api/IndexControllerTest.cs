@@ -7,7 +7,6 @@ using Hash;
 using Idigis.Api;
 using Idigis.Core.Persistence;
 using Idigis.Core.Persistence.Models;
-using Idigis.Shared.Dtos.Responses;
 using Idigis.Tests.IntegrationTests.Persistence.Helpers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
