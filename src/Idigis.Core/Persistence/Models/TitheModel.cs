@@ -25,7 +25,7 @@ namespace Idigis.Core.Persistence.Models
         {
             if (model is null) { return null; }
 
-            return new(model.Id, model.Value, model.Date);
+            return new(model.Id, model.Value, model.Date, model.MemberId, model.Member.FullName);
         }
     }
 }

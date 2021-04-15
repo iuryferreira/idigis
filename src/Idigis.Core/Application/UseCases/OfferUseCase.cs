@@ -14,7 +14,6 @@ namespace Idigis.Core.Application.UseCases
     {
         private readonly IOfferRepository _repository;
 
-
         public OfferUseCase (AbstractNotificator notificator, IOfferRepository repository)
         {
             _repository = repository;
@@ -28,6 +27,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Offer(data.Value);
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }
@@ -49,9 +49,7 @@ namespace Idigis.Core.Application.UseCases
         public async Task<List<GetOfferResponse>> List (ListOfferRequest data)
         {
             var offers = await _repository.All(data.ChurchId);
-            return offers is null
-                ? new()
-                : offers.Select(offer => new GetOfferResponse { Id = offer.Id, Value = offer.Value }).ToList();
+            return offers?.Select(offer => new GetOfferResponse { Id = offer.Id, Value = offer.Value }).ToList();
         }
 
         public async Task<EditOfferResponse> Edit (EditOfferRequest data)
@@ -59,6 +57,7 @@ namespace Idigis.Core.Application.UseCases
             var entity = new Offer(data.Id, data.Value);
             if (entity.Invalid)
             {
+                Notificator.SetNotificationType(new("Validation"));
                 Notificator.AddNotificationsByFluent(entity.ValidationResult);
                 return null;
             }

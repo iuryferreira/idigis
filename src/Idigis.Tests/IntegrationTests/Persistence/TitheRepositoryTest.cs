@@ -146,32 +146,20 @@ namespace Idigis.Tests.IntegrationTests.Persistence
         [TestMethod]
         public async Task The_All_Method_Should_Return_Null_If_the_Church_Does_Not_Exist_in_the_Database ()
         {
-            var response = await _sut.All("any_id", "any_id");
+            var response = await _sut.All("any_id");
             var messages = _sut.Notificator.Notifications
                 .Select(notification => $"{notification.Key} - {notification.Message}").ToArray();
             Assert.IsNull(response);
             Assert.IsTrue(_sut.Notificator.HasNotifications);
             Assert.AreEqual(1, messages.Length);
-            Assert.AreEqual(messages[0], "Repository - Esta igreja ou membro não existe no sistema.");
-        }
-
-        [TestMethod]
-        public async Task The_All_Method_Should_Return_Null_If_the_Member_Does_Not_Exist_in_the_Database ()
-        {
-            var response = await _sut.All(_church.Id, "any_id");
-            var messages = _sut.Notificator.Notifications
-                .Select(notification => $"{notification.Key} - {notification.Message}").ToArray();
-            Assert.IsNull(response);
-            Assert.IsTrue(_sut.Notificator.HasNotifications);
-            Assert.AreEqual(1, messages.Length);
-            Assert.AreEqual(messages[0], "Repository - Esta igreja ou membro não existe no sistema.");
+            Assert.AreEqual(messages[0], "Repository - Esta igreja não existe no sistema.");
         }
 
         [TestMethod]
         public async Task The_All_Method_Must_Return_Null_If_the_Entities_Cannot_Be_Retrieved_From_the_Database ()
         {
             await _context.DisposeAsync();
-            var response = await _sut.All(_church.Id, _member.Id);
+            var response = await _sut.All(_church.Id);
             var messages = _sut.Notificator.Notifications
                 .Select(notification => $"{notification.Key} - {notification.Message}").ToArray();
             Assert.IsNull(response);
@@ -183,7 +171,7 @@ namespace Idigis.Tests.IntegrationTests.Persistence
         [TestMethod]
         public async Task The_All_Method_Must_Return_the_List_of_Entities_If_It_Is_Retrieved_from_the_Database ()
         {
-            Assert.IsInstanceOfType(await _sut.All(_church.Id, _member.Id), typeof(List<Tithe>));
+            Assert.IsInstanceOfType(await _sut.All(_church.Id), typeof(List<Tithe>));
         }
 
         [TestMethod]

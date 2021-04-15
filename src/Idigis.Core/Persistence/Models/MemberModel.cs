@@ -45,7 +45,7 @@ namespace Idigis.Core.Persistence.Models
         {
             if (model is null) { return null; }
 
-            return new(model.FullName, model.BirthDate, model.BirthDate,
+            return new(model.Id, model.FullName, model.BirthDate, model.BirthDate,
                 new(model.PhoneNumber, model.HouseNumber, model.Street, model.District, model.City));
         }
     }

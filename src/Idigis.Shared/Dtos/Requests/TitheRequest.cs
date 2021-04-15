@@ -11,21 +11,19 @@ namespace Idigis.Shared.Dtos.Requests
             MemberId = memberId;
         }
 
-        public string Id { get; }
-        public string ChurchId { get; }
-        public string MemberId { get; }
+        public string Id { get; set; }
+        public string ChurchId { get; set; }
+        public string MemberId { get; set; }
     }
 
     public class ListTitheRequest
     {
-        public ListTitheRequest (string churchId, string memberId)
+        public ListTitheRequest (string churchId)
         {
             ChurchId = churchId;
-            MemberId = memberId;
         }
 
-        public string ChurchId { get; }
-        public string MemberId { get; }
+        public string ChurchId { get; set; }
     }
 
     public class CreateTitheRequest
@@ -38,10 +36,10 @@ namespace Idigis.Shared.Dtos.Requests
             MemberId = memberId;
         }
 
-        public string ChurchId { get; }
-        public string MemberId { get; }
-        public decimal Value { get; }
-        public DateTime Date { get; }
+        public string ChurchId { get; set; }
+        public string MemberId { get; set; }
+        public decimal Value { get; set; }
+        public DateTime Date { get; set; }
     }
 
     public class EditTitheRequest
@@ -55,11 +53,11 @@ namespace Idigis.Shared.Dtos.Requests
             Id = id;
         }
 
-        public string ChurchId { get; }
-        public string MemberId { get; }
-        public string Id { get; }
-        public decimal Value { get; }
-        public DateTime Date { get; }
+        public string ChurchId { get; set; }
+        public string MemberId { get; set; }
+        public string Id { get; set; }
+        public decimal Value { get; set; }
+        public DateTime Date { get; set; }
     }
 
     public class DeleteTitheRequest
@@ -71,8 +69,8 @@ namespace Idigis.Shared.Dtos.Requests
             Id = id;
         }
 
-        public string ChurchId { get; }
-        public string MemberId { get; }
-        public string Id { get; }
+        public string ChurchId { get; set; }
+        public string MemberId { get; set; }
+        public string Id { get; set; }
     }
 }

@@ -43,8 +43,8 @@ namespace Idigis.Shared.Dtos.Requests
             ChurchId = churchId;
         }
 
-        public string Id { get; }
-        public string ChurchId { get; }
+        public string Id { get; set; }
+        public string ChurchId { get; set; }
         public decimal Value { get; }
     }
 

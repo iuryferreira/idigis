@@ -1,18 +1,15 @@
 using System;
-using System.Globalization;
 using FluentValidation;
 using FluentValidation.Results;
 
 namespace Idigis.Core.Domain.Contracts
 {
-
     internal abstract class Entity
     {
-
         protected Entity ()
         {
             Id = Guid.NewGuid().ToString();
-            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pt-BR");
+            ValidatorOptions.Global.LanguageManager.Culture = new("pt-BR");
         }
 
         public string Id { get; protected init; }

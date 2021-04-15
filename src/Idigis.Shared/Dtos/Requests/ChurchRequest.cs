@@ -8,8 +8,8 @@ namespace Idigis.Shared.Dtos.Requests
             Email = email;
         }
 
-        public string Id { get; }
-        public string Email { get; }
+        public string Id { get; set; }
+        public string Email { get; set; }
     }
 
     public class CreateChurchRequest
@@ -21,9 +21,9 @@ namespace Idigis.Shared.Dtos.Requests
             Password = password;
         }
 
-        public string Name { get; }
-        public string Email { get; }
-        public string Password { get; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 
     public class EditChurchRequest
@@ -36,10 +36,10 @@ namespace Idigis.Shared.Dtos.Requests
             Password = password;
         }
 
-        public string Id { get; }
-        public string Name { get; }
-        public string Email { get; }
-        public string Password { get; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 
     public class DeleteChurchRequest
@@ -49,6 +49,6 @@ namespace Idigis.Shared.Dtos.Requests
             Id = id;
         }
 
-        public string Id { get; }
+        public string Id { get; set; }
     }
 }
