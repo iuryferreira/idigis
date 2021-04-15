@@ -1,4 +1,4 @@
-﻿namespace Idigis.Shared.Dtos.Responses
+namespace Idigis.Shared.Dtos.Responses
 {
     public class LoginResponse
     {

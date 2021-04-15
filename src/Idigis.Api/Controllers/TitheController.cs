@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Idigis.Core.Application.Contracts;
 using Idigis.Shared.Dtos.Requests;

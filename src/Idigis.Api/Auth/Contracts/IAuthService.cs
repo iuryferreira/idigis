@@ -1,4 +1,4 @@
-﻿using Idigis.Shared.Dtos.Requests;
+using Idigis.Shared.Dtos.Requests;
 using Idigis.Shared.Dtos.Responses;
 
 namespace Idigis.Api.Auth.Contracts

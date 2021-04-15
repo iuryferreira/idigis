@@ -19,7 +19,7 @@ namespace Idigis.Api.Controllers
             _usecase = usecase;
             _authService = authService;
         }
-        
+
         [HttpPost]
         [Route("signup")]
         public async Task<ActionResult<CreateChurchResponse>> Signup ([FromBody] CreateChurchRequest request)
@@ -37,7 +37,7 @@ namespace Idigis.Api.Controllers
         [Route("signin")]
         public async Task<ActionResult<LoginResponse>> Signin ([FromBody] LoginRequest request)
         {
-            
+
             var church = await _usecase.Get(new(request.Email));
             if (church is null)
             {

@@ -75,7 +75,9 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id
+                Id = Guid.NewGuid().ToString(),
+                FullName = "any_name",
+                ChurchId = church.Id
             };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();
@@ -118,12 +120,17 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id
+                Id = Guid.NewGuid().ToString(),
+                FullName = "any_name",
+                ChurchId = church.Id
             };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
-                Id = Guid.NewGuid().ToString(), MemberId = member.Id, Value = 2, Date = DateTime.Now
+                Id = Guid.NewGuid().ToString(),
+                MemberId = member.Id,
+                Value = 2,
+                Date = DateTime.Now
             };
             await _context.TitheContext.AddAsync(tithe);
             await _context.SaveChangesAsync();
@@ -169,12 +176,17 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id
+                Id = Guid.NewGuid().ToString(),
+                FullName = "any_name",
+                ChurchId = church.Id
             };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
-                Id = Guid.NewGuid().ToString(), MemberId = member.Id, Value = 2, Date = DateTime.Now
+                Id = Guid.NewGuid().ToString(),
+                MemberId = member.Id,
+                Value = 2,
+                Date = DateTime.Now
             };
             await _context.TitheContext.AddAsync(tithe);
             await _context.SaveChangesAsync();
@@ -219,12 +231,17 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id
+                Id = Guid.NewGuid().ToString(),
+                FullName = "any_name",
+                ChurchId = church.Id
             };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
-                Id = Guid.NewGuid().ToString(), MemberId = member.Id, Value = 2, Date = DateTime.Now
+                Id = Guid.NewGuid().ToString(),
+                MemberId = member.Id,
+                Value = 2,
+                Date = DateTime.Now
             };
             await _context.TitheContext.AddAsync(tithe);
             await _context.SaveChangesAsync();
@@ -248,12 +265,17 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id
+                Id = Guid.NewGuid().ToString(),
+                FullName = "any_name",
+                ChurchId = church.Id
             };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
-                Id = Guid.NewGuid().ToString(), MemberId = member.Id, Value = 2, Date = DateTime.Now
+                Id = Guid.NewGuid().ToString(),
+                MemberId = member.Id,
+                Value = 2,
+                Date = DateTime.Now
             };
             await _context.TitheContext.AddAsync(tithe);
             await _context.SaveChangesAsync();
@@ -296,12 +318,17 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id
+                Id = Guid.NewGuid().ToString(),
+                FullName = "any_name",
+                ChurchId = church.Id
             };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
-                Id = Guid.NewGuid().ToString(), MemberId = member.Id, Value = 2, Date = DateTime.Now
+                Id = Guid.NewGuid().ToString(),
+                MemberId = member.Id,
+                Value = 2,
+                Date = DateTime.Now
             };
             await _context.TitheContext.AddAsync(tithe);
             await _context.SaveChangesAsync();

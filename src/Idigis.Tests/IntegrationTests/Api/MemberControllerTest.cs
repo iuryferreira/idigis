@@ -107,7 +107,9 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name"
+                Id = Guid.NewGuid().ToString(),
+                ChurchId = church.Id,
+                FullName = "any_name"
             };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();
@@ -153,7 +155,9 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name"
+                Id = Guid.NewGuid().ToString(),
+                ChurchId = church.Id,
+                FullName = "any_name"
             };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();
@@ -217,7 +221,9 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name"
+                Id = Guid.NewGuid().ToString(),
+                ChurchId = church.Id,
+                FullName = "any_name"
             };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();
@@ -260,7 +266,9 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.ChurchContext.AddAsync(church);
             var member = new MemberModel
             {
-                Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name"
+                Id = Guid.NewGuid().ToString(),
+                ChurchId = church.Id,
+                FullName = "any_name"
             };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();

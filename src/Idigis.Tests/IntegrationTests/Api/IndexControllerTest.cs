@@ -115,7 +115,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
-        
+
         [TestMethod]
         public async Task The_Signin_Method_Must_Return_Internal_Error_When_Authenticate_Failed ()
         {

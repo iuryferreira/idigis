@@ -1,4 +1,4 @@
-﻿namespace Idigis.Shared.Dtos.Requests
+namespace Idigis.Shared.Dtos.Requests
 {
     public class LoginRequest
     {
