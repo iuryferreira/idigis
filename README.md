@@ -15,7 +15,6 @@
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue">
 
 <a href='https://coveralls.io/github/iuryferreira/idigis?branch=main'>
-  <img src='https://coveralls.io/repos/github/iuryferreira/idigis/badge.svg?branch=main' alt='Coverage Status'/>
 </a>
 
 </p>
