@@ -290,7 +290,6 @@ namespace Idigis.Tests.IntegrationTests.Api
         {
             await _context.DisposeAsync();
             var client = _factory.CreateClient();
-            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.DeleteAsync($"{Routes.Member.Base}/any_id?churchId=any_id");
             Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);

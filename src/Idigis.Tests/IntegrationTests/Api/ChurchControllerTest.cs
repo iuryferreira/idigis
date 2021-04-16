@@ -57,7 +57,6 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.DisposeAsync();
             var client = _factory.CreateClient();
             client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
-            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.GetAsync($"{Routes.Church.Base}any_id");
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
