@@ -23,24 +23,24 @@ namespace Idigis.Api
         public void ConfigureServices (IServiceCollection services)
         {
             services.AddCore(Configuration);
-            services.AddScoped<IAuthService, AuthService>();
             services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = false;
+                x.TokenValidationParameters = new()
                 {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(x =>
-                {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new()
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(AuthSettings.Key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(AuthSettings.Key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            services.AddScoped<IAuthService, AuthService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
