@@ -21,13 +21,13 @@ namespace Idigis.Tests.IntegrationTests.Api
     [TestClass]
     public class TitheControllerTest
     {
-        private readonly WebApplicationFactory<Startup> _factory;
-        private readonly string _token;
+        private WebApplicationFactory<Startup> _factory;
+        private string _token;
         private Context _context;
 
-        public TitheControllerTest ()
+        [TestInitialize]
+        public void BeforeEach ()
         {
-            Env.TraversePath().Load();
             _context = TestContextFactory.CreateDbContext();
             _factory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
             {
@@ -37,13 +37,8 @@ namespace Idigis.Tests.IntegrationTests.Api
                     services.AddScoped(_ => _context);
                 });
             });
+            Env.TraversePath().Load();
             _token = new AuthService(new Notificator()).GenerateToken("any_email@email.com", "any_id");
-        }
-
-        [TestInitialize]
-        public void BeforeEach ()
-        {
-            _context = TestContextFactory.CreateDbContext();
         }
 
         [TestMethod]
