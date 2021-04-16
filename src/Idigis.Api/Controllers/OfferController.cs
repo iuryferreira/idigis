@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Idigis.Api.Controllers
 {
-    [ApiController]
     [Route(Routes.Offer.Base)]
     public class OfferController : ControllerBase
     {

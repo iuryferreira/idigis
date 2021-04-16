@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Idigis.Api.Controllers
 {
-    [ApiController]
     [Route(Routes.Tithe.Base)]
     public class TitheController : ControllerBase
     {
