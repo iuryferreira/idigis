@@ -7,16 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .NET Core
+      - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.200
-      - name: Install dependencies
-        run: dotnet restore
+          dotnet-version: 5.0.202
       - name: Testing
+        run: dotnet test --nologo
         env:
           ClientUrl: "https://0.0.0.0/"
           ServerUrl: "https://0.0.0.0/"
           JwtSecret: ${{secrets.AUTH_RANDOM_SECRET}}
           JwtExpirationInHours: 2
-        run: dotnet test --nologo
