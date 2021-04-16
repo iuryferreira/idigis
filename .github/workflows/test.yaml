@@ -19,4 +19,4 @@ jobs:
           ServerUrl: "https://0.0.0.0/"
           JwtSecret: ${{secrets.AUTH_RANDOM_SECRET}}
           JwtExpirationInHours: 2
-        run: chmod +x run && ./run test
+        run: dotnet test --nologo && rm -rf `find -type d -name TestResults` ;;
