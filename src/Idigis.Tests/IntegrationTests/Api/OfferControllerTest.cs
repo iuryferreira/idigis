@@ -61,7 +61,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.PostAsJsonAsync($"{Routes.Offer.Base}/",
                 new { ChurchId = Guid.NewGuid().ToString(), Value = 1 });
-            Console.WriteLine(client.DefaultRequestHeaders.Authorization.Scheme);
+            Console.WriteLine($"{client.DefaultRequestHeaders.Authorization.Scheme}{_token}");
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
         }
