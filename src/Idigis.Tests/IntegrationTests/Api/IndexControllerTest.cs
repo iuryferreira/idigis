@@ -19,8 +19,8 @@ namespace Idigis.Tests.IntegrationTests.Api
     [TestClass]
     public class IndexControllerTest
     {
-        private readonly WebApplicationFactory<Startup> _factory;
         private readonly Context _context;
+        private readonly WebApplicationFactory<Startup> _factory;
 
         public IndexControllerTest ()
         {
