@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Idigis.Core.Application.Contracts;
 using Idigis.Shared.Dtos.Requests;
 using Idigis.Shared.Dtos.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace Idigis.Api.Controllers
             _usecase = usecase;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<CreateMemberResponse>> Store ([FromBody] CreateMemberRequest request)
         {
@@ -35,6 +37,7 @@ namespace Idigis.Api.Controllers
             };
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<GetMemberResponse>>> List ([FromQuery] string churchId)
         {
@@ -52,6 +55,7 @@ namespace Idigis.Api.Controllers
             };
         }
 
+        [Authorize]
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<GetMemberResponse>> Get ([FromQuery] string churchId, [FromRoute] string id)
@@ -70,6 +74,7 @@ namespace Idigis.Api.Controllers
             };
         }
 
+        [Authorize]
         [HttpPut]
         [Route("{id}")]
         public async Task<ActionResult<EditMemberResponse>> Update ([FromRoute] string id,
@@ -90,6 +95,7 @@ namespace Idigis.Api.Controllers
             };
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("{id}")]
         public async Task<ActionResult<DeleteMemberResponse>> Delete ([FromQuery] string churchId,

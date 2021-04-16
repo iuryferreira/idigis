@@ -3,6 +3,7 @@ using Idigis.Api.Auth.Contracts;
 using Idigis.Core.Application.Contracts;
 using Idigis.Shared.Dtos.Requests;
 using Idigis.Shared.Dtos.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +12,8 @@ namespace Idigis.Api.Controllers
     [Route(Routes.Index.Base)]
     public class IndexController : ControllerBase
     {
-        private readonly IChurchUseCase _usecase;
         private readonly IAuthService _authService;
+        private readonly IChurchUseCase _usecase;
 
         public IndexController (IChurchUseCase usecase, IAuthService authService)
         {
@@ -20,6 +21,7 @@ namespace Idigis.Api.Controllers
             _authService = authService;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("signup")]
         public async Task<ActionResult<CreateChurchResponse>> Signup ([FromBody] CreateChurchRequest request)
@@ -33,11 +35,11 @@ namespace Idigis.Api.Controllers
             return BadRequest(_usecase.Notificator.Notifications);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("signin")]
         public async Task<ActionResult<LoginResponse>> Signin ([FromBody] LoginRequest request)
         {
-
             var church = await _usecase.Get(new(request.Email));
             if (church is null)
             {
@@ -56,12 +58,12 @@ namespace Idigis.Api.Controllers
             {
                 return Ok(response);
             }
+
             return _usecase.Notificator.NotificationType.Name switch
             {
                 "Unauthorized" => Unauthorized(_usecase.Notificator.Notifications),
                 _ => StatusCode(500, _usecase.Notificator.Notifications)
             };
-
         }
     }
 }
