@@ -48,7 +48,7 @@ namespace Idigis.Api.Auth
                             new(ClaimTypes.Uri, AuthSettings.ServerUrl)
                     }),
                 Expires =
-                    DateTime.UtcNow.AddHours(double.Parse(Environment.GetEnvironmentVariable("JwtExpirationInHours") ?? string.Empty)),
+                    DateTime.UtcNow.AddHours(double.Parse(Environment.GetEnvironmentVariable("JwtExpirationInHours"))),
                 SigningCredentials =
                     new(new SymmetricSecurityKey(AuthSettings.Key), SecurityAlgorithms.HmacSha256Signature)
             };
