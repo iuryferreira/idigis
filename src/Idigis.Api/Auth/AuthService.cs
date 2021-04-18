@@ -1,21 +1,25 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using Hash;
 using Idigis.Api.Auth.Contracts;
 using Idigis.Shared.Dtos.Requests;
 using Idigis.Shared.Dtos.Responses;
 using Microsoft.IdentityModel.Tokens;
 using Notie.Contracts;
-using Notie.Models;
 
 namespace Idigis.Api.Auth
 {
-    internal class AuthService : IAuthService
+    public class AuthService : IAuthService
     {
+        internal static byte[] Key => Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JwtSecret"));
+        private readonly string ServerUrl;
+
         public AuthService (AbstractNotificator notificator)
         {
             Notificator = notificator;
+            ServerUrl = Environment.GetEnvironmentVariable("ServerUrl");
         }
 
         public AbstractNotificator Notificator { get; }
@@ -37,7 +41,7 @@ namespace Idigis.Api.Auth
             return null;
         }
 
-        private string GenerateToken (string email, string id)
+        public string GenerateToken (string email, string id)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             try
@@ -48,12 +52,11 @@ namespace Idigis.Api.Auth
                         new(new[]
                         {
                             new(ClaimTypes.Email, email), new Claim(ClaimTypes.PrimarySid, id),
-                            new(ClaimTypes.Uri, AuthSettings.ServerUrl)
+                            new(ClaimTypes.Uri, ServerUrl)
                         }),
-                    Expires =
-                        DateTime.UtcNow.AddHours(double.Parse(Environment.GetEnvironmentVariable("JwtExpirationInHours") ?? string.Empty)),
+                    Expires = DateTime.UtcNow.AddHours(2),
                     SigningCredentials =
-                        new(new SymmetricSecurityKey(AuthSettings.Key), SecurityAlgorithms.HmacSha256Signature)
+                        new(new SymmetricSecurityKey(Key), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 return tokenHandler.WriteToken(token);

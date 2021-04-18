@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Idigis.Core.Application.Contracts;
 using Idigis.Shared.Dtos.Requests;
 using Idigis.Shared.Dtos.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace Idigis.Api.Controllers
             _usecase = usecase;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<CreateTitheResponse>> Store ([FromBody] CreateTitheRequest request)
         {
@@ -35,6 +37,7 @@ namespace Idigis.Api.Controllers
             };
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<GetTitheResponse>>> List ([FromQuery] string churchId)
         {
@@ -52,6 +55,7 @@ namespace Idigis.Api.Controllers
             };
         }
 
+        [Authorize]
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<GetTitheResponse>> Get ([FromQuery] string churchId, [FromQuery] string memberId,
@@ -71,6 +75,7 @@ namespace Idigis.Api.Controllers
             };
         }
 
+        [Authorize]
         [HttpPut]
         [Route("{id}")]
         public async Task<ActionResult<EditTitheResponse>> Update ([FromRoute] string id,
@@ -91,6 +96,7 @@ namespace Idigis.Api.Controllers
             };
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("{id}")]
         public async Task<ActionResult<DeleteTitheResponse>> Delete ([FromQuery] string churchId,

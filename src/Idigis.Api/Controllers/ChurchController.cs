@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Idigis.Core.Application.Contracts;
 using Idigis.Shared.Dtos.Requests;
 using Idigis.Shared.Dtos.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Idigis.Api.Controllers
@@ -17,6 +18,7 @@ namespace Idigis.Api.Controllers
             _usecase = usecase;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<GetChurchResponse>> Get ([FromRoute] string id)
         {
@@ -35,6 +37,7 @@ namespace Idigis.Api.Controllers
             return Ok(response);
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<ActionResult<EditChurchResponse>> Update ([FromBody] EditChurchRequest request,
             [FromRoute] string id)
@@ -54,6 +57,7 @@ namespace Idigis.Api.Controllers
             };
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<ActionResult<DeleteChurchResponse>> Delete ([FromRoute] string id)
         {
