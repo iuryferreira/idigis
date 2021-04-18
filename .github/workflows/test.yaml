@@ -16,5 +16,5 @@ jobs:
       - name: Testing
         run: chmod +x run && ./run test
         env:
-          - ServerUrl: https://0.0.0.0
-          - JwtSecret: any_secret 
+          ServerUrl: https://0.0.0.0
+          JwtSecret: any_secret 
