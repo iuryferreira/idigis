@@ -1,0 +1,35 @@
+@inject NavigationManager NavigationManager
+
+<div class="container mt-5">
+    <nav class=" navbar navbar-transparent" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <NavLink class="ml-4" Match="NavLinkMatch.All" href="/login">
+                <img src="images/logo.svg" width="130" alt="">
+            </NavLink>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="" class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <NavLink Match="NavLinkMatch.All" href="/signup" class="button is-light is-warning is-outlined">
+                            <span>Cadastre-se</span>
+                        </NavLink>
+                        <NavLink Match="NavLinkMatch.All" href="/signin" class="button is-light is-info is-outlined">
+                            <span class="icon">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </span>
+                            <span>
+                                <strong>Entrar</strong>
+                            </span>
+                        </NavLink>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
