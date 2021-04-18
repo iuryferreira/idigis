@@ -36,7 +36,7 @@ namespace Idigis.Api
                     x.TokenValidationParameters = new()
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(AuthSettings.Key),
+                        IssuerSigningKey = new SymmetricSecurityKey(AuthService.Key),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
