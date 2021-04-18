@@ -1,0 +1,30 @@
+@page "/signin"
+@using Idigis.Web.Pages.Index.Forms
+<div class="columns mt-5">
+    <div class="column is-offset-0-mobile is-12-mobile is-offset-2-tablet is-8-tablet is-offset-3-desktop is-6-desktop">
+        <div class="container is-fluid" style="height: 75vh;">
+            <div class="block has-text-grey">
+                <section class="hero is-info is-light is-small">
+                    <div class="hero-body has-text-centered-mobile">
+                        <div class="columns">
+                            <div class="column is-2 is-hidden-mobile">
+                                <img src="images/icon.svg" width="70" alt="">
+                            </div>
+                            <div class="column">
+                                <p class="title pt-1 is-4">
+                                    Bem vindo ao Idigis
+                                </p>
+                                <p class="subtitle pt-2 is-6">
+                                    Efetue seu login
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <SigninForm />
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

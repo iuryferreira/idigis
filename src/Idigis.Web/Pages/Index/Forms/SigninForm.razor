@@ -1,0 +1,61 @@
+@using Idigis.Shared.Dtos.Requests
+<p class="help is-danger has-text-centered mt-5">
+    @AnyError
+</p>
+
+<EditForm OnValidSubmit="HandleValidSubmit" EditContext="_context">
+    <DataAnnotationsValidator />
+    <div class="box">
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left is-expanded">
+                <InputText name="email" id="email" @bind-Value="_model.Email" class="input"
+                    placeholder="ex.: conta@email.com" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <p class="help is-danger has-text-left">
+                    <ValidationMessage class="help" For="() => _model.Email" />
+                </p>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Senha</label>
+            <div class="control has-icons-left is-expanded">
+                <InputText type="password" id="password" @bind-Value="_model.Password" class="input"
+                    placeholder="*********" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                </span>
+                <p class="help is-danger has-text-left">
+                    <ValidationMessage For="() => _model.Password" />
+                </p>
+            </div>
+        </div>
+        <div class="field has-text-centered pt-3">
+            <button type="submit" class="button is-outlined is-fullwidth is-info is-light">Entrar</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    private readonly LoginRequest _model = new();
+    private string AnyError { get; set; } = "";
+    private EditContext _context;
+    private ValidationMessageStore _messageStore;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _context = new(_model);
+        _messageStore = new(_context);
+
+        _context.OnValidationRequested += (_, _) => _messageStore.Clear();
+        _context.OnFieldChanged += (_, e) => _messageStore.Clear(e.FieldIdentifier);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+
+    }
+}
