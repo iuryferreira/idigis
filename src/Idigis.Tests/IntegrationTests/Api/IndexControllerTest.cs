@@ -118,7 +118,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         [TestMethod]
         public async Task The_Signin_Method_Must_Return_Internal_Error_When_Authenticate_Failed ()
         {
-            Env.LoadContents("JwtExpirationInHours=invalid");
+            Env.LoadContents("JwtSecret=#");
             var model = new ChurchModel
             {
                 Id = Guid.NewGuid().ToString(),
