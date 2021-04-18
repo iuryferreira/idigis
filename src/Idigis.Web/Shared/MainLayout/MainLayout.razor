@@ -1,7 +1,13 @@
+@using Idigis.Web.Shared.Index.Header
 @inherits LayoutComponentBase
 
 <div class="page">
     <div class="main">
-        @Body
+        <Header />
+        <div class="section">
+            <div class="container">
+                @Body
+            </div>
+        </div>
     </div>
 </div>
