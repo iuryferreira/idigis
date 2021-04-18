@@ -2,7 +2,9 @@ using System;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using DotNetEnv;
 using Idigis.Api;
+using Idigis.Api.Auth;
 using Idigis.Core.Persistence;
 using Idigis.Core.Persistence.Models;
 using Idigis.Shared.Dtos.Responses;
@@ -12,18 +14,20 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Notie;
 
 namespace Idigis.Tests.IntegrationTests.Api
 {
     [TestClass]
     public class TitheControllerTest
     {
+        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly string _token;
         private Context _context;
-        private WebApplicationFactory<Startup> _factory;
 
-        [TestInitialize]
-        public void BeforeEach ()
+        public TitheControllerTest ()
         {
+            Env.TraversePath().Load();
             _context = TestContextFactory.CreateDbContext();
             _factory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
             {
@@ -33,6 +37,30 @@ namespace Idigis.Tests.IntegrationTests.Api
                     services.AddScoped(_ => _context);
                 });
             });
+            _token = new AuthService(new Notificator()).GenerateToken("any_email@email.com", "any_id");
+        }
+
+        [TestInitialize]
+        public void BeforeEach ()
+        {
+            _context = TestContextFactory.CreateDbContext();
+        }
+
+        [TestMethod]
+        public async Task The_Store_Method_Must_Return_a_Unauthorized_Error_When_the_Request_Not_Have_Valid_Token ()
+        {
+            await _context.DisposeAsync();
+            var client = _factory.CreateClient();
+            var data = new
+            {
+                MemberId = Guid.NewGuid().ToString(),
+                ChurchId = Guid.NewGuid().ToString(),
+                Value = 1,
+                Date = DateTime.Now
+            };
+            var response = await client.PostAsJsonAsync($"{Routes.Tithe.Base}/", data);
+            Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
         [TestMethod]
@@ -40,6 +68,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         {
             await _context.DisposeAsync();
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var data = new
             {
                 MemberId = Guid.NewGuid().ToString(),
@@ -57,6 +86,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         {
             var data = new { MemberId = Guid.NewGuid().ToString(), ChurchId = Guid.NewGuid().ToString(), Value = 0 };
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.PostAsJsonAsync(Routes.Tithe.Base, data);
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -73,19 +103,26 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel
-            {
-                Id = Guid.NewGuid().ToString(),
-                FullName = "any_name",
-                ChurchId = church.Id
-            };
+            var member = new MemberModel { Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();
             var data = new { ChurchId = church.Id, MemberId = member.Id, Value = 2, Date = DateTime.Now };
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.PostAsJsonAsync(Routes.Tithe.Base, data);
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
             Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+
+        [TestMethod]
+        public async Task The_Get_Method_Must_Return_a_Unauthorized_Error_When_the_Request_Not_Have_Valid_Token ()
+        {
+            await _context.DisposeAsync();
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync($"{Routes.Tithe.Base}/any_id?churchId=any_id&memberId=any_id");
+            Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
         [TestMethod]
@@ -93,6 +130,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         {
             await _context.DisposeAsync();
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.GetAsync($"{Routes.Tithe.Base}/any_id?churchId=any_id&memberId=any_id");
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -102,6 +140,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         public async Task The_Get_Method_Must_Return_a_Not_Found_When_Receiving_Invalid_Data ()
         {
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.GetAsync($"{Routes.Tithe.Base}/any_id?churchId=any_id&memberId=any_id");
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -118,12 +157,7 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel
-            {
-                Id = Guid.NewGuid().ToString(),
-                FullName = "any_name",
-                ChurchId = church.Id
-            };
+            var member = new MemberModel { Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
@@ -135,6 +169,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.TitheContext.AddAsync(tithe);
             await _context.SaveChangesAsync();
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response =
                 await client.GetAsync($"{Routes.Tithe.Base}/{tithe.Id}?churchId={church.Id}&memberId={member.Id}");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -144,11 +179,23 @@ namespace Idigis.Tests.IntegrationTests.Api
             Assert.AreEqual(content?.Value, tithe.Value);
         }
 
+
+        [TestMethod]
+        public async Task The_All_Method_Must_Return_a_Unauthorized_Error_When_the_Request_Not_Have_Valid_Token ()
+        {
+            await _context.DisposeAsync();
+            var client = _factory.CreateClient();
+            var response = await client.GetAsync($"{Routes.Tithe.Base}?churchId=any_id&memberId=any_id");
+            Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
+        }
+
         [TestMethod]
         public async Task The_All_Method_Must_Return_a_Internal_Error_When_the_Request_Failed ()
         {
             await _context.DisposeAsync();
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.GetAsync($"{Routes.Tithe.Base}?churchId=any_id&memberId=any_id");
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -158,6 +205,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         public async Task The_All_Method_Must_Return_a_Not_Found_When_Receiving_Invalid_Data ()
         {
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.GetAsync($"{Routes.Tithe.Base}?churchId=any_id&memberId=any_id");
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -174,12 +222,7 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel
-            {
-                Id = Guid.NewGuid().ToString(),
-                FullName = "any_name",
-                ChurchId = church.Id
-            };
+            var member = new MemberModel { Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
@@ -191,11 +234,22 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.TitheContext.AddAsync(tithe);
             await _context.SaveChangesAsync();
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.GetAsync($"{Routes.Tithe.Base}?churchId={church.Id}&memberId={member.Id}");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
+        [TestMethod]
+        public async Task The_Update_Method_Must_Return_a_Unauthorized_Error_When_the_Request_Not_Have_Valid_Token ()
+        {
+            await _context.DisposeAsync();
+            var data = new { ChurchId = "", MemberId = "", Value = 2, Date = DateTime.Now };
+            var client = _factory.CreateClient();
+            var response = await client.PutAsJsonAsync($"{Routes.Tithe.Base}/{Guid.NewGuid()}", data);
+            Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
+        }
 
         [TestMethod]
         public async Task The_Update_Method_Must_Return_a_Internal_Error_When_the_Request_Failed ()
@@ -203,6 +257,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.DisposeAsync();
             var data = new { ChurchId = "", MemberId = "", Value = 2, Date = DateTime.Now };
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.PutAsJsonAsync($"{Routes.Tithe.Base}/{Guid.NewGuid()}", data);
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -213,6 +268,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         {
             var data = new { ChurchId = "", MemberId = "", Value = 2, Date = DateTime.Now };
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.PutAsJsonAsync($"{Routes.Tithe.Base}/{Guid.NewGuid()}", data);
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -229,12 +285,7 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel
-            {
-                Id = Guid.NewGuid().ToString(),
-                FullName = "any_name",
-                ChurchId = church.Id
-            };
+            var member = new MemberModel { Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
@@ -247,6 +298,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.SaveChangesAsync();
             var data = new { ChurchId = church.Id, MemberId = member.Id, Value = 0 };
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.PutAsJsonAsync($"{Routes.Tithe.Base}/{tithe.Id}", data);
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -263,12 +315,7 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel
-            {
-                Id = Guid.NewGuid().ToString(),
-                FullName = "any_name",
-                ChurchId = church.Id
-            };
+            var member = new MemberModel { Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
@@ -281,9 +328,20 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.SaveChangesAsync();
             var data = new { ChurchId = church.Id, MemberId = member.Id, Value = 200.3, Date = DateTime.Now };
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.PutAsJsonAsync($"{Routes.Tithe.Base}/{tithe.Id}", data);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public async Task The_Delete_Method_Must_Return_a_Unauthorized_Error_When_the_Request_Not_Have_Valid_Token ()
+        {
+            await _context.DisposeAsync();
+            var client = _factory.CreateClient();
+            var response = await client.DeleteAsync($"{Routes.Tithe.Base}/any_id?churchId=any_id");
+            Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
+            Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
         [TestMethod]
@@ -291,6 +349,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         {
             await _context.DisposeAsync();
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.DeleteAsync($"{Routes.Tithe.Base}/any_id?churchId=any_id");
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -300,6 +359,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         public async Task The_Delete_Method_Must_Return_a_Not_Found_When_Receiving_Invalid_Data ()
         {
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.DeleteAsync($"{Routes.Tithe.Base}/any_id?churchId=any_id");
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
@@ -316,12 +376,7 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel
-            {
-                Id = Guid.NewGuid().ToString(),
-                FullName = "any_name",
-                ChurchId = church.Id
-            };
+            var member = new MemberModel { Id = Guid.NewGuid().ToString(), FullName = "any_name", ChurchId = church.Id };
             await _context.MemberContext.AddAsync(member);
             var tithe = new TitheModel
             {
@@ -333,6 +388,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             await _context.TitheContext.AddAsync(tithe);
             await _context.SaveChangesAsync();
             var client = _factory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response =
                 await client.DeleteAsync($"{Routes.Tithe.Base}/{tithe.Id}?churchId={church.Id}&memberId={member.Id}");
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);

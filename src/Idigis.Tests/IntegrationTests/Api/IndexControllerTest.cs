@@ -7,7 +7,6 @@ using Hash;
 using Idigis.Api;
 using Idigis.Core.Persistence;
 using Idigis.Core.Persistence.Models;
-using Idigis.Shared.Dtos.Responses;
 using Idigis.Tests.IntegrationTests.Persistence.Helpers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -20,8 +19,8 @@ namespace Idigis.Tests.IntegrationTests.Api
     [TestClass]
     public class IndexControllerTest
     {
-        private readonly WebApplicationFactory<Startup> _factory;
         private readonly Context _context;
+        private readonly WebApplicationFactory<Startup> _factory;
 
         public IndexControllerTest ()
         {
@@ -119,7 +118,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         [TestMethod]
         public async Task The_Signin_Method_Must_Return_Internal_Error_When_Authenticate_Failed ()
         {
-            Env.LoadContents("JwtExpirationInHours=invalid");
+            Env.LoadContents("JwtSecret=#");
             var model = new ChurchModel
             {
                 Id = Guid.NewGuid().ToString(),
@@ -134,6 +133,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             var response = await client.PostAsJsonAsync($"{Routes.Index.Signin}", data);
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
+            Env.LoadContents("JwtSecret=randomV23U5i4a1OvVDOwbDAT");
         }
     }
 }
