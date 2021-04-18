@@ -20,6 +20,3 @@ jobs:
           JwtSecret: "example_example_example_example_example_example_example_example"
           JwtExpirationInHours: 2
         run: chmod +x run && ./run test
-        env:
-          ServerUrl: https://0.0.0.0
-          JwtSecret: rV23U5i4a1OvVDOwbDAT 
