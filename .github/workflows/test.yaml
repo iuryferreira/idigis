@@ -17,6 +17,6 @@ jobs:
         env:
           ClientUrl: "https://0.0.0.0/"
           ServerUrl: "https://0.0.0.0/"
-          JwtSecret: "example_example_example_example_example_example_example_example"
+          JwtSecret: "randomV23U5i4a1OvVDOwbDAT"
           JwtExpirationInHours: 2
         run: chmod +x run && ./run test

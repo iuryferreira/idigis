@@ -133,7 +133,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             var response = await client.PostAsJsonAsync($"{Routes.Index.Signin}", data);
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
-            Env.LoadContents("JwtSecret=any_secret");
+            Env.LoadContents("JwtSecret=randomV23U5i4a1OvVDOwbDAT");
         }
     }
 }
