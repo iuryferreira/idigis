@@ -14,4 +14,7 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
       - name: Testing
-        run: chmod +x run && ServerUrl=https://0.0.0.0 JwtSecret=any_secret ./run test
+        run: chmod +x run && ./run test
+        env:
+          - ServerUrl: https://0.0.0.0
+          - JwtSecret: any_secret 
