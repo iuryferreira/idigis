@@ -118,7 +118,7 @@ namespace Idigis.Tests.IntegrationTests.Api
         [TestMethod]
         public async Task The_Signin_Method_Must_Return_Internal_Error_When_Authenticate_Failed ()
         {
-            Env.LoadContents("JwtExpirationInHours=invalid");
+            Env.LoadContents("JwtSecret=#");
             var model = new ChurchModel
             {
                 Id = Guid.NewGuid().ToString(),
@@ -133,6 +133,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             var response = await client.PostAsJsonAsync($"{Routes.Index.Signin}", data);
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
+            Env.LoadContents("JwtSecret=randomV23U5i4a1OvVDOwbDAT");
         }
     }
 }
