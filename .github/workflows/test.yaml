@@ -14,9 +14,4 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
       - name: Testing
-        env:
-          ClientUrl: "https://0.0.0.0/"
-          ServerUrl: "https://0.0.0.0/"
-          JwtSecret: "example_example_example_example_example_example_example_example"
-          JwtExpirationInHours: 2
-        run: chmod +x run && ./run test
+        run: chmod +x run && ServerUrl="https://0.0.0.0/" JwtSecret=${{AUTH_RANDOM_SECRET}} ./run test
