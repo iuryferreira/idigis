@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using Idigis.Web.Helpers;
+using Idigis.Web.Models;
 
 namespace Idigis.Web.Services
 {
@@ -37,10 +38,10 @@ namespace Idigis.Web.Services
 
         private async Task HasToken ()
         {
-            var token = await _localStorageService.GetItemAsync<string>("token");
-            if (!string.IsNullOrWhiteSpace(token))
+            var church = await _localStorageService.GetItemAsync<Church>("church");
+            if (!string.IsNullOrWhiteSpace(church.Token))
             {
-                var decoded = CustomEncoder.Decode<string>(token);
+                var decoded = CustomEncoder.Decode<string>(church.Token);
                 _http.DefaultRequestHeaders.Authorization = new("Bearer", decoded);
             }
         }
