@@ -13,6 +13,7 @@ namespace Idigis.Api
 {
     public class Startup
     {
+        private const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup (IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,6 +24,15 @@ namespace Idigis.Api
         public void ConfigureServices (IServiceCollection services)
         {
             services.AddCore(Configuration);
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy(MyAllowSpecificOrigins, builder =>
+                {
+                    builder.WithOrigins(Configuration.GetValue<string>("ClientUrl")).AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             services.AddScoped<IAuthService, AuthService>();
             services.AddAuthentication(x =>
                 {
@@ -59,6 +69,7 @@ namespace Idigis.Api
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
