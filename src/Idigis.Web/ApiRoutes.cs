@@ -4,7 +4,7 @@ namespace Idigis.Web
     {
         public static class Church
         {
-            public const string Signin = "/signin";
+            public const string Signin = "/api/signin";
         }
     }
 }
