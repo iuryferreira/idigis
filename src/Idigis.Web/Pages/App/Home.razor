@@ -1,0 +1,19 @@
+@page "/home"
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+@inject NavigationManager NavigationManager
+
+<h3>Home</h3>
+
+@code {
+    
+    ChurchState State => Store.GetState<ChurchState>();
+    
+    protected override void OnInitialized()
+    {
+        if (!State.Authenticated)
+        {
+            NavigationManager.NavigateTo("signin");
+        }
+    }
+}
