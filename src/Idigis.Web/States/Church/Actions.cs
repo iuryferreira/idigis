@@ -14,6 +14,15 @@ namespace Idigis.Web.States
             public LoginRequest Request { get; }
         }
 
+        public class SignupAction : IAction
+        {
+            public SignupAction (CreateChurchRequest request)
+            {
+                Request = request;
+            }
+            public CreateChurchRequest Request { get; }
+        }
+
         public class LoadStateAction : IAction { }
     }
 }
