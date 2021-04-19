@@ -15,8 +15,9 @@ namespace Idigis.Web
             builder.RootComponents.Add<App>("#app");
             //Services
             builder.Services.AddBlazoredLocalStorage(config => config.JsonSerializerOptions.WriteIndented = true);
-            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new("https://idigis-api.herokuapp.com/api") });
+            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new("https://localhost:5004") });
             builder.Services.AddScoped<IHttpService, HttpService>();
+            builder.Services.AddScoped<IChurchService, ChurchService>();
             await builder.Build().RunAsync();
         }
     }
