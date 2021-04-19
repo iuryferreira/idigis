@@ -1,4 +1,7 @@
 @using Idigis.Shared.Dtos.Requests
+@inject IChurchService Service
+@inject NavigationManager NavigationManager
+
 <p class="help is-danger has-text-centered mt-5">
     @AnyError
 </p>
@@ -46,16 +49,31 @@
     private ValidationMessageStore _messageStore;
     protected override void OnInitialized()
     {
-        base.OnInitialized();
         _context = new(_model);
         _messageStore = new(_context);
-
         _context.OnValidationRequested += (_, _) => _messageStore.Clear();
         _context.OnFieldChanged += (_, e) => _messageStore.Clear(e.FieldIdentifier);
     }
 
     private async Task HandleValidSubmit()
     {
+        var result = await Service.Signin(_model);
+        if (result)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            foreach (var error in Service.Errors)
+            {
+                _messageStore.Add(_context.Field(error.Key), error.Message);
 
+                if (error.Key is "AnyError")
+                {
+                    AnyError = error.Message;
+                }
+            }
+            _context.NotifyValidationStateChanged();
+        }
     }
 }
