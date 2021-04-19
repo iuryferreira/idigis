@@ -38,10 +38,10 @@ namespace Idigis.Web.Services
 
         private async Task HasToken ()
         {
-            var church = await _localStorageService.GetItemAsync<Church>("church");
-            if (church is not null && !string.IsNullOrWhiteSpace(church.Token))
+            var token = await _localStorageService.GetItemAsync<string>("token");
+            if (!string.IsNullOrWhiteSpace(token))
             {
-                var decoded = CustomEncoder.Decode<string>(church.Token);
+                var decoded = CustomEncoder.Decode<string>(token);
                 _http.DefaultRequestHeaders.Authorization = new("Bearer", decoded);
             }
         }
