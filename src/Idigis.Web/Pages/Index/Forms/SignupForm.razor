@@ -1,0 +1,93 @@
+@using Idigis.Shared.Dtos.Requests
+@using States
+@inject NavigationManager NavigationManager
+@inherits BlazorStateComponent
+
+<EditForm OnValidSubmit="HandleValidSubmit" EditContext="_context">
+    <DataAnnotationsValidator />
+    <div class="columns is-inline-mobile">
+        <div class="column has-text-centered">
+            <div class="field">
+                <div class="control has-icons-left">
+                    <InputText id="name" @bind-Value="_model.Name" class="input"
+                        placeholder="Digite o nome da sua igreja" />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-signature"></i>
+                    </span>
+                    <p class="help is-danger has-text-left">
+                        <ValidationMessage class="help" For="() => _model.Name" />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns is-inline-mobile pb-0">
+        <div class="column pt-0 is-7 has-text-centered">
+            <div class="control has-icons-left is-expanded">
+                <InputText name="email" id="email" @bind-Value="_model.Email" class="input"
+                    placeholder="Digite o seu email" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <p class="help is-danger has-text-left">
+                    <ValidationMessage class="help" For="() => _model.Email" />
+                </p>
+            </div>
+        </div>
+        <div class="column pt-0 has-text-centered">
+            <div class="control has-icons-left">
+                <InputText type="password" id="password" @bind-Value="_model.Password" class="input"
+                    placeholder="Digite a Senha" />
+                <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                </span>
+                <p class="help is-danger has-text-left">
+                    <ValidationMessage For="() => _model.Password" />
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field has-text-right">
+        <div class="control">
+            <button type="submit" class="button is-outlined is-info is-light">Entrar</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    ChurchState State => Store.GetState<ChurchState>();
+
+    private readonly CreateChurchRequest _model = new();
+    private string AnyError { get; set; } = "";
+    private EditContext _context;
+    private ValidationMessageStore _messageStore;
+
+    protected override void OnInitialized()
+    {
+        _context = new(_model);
+        _messageStore = new(_context);
+        _context.OnValidationRequested += (_, _) => _messageStore.Clear();
+        _context.OnFieldChanged += (_, e) => _messageStore.Clear(e.FieldIdentifier);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await Mediator.Send(new ChurchState.SignupAction(_model));
+
+        if (State.Errors.Count > 0)
+        {
+            foreach (var error in State.Errors)
+            {
+                _messageStore.Add(_context.Field(error.Key), error.Message);
+
+                if (error.Key is "AnyError")
+                {
+                    AnyError = error.Message;
+                }
+            }
+            _context.NotifyValidationStateChanged();
+        }
+        NavigationManager.NavigateTo("signin");
+    }
+
+}

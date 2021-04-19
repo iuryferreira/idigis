@@ -1,0 +1,38 @@
+@page "/signup"
+@using Idigis.Web.Pages.Index.Forms
+@using States
+@inject NavigationManager NavigationManager
+@inherits BlazorStateComponent
+
+<div class="columns mt-5">
+    <div class="column is-half is-offset-one-quarter">
+        <div class="box box-style has-text-centered">
+            <div class="content">
+                <h2 class="title title-page">Cadastro</h2>
+                <p class="title-page">
+                    Realize seu cadastro e comece a gerenciar a sua igreja da melhor forma.
+                    Certifique-se
+                    que todos os
+                    campos abaixo estejam preenchidos para concluir o seu cadastro.
+                </p>
+            </div>
+            <SignupForm />
+        </div>
+    </div>
+</div>
+
+@code {
+
+    ChurchState State => Store.GetState<ChurchState>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        Console.WriteLine(State.Authenticated);
+        if (State.Authenticated)
+        {
+            NavigationManager.NavigateTo("home");
+        }
+    }
+
+}
