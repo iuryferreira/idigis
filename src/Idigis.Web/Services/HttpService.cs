@@ -39,7 +39,7 @@ namespace Idigis.Web.Services
         private async Task HasToken ()
         {
             var church = await _localStorageService.GetItemAsync<Church>("church");
-            if (!string.IsNullOrWhiteSpace(church.Token))
+            if (church is not null && !string.IsNullOrWhiteSpace(church.Token))
             {
                 var decoded = CustomEncoder.Decode<string>(church.Token);
                 _http.DefaultRequestHeaders.Authorization = new("Bearer", decoded);
