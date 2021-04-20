@@ -1,13 +1,14 @@
 using BlazorState;
+using Idigis.Shared.Dtos.Requests;
 using Idigis.Web.Models;
 
 namespace Idigis.Web.States
 {
     public partial class FinanceState
     {
-        public class LoadFinanceTypeAction : IAction {}
+        public class LoadFinanceTypeAction : IAction { }
 
-        public class ToggleModalAction : IAction {}
+        public class ToggleModalAction : IAction { }
 
         public class ChangeTypeAction : IAction
         {
@@ -19,7 +20,16 @@ namespace Idigis.Web.States
             public FinanceType FinanceType { get; }
         }
 
+        public class AddOfferAction : IAction
+        {
+            public AddOfferAction (CreateOfferRequest request)
+            {
+                Request = request;
+            }
+            public CreateOfferRequest Request { get; }
+        }
+
         public class LoadOffersAction : IAction
-        {}
+        { }
     }
 }
