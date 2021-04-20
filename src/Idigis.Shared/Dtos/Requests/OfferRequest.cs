@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Idigis.Shared.Dtos.Requests
 {
     public class GetOfferRequest
@@ -8,8 +10,8 @@ namespace Idigis.Shared.Dtos.Requests
             Id = id;
         }
 
-        public string Id { get; }
-        public string ChurchId { get; }
+        public string Id { get; set; }
+        public string ChurchId { get; set; }
     }
 
     public class ListOfferRequest
@@ -19,19 +21,24 @@ namespace Idigis.Shared.Dtos.Requests
             ChurchId = churchId;
         }
 
-        public string ChurchId { get; }
+        public string ChurchId { get; set; }
     }
 
     public class CreateOfferRequest
     {
+        public CreateOfferRequest () { }
+
         public CreateOfferRequest (string churchId, decimal value)
         {
             Value = value;
             ChurchId = churchId;
         }
 
-        public string ChurchId { get; }
-        public decimal Value { get; }
+        public string ChurchId { get; set; }
+
+        [Required(ErrorMessage = "Este campo é obrigatório.")]
+        [Range(1, (double)decimal.MaxValue, ErrorMessage = "Ele deve ser maior que zero.")]
+        public decimal Value { get; set; }
     }
 
     public class EditOfferRequest
@@ -45,7 +52,7 @@ namespace Idigis.Shared.Dtos.Requests
 
         public string Id { get; set; }
         public string ChurchId { get; set; }
-        public decimal Value { get; }
+        public decimal Value { get; set; }
     }
 
     public class DeleteOfferRequest
@@ -56,7 +63,7 @@ namespace Idigis.Shared.Dtos.Requests
             ChurchId = churchId;
         }
 
-        public string Id { get; }
-        public string ChurchId { get; }
+        public string Id { get; set; }
+        public string ChurchId { get; set; }
     }
 }
