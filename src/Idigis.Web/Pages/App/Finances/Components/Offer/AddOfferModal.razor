@@ -10,17 +10,17 @@
             <button class="delete" aria-label="close" @onclick="HandleHide"></button>
         </header>
         <EditForm EditContext="_context">
-            <DataAnnotationsValidator/>
+            <DataAnnotationsValidator />
             <section class="modal-card-body">
                 <div class="field">
                     <label class="label">Valor</label>
                     <div class="control has-icons-left">
-                        <InputNumber @bind-Value="_model.Value" class="input" placeholder="100 R$"/>
+                        <InputNumber @bind-Value="_model.Value" class="input" placeholder="100 R$" />
                         <span class="icon is-small is-left">
                             <i class="fas fa-signature"></i>
                         </span>
                         <p class="help is-danger has-text-left">
-                            <ValidationMessage class="help" For="() => _model.Value"/>
+                            <ValidationMessage class="help" For="() => _model.Value" />
                         </p>
                     </div>
                 </div>
@@ -39,6 +39,8 @@
     private ValidationMessageStore _messageStore;
 
     FinanceState State => GetState<FinanceState>();
+    ChurchState ChurchState => GetState<ChurchState>();
+
 
     private string Status => State.ShowModal ? "is-active" : "";
 
@@ -53,11 +55,14 @@
 
     private async Task HandleValidSubmit()
     {
-        // await Mediator.Send(new FinanceState.AddAction(_model));
         if (!_context.Validate())
         {
             return;
         }
+
+        _model.ChurchId = ChurchState.Church.Id;
+        await Mediator.Send(new FinanceState.AddOfferAction(_model));
+
         if (State.Errors.Count > 0)
         {
             foreach (var error in State.Errors)
@@ -69,6 +74,7 @@
         else
         {
             await Mediator.Send(new FinanceState.ToggleModalAction());
+            await Mediator.Send(new FinanceState.LoadOffersAction());
         }
     }
 
