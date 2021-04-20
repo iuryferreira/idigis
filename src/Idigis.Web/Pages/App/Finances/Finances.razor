@@ -1,5 +1,6 @@
 @page "/finances"
 @layout AppLayout
+@using Idigis.Web.Pages.App.Finances.Components.Offer
 @using Idigis.Web.States
 @using Idigis.Web.Models
 @inherits BlazorStateComponent
@@ -27,14 +28,14 @@
 
 @if (State.FinanceType is FinanceType.Offer)
 {
-    <OfferManager/>
+    <OfferManager />
 }
 
 @code {
 
     protected override async Task OnInitializedAsync()
     {
-        
+
         await Mediator.Send(new ChurchState.LoadStateAction());
         await Mediator.Send(new FinanceState.LoadOffersAction());
         await Mediator.Send(new FinanceState.LoadFinanceTypeAction());
