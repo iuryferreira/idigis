@@ -1,0 +1,21 @@
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+
+<button class="button is-rounded is-info is-outlined" @onclick="HandleAddButton">
+    <span class="icon">
+        <i class="fas fa-plus"></i>
+    </span>
+    <span>@Text</span>
+</button>
+
+@code {
+
+    [Parameter]
+    public string Text { get; set; }
+
+    private async Task HandleAddButton()
+    {
+        await Mediator.Send(new FinanceState.ToggleModalAction());
+    }
+
+}

@@ -1,0 +1,53 @@
+@page "/finances"
+@layout AppLayout
+@using Idigis.Web.States
+@using Idigis.Web.Models
+@inherits BlazorStateComponent
+
+<div class="tabs is-centered is-toggle is-fullwidth">
+    <ul>
+        <li class="@ShowOfferTab">
+            <a @onclick="() => HandleTab(FinanceType.Offer)">
+                <span class="icon is-small">
+                    <i class="fas fa-donate" aria-hidden="true"></i>
+                </span>
+                <span>Ofertas</span>
+            </a>
+        </li>
+        <li class="@ShowTitheTab">
+            <a @onclick="() => HandleTab(FinanceType.Tithe)">
+                <span class="icon is-small">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                </span>
+                <span>Dízimos</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+@if (State.FinanceType is FinanceType.Offer)
+{
+    <OfferManager/>
+}
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        await Mediator.Send(new FinanceState.LoadOffersAction());
+        await Mediator.Send(new FinanceState.LoadFinanceTypeAction());
+    }
+
+    FinanceState State => Store.GetState<FinanceState>();
+
+    private string ShowOfferTab => State.FinanceType is FinanceType.Offer ? "is-active" : "";
+    private string ShowTitheTab => State.FinanceType is FinanceType.Tithe ? "is-active" : "";
+
+    private async Task HandleTab(FinanceType type)
+    {
+        await Mediator.Send(new FinanceState.ChangeTypeAction(type));
+    }
+
+}

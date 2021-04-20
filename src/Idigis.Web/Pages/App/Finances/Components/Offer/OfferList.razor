@@ -1,0 +1,29 @@
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+
+<div class="columns">
+    <div class="column mb-6">
+        <div class="table-container">
+            <table class="table is-fullwidth is-hoverable has-text-centered">
+                <thead>
+                <tr>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var offer in State.Offers)
+                {
+                    <OfferListItem Value=@($"{offer.Value}")/>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    FinanceState State => Store.GetState<FinanceState>();
+}

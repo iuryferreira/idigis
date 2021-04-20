@@ -1,0 +1,26 @@
+<tr>
+    <th>@Value R$</th>
+    <td>20/04/2021</td>
+    <td>
+        <a class="button is-warning is-small">
+            <span class="icon is-small is-left">
+                <i class="fas fa-pen"></i>
+            </span>
+        </a>
+        <a class="button is-danger is-small">
+            <span class="icon is-small is-left">
+                <i class="fas fa-eraser"></i>
+            </span>
+        </a>
+    </td>
+</tr>
+
+@code {
+
+    [Parameter]
+    public string Value { get; set; }
+
+    [Parameter]
+    public string Date { get; set; }
+
+}
