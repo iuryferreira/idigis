@@ -1,0 +1,51 @@
+<nav class="navbar is-fixed-bottom bottom-bar" role="navigation">
+    <div class="navbar-brand">
+        <NavLink class=@($"navbar-item is-expanded is-block has-text-centered {Members}") href="home"
+            @onclick='() => Active("Members")'>
+            <i class="fas fa-user"></i>
+            <p class="is-size-7">Membros</p>
+        </NavLink>
+        <NavLink class=@($"navbar-item is-expanded is-block has-text-centered {Home}") href="home"
+            @onclick='() => Active("Home")'>
+            <i class="fas fa-home"></i>
+            <p class="is-size-7">Início</p>
+        </NavLink>
+        <NavLink class=@($"navbar-item is-expanded is-block has-text-centered {Finances}") href="home"
+            @onclick='() => Active("Finances")'>
+            <i class="fas fa-money-bill-wave"></i>
+            <p class="is-size-7">Financeiro</p>
+        </NavLink>
+    </div>
+</nav>
+
+@code{
+        private const string SelectedColor = "has-text-dark";
+        private const string UnSelectedColor = "has-text-light";
+
+    public static string Finances { get; private set; } = UnSelectedColor;
+    public static string Home { get; private set; } = SelectedColor;
+    public static string Members { get; private set; } = UnSelectedColor;
+
+    public static void Active(string menuItem)
+    {
+        switch (menuItem)
+        {
+            case "Finances":
+                Finances = SelectedColor;
+                Home = UnSelectedColor;
+                Members = UnSelectedColor;
+                break;
+            case "Home":
+                Finances = UnSelectedColor;
+                Home = SelectedColor;
+                Members = UnSelectedColor;
+                break;
+            case "Members":
+                Finances = UnSelectedColor;
+                Home = UnSelectedColor;
+                Members = SelectedColor;
+                break;
+        }
+    }
+
+}
