@@ -22,12 +22,12 @@
 
     ChurchState State => Store.GetState<ChurchState>();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        await Mediator.Send(new ChurchState.LoadStateAction());
         if (!State.Authenticated)
         {
             NavigationManager.NavigateTo("signin");
         }
     }
-
 }

@@ -36,11 +36,10 @@
 @code {
 
     ChurchState State => Store.GetState<ChurchState>();
-    
+
     protected override async Task OnInitializedAsync()
     {
         await Mediator.Send(new ChurchState.LoadStateAction());
-        Console.WriteLine(State.Authenticated);
         if (State.Authenticated)
         {
             NavigationManager.NavigateTo("home");
