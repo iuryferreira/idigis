@@ -11,6 +11,7 @@ namespace Idigis.Web.Services
     {
         Task<HttpResponseMessage> Post<T> (string uri, T data);
         Task<HttpResponseMessage> Get (string uri);
+        Task<HttpResponseMessage> Delete (string uri);
     }
 
     public class HttpService : IHttpService
@@ -28,6 +29,11 @@ namespace Idigis.Web.Services
         {
             await HasToken();
             return await _http.GetAsync(uri);
+        }
+        public async Task<HttpResponseMessage> Delete (string uri)
+        {
+            await HasToken();
+            return await _http.DeleteAsync(uri);
         }
 
         public async Task<HttpResponseMessage> Post<T> (string uri, T data)
