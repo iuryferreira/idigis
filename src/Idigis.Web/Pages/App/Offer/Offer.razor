@@ -31,12 +31,12 @@
                             <th>@offer.Value R$</th>
                             <td>20/04/2021</td>
                             <td>
-                                <a class="button is-warning is-small">
+                                <button class="button is-warning is-small" @onclick="() => HandleEditButton(offer)">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-pen"></i>
                                     </span>
-                                </a>
-                                <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(offer.Id)">
+                                </button>
+                                <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(offer)">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-eraser"></i>
                                     </span>
@@ -54,20 +54,32 @@
 <CascadingValue Value="this">
     <AddOfferModal/>
     <DeleteOfferModal/>
+    @if (_showEditModal)
+    {
+        <EditOfferModal/>
+    }
 </CascadingValue>
 
 @code {
+
     OfferState State => Store.GetState<OfferState>();
+    private bool _showEditModal;
 
     protected override async Task OnInitializedAsync()
     {
         await Mediator.Send(new ChurchState.LoadStateAction());
         await Mediator.Send(new OfferState.LoadOffersAction());
     }
-    
-    private async Task HandleDeleteButton(string id)
+
+    private async Task HandleEditButton(Models.Offer offer)
     {
-        await Mediator.Send(new OfferState.ToggleModalAction("Delete", id));
+        _showEditModal = true;
+        await Mediator.Send(new OfferState.ToggleModalAction("Edit", offer));
+    }
+
+    private async Task HandleDeleteButton(Models.Offer offer)
+    {
+        await Mediator.Send(new OfferState.ToggleModalAction("Delete", offer));
     }
 
     public void Refresh()
