@@ -16,7 +16,17 @@ namespace Idigis.Web.States
 
             public override async Task<Unit> Handle (ToggleModalAction action, CancellationToken cancellationToken)
             {
-                State.ShowModal = !State.ShowModal;
+                switch (action.ModalName)
+                {
+                    case "Add":
+                        State.ShowAddModal = !State.ShowAddModal;
+                        break;
+                    case "Delete":
+                        State.SelectedOffer = action.OfferId;
+                        State.ShowDeleteModal = !State.ShowDeleteModal;
+                        break;
+                }
+
                 return await Unit.Task;
             }
         }

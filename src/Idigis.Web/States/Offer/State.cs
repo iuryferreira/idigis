@@ -9,12 +9,15 @@ namespace Idigis.Web.States
         public List<Error> Errors { get; private set; }
         public List<Offer> Offers { get; private set; }
         public decimal TotalOffersInMonth { get; private set; }
-        public bool ShowModal { get; private set; }
+        public string SelectedOffer { get; private set; }
+        public bool ShowAddModal { get; private set; }
+        public bool ShowDeleteModal { get; private set; }
+        
         public override void Initialize ()
         {
             Errors = new();
             Offers = new();
-            ShowModal = false;
+            ShowAddModal = false;
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -15,22 +14,22 @@ namespace Idigis.Web.States
     public partial class OfferState
     {
 
-        public class AddOfferReducer : ActionHandler<AddOfferAction>
+        public class DeleteOfferReducer : ActionHandler<DeleteOfferAction>
         {
             private readonly IHttpService _http;
-            public AddOfferReducer (IStore store, IHttpService http) : base(store)
+            public DeleteOfferReducer (IStore store, IHttpService http) : base(store)
             {
                 _http = http;
             }
 
             private OfferState State => Store.GetState<OfferState>();
 
-            public override async Task<Unit> Handle (AddOfferAction action, CancellationToken cancellationToken)
+            public override async Task<Unit> Handle (DeleteOfferAction action, CancellationToken cancellationToken)
             {
-                var response = await _http.Post(ApiRoutes.Offer.Add, action.Request);
+                var response = await _http.Delete($"{ApiRoutes.Offer.Delete}/{action.Request.Id}?churchId={action.Request.ChurchId}");
                 switch (response.StatusCode)
                 {
-                    case HttpStatusCode.Created:
+                    case HttpStatusCode.NoContent:
                         break;
                     case HttpStatusCode.BadRequest:
                         State.Errors =
