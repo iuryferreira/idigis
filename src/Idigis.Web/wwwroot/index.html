@@ -14,9 +14,30 @@
 </head>
 
 <body>
-    <div id="app"></div>
-    <script src="_framework/blazor.webassembly.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+<div id="app"></div>
+<script src="_framework/blazor.webassembly.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+<script src="_content/Blazor-State/blazorstate.js"></script>
+<script src="https://unpkg.com/imask"></script>
+<script src="js/masks.js"></script>
+<script>
+
+    var moneyMask = () => {
+        IMask(document.getElementById('money'), {
+            mask: 'R$ num', 
+            blocks: {
+                num: { mask: Number, 
+                    thousandsSeparator: '.', 
+                    decimalSeparator: ',',
+                    scale: 2,
+                    padFractionalZeros: true,
+                    min: 0,
+                }
+            }
+        }
+        );
+    }
+</script>
 </body>
 
 </html>
