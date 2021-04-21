@@ -43,6 +43,7 @@ namespace Idigis.Shared.Dtos.Requests
 
     public class EditOfferRequest
     {
+        public EditOfferRequest() {}
         public EditOfferRequest (string churchId, string id, decimal value)
         {
             Id = id;
