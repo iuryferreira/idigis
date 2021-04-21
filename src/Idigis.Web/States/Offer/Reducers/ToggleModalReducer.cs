@@ -5,13 +5,13 @@ using MediatR;
 
 namespace Idigis.Web.States
 {
-    public partial class FinanceState
+    public partial class OfferState
     {
         public class ToggleModalActionHandler : ActionHandler<ToggleModalAction>
         {
             public ToggleModalActionHandler (IStore store) : base(store) { }
 
-            private FinanceState State => Store.GetState<FinanceState>();
+            private OfferState State => Store.GetState<OfferState>();
 
 
             public override async Task<Unit> Handle (ToggleModalAction action, CancellationToken cancellationToken)

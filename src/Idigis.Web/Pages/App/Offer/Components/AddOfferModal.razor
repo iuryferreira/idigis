@@ -1,5 +1,6 @@
 @using Idigis.Shared.Dtos.Requests
 @using Idigis.Web.States
+@inject IJSRuntime JSRuntime
 @inherits BlazorStateComponent
 
 <div class="modal @Status">
@@ -10,17 +11,17 @@
             <button class="delete" aria-label="close" @onclick="HandleHide"></button>
         </header>
         <EditForm EditContext="_context">
-            <DataAnnotationsValidator />
+            <DataAnnotationsValidator/>
             <section class="modal-card-body">
                 <div class="field">
                     <label class="label">Valor</label>
                     <div class="control has-icons-left">
-                        <InputNumber @bind-Value="_model.Value" class="input" placeholder="100 R$" />
+                        <InputNumber @bind-Value="_model.Value" class="input"/>
                         <span class="icon is-small is-left">
-                            <i class="fas fa-signature"></i>
+                            <i class="fas fa-money-bill-wave"></i>
                         </span>
                         <p class="help is-danger has-text-left">
-                            <ValidationMessage class="help" For="() => _model.Value" />
+                            <ValidationMessage class="help" For="() => _model.Value"/>
                         </p>
                     </div>
                 </div>
@@ -37,12 +38,14 @@
     private readonly CreateOfferRequest _model = new();
     private EditContext _context;
     private ValidationMessageStore _messageStore;
-
-    FinanceState State => GetState<FinanceState>();
-    ChurchState ChurchState => GetState<ChurchState>();
-
-
     private string Status => State.ShowModal ? "is-active" : "";
+
+
+    [CascadingParameter]
+    public Offer Parent { get; set; }
+
+    OfferState State => GetState<OfferState>();
+    ChurchState ChurchState => GetState<ChurchState>();
 
     protected override void OnInitialized()
     {
@@ -53,6 +56,14 @@
         _context.OnFieldChanged += (_, e) => _messageStore.Clear(e.FieldIdentifier);
     }
 
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     if (firstRender)
+    //     {
+    //         await JSRuntime.InvokeVoidAsync("moneyMask");
+    //     }
+    // }
+
     private async Task HandleValidSubmit()
     {
         if (!_context.Validate())
@@ -61,7 +72,7 @@
         }
 
         _model.ChurchId = ChurchState.Church.Id;
-        await Mediator.Send(new FinanceState.AddOfferAction(_model));
+        await Mediator.Send(new OfferState.AddOfferAction(_model));
 
         if (State.Errors.Count > 0)
         {
@@ -73,14 +84,15 @@
         }
         else
         {
-            await Mediator.Send(new FinanceState.ToggleModalAction());
-            await Mediator.Send(new FinanceState.LoadOffersAction());
+            await Mediator.Send(new OfferState.LoadOffersAction());
+            await Mediator.Send(new OfferState.ToggleModalAction());
+            Parent.Refresh();
         }
     }
 
     private async Task HandleHide()
     {
-        await Mediator.Send(new FinanceState.ToggleModalAction());
+        await Mediator.Send(new OfferState.ToggleModalAction());
     }
 
 }

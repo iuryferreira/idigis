@@ -1,0 +1,57 @@
+@page "/offer"
+@layout AppLayout
+@using Idigis.Web.Pages.App.Offer.Components
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+
+<div class="container">
+    <div class="columns is-inline-mobile">
+        <div class="column has-text-centered-mobile">
+            <AddButton Text="Adicionar Oferta"/>
+        </div>
+        <div class="column">
+            <p class="has-text-right has-text-centered-mobile has-text-weight-bold">Ofertas do mês: @State.TotalOffersInMonth R$</p>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column mb-6">
+            <div class="table-container">
+                <table class="table is-fullwidth is-hoverable has-text-centered">
+                    <thead>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var offer in State.Offers)
+                    {
+                        <OfferListItem Value=@($"{offer.Value}")/>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<CascadingValue Value="this">
+    <AddOfferModal/>
+</CascadingValue>
+
+@code {
+    OfferState State => Store.GetState<OfferState>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        await Mediator.Send(new OfferState.LoadOffersAction());
+    }
+
+    public void Refresh()
+    {
+        StateHasChanged();
+    }
+
+}

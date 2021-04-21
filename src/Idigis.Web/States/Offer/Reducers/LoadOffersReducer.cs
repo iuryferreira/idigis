@@ -14,7 +14,7 @@ using MediatR;
 
 namespace Idigis.Web.States
 {
-    public partial class FinanceState
+    public partial class OfferState
     {
         public class LoadOffersReducer : ActionHandler<LoadOffersAction>
         {
@@ -27,7 +27,7 @@ namespace Idigis.Web.States
                 _http = http;
             }
 
-            private FinanceState State => Store.GetState<FinanceState>();
+            private OfferState State => Store.GetState<OfferState>();
             private ChurchState ChurchState => Store.GetState<ChurchState>();
 
 

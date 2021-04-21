@@ -4,7 +4,7 @@ using Idigis.Web.Models;
 
 namespace Idigis.Web.States
 {
-    public partial class FinanceState
+    public partial class OfferState
     {
         public class LoadFinanceTypeAction : IAction { }
 
