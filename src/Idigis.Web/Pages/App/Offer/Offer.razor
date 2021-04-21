@@ -27,7 +27,22 @@
                     <tbody>
                     @foreach (var offer in State.Offers)
                     {
-                        <OfferListItem Value=@($"{offer.Value}")/>
+                        <tr>
+                            <th>@offer.Value R$</th>
+                            <td>20/04/2021</td>
+                            <td>
+                                <a class="button is-warning is-small">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-pen"></i>
+                                    </span>
+                                </a>
+                                <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(offer.Id)">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-eraser"></i>
+                                    </span>
+                                </button>
+                            </td>
+                        </tr>
                     }
                     </tbody>
                 </table>
@@ -38,6 +53,7 @@
 
 <CascadingValue Value="this">
     <AddOfferModal/>
+    <DeleteOfferModal/>
 </CascadingValue>
 
 @code {
@@ -47,6 +63,11 @@
     {
         await Mediator.Send(new ChurchState.LoadStateAction());
         await Mediator.Send(new OfferState.LoadOffersAction());
+    }
+    
+    private async Task HandleDeleteButton(string id)
+    {
+        await Mediator.Send(new OfferState.ToggleModalAction("Delete", id));
     }
 
     public void Refresh()

@@ -38,7 +38,7 @@
     private readonly CreateOfferRequest _model = new();
     private EditContext _context;
     private ValidationMessageStore _messageStore;
-    private string Status => State.ShowModal ? "is-active" : "";
+    private string Status => State.ShowAddModal ? "is-active" : "";
 
 
     [CascadingParameter]
@@ -85,14 +85,14 @@
         else
         {
             await Mediator.Send(new OfferState.LoadOffersAction());
-            await Mediator.Send(new OfferState.ToggleModalAction());
+            await Mediator.Send(new OfferState.ToggleModalAction("Add"));
             Parent.Refresh();
         }
     }
 
     private async Task HandleHide()
     {
-        await Mediator.Send(new OfferState.ToggleModalAction());
+        await Mediator.Send(new OfferState.ToggleModalAction("Add"));
     }
 
 }
