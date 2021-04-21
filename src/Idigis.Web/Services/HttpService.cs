@@ -10,6 +10,7 @@ namespace Idigis.Web.Services
     public interface IHttpService
     {
         Task<HttpResponseMessage> Post<T> (string uri, T data);
+        Task<HttpResponseMessage> Put<T> (string uri, T data);
         Task<HttpResponseMessage> Get (string uri);
         Task<HttpResponseMessage> Delete (string uri);
     }
@@ -40,6 +41,12 @@ namespace Idigis.Web.Services
         {
             await HasToken();
             return await _http.PostAsJsonAsync(uri, data);
+        }
+        
+        public async Task<HttpResponseMessage> Put<T> (string uri, T data)
+        {
+            await HasToken();
+            return await _http.PutAsJsonAsync(uri, data);
         }
 
         private async Task HasToken ()
