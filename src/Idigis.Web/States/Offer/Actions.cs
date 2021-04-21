@@ -10,13 +10,13 @@ namespace Idigis.Web.States
 
         public class ToggleModalAction : IAction
         {
-            public ToggleModalAction (string modalName, string offerId = "")
+            public ToggleModalAction (string modalName, Offer offer = null)
             {
                 ModalName = modalName;
-                OfferId = offerId;
+                Offer = offer;
             }
             public string ModalName { get; }
-            public string OfferId { get; }
+            public Offer Offer { get; }
         }
 
         public class ChangeTypeAction : IAction
@@ -36,6 +36,15 @@ namespace Idigis.Web.States
                 Request = request;
             }
             public CreateOfferRequest Request { get; }
+        }
+        
+        public class EditOfferAction : IAction
+        {
+            public EditOfferAction (EditOfferRequest request)
+            {
+                Request = request;
+            }
+            public EditOfferRequest Request { get; }
         }
 
         public class DeleteOfferAction : IAction

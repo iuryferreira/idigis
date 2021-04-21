@@ -21,8 +21,12 @@ namespace Idigis.Web.States
                     case "Add":
                         State.ShowAddModal = !State.ShowAddModal;
                         break;
+                    case "Edit":
+                        State.SelectedOffer = action.Offer;
+                        State.ShowEditModal = !State.ShowEditModal;
+                        break;
                     case "Delete":
-                        State.SelectedOffer = action.OfferId;
+                        State.SelectedOffer = action.Offer;
                         State.ShowDeleteModal = !State.ShowDeleteModal;
                         break;
                 }
