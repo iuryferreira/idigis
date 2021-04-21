@@ -21,6 +21,7 @@ namespace Idigis.Web
             builder.Services.AddScoped<IHttpService, HttpService>();
             builder.Services.AddBlazorState(options =>
             {
+                options.UseReduxDevToolsBehavior = true;
                 options.Assemblies = new[] { typeof(Program).Assembly };
             });
             await builder.Build().RunAsync();
