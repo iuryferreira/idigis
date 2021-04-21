@@ -12,6 +12,7 @@ namespace Idigis.Web
         {
             public const string Add = "/api/offers";
             public const string List = "/api/offers";
+            public const string Delete = "/api/offers";
         }
     }
 }
