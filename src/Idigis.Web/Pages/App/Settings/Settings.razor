@@ -1,0 +1,72 @@
+@page "/settings"
+@layout AppLayout
+@using Idigis.Web.Pages.App.Settings.Components
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+@inject NavigationManager NavigationManager
+
+<div class="columns is-inline">
+    <div class="container has-text-centered">
+        <h1 class="subtitle">Bem vindo as <b class="has-text-info">configurações.</b></h1>
+        <p>Aqui você pode alterar senha, o nome da sua igreja ou fazer logout.</p>
+
+        <p class="mt-5">
+            <button class="button is-outlined is-info" @onclick="HandleChangeNameButton">Alterar nome da Igreja</button>
+        </p>
+        <p class="mt-5">
+            <button class="button is-outlined is-info" @onclick="HandleChangePasswordButton">Alterar sua senha</button>
+        </p>
+        <p class="mt-5">
+            <button class="button is-outlined is-dark" @onclick="HandleSignOutButton">Sair do Idigis</button>
+        </p>
+    </div>
+</div>
+
+<CascadingValue Value="this">
+
+    @if (_showChangeNameModal)
+    {
+        <ChangeNameModal />
+    }
+
+    @if (_showChangePasswordModal)
+    {
+        <ChangePasswordModal />
+    }
+</CascadingValue>
+
+@code {
+
+    private bool _showChangeNameModal;
+    private bool _showChangePasswordModal;
+
+    ChurchState State => Store.GetState<ChurchState>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        if (!State.Authenticated)
+        {
+            NavigationManager.NavigateTo("signin");
+        }
+    }
+
+    private async Task HandleChangeNameButton()
+    {
+        _showChangeNameModal = true;
+        await Mediator.Send(new ChurchState.ToggleModalAction("ChangeName"));
+    }
+
+    private async Task HandleChangePasswordButton()
+    {
+        _showChangePasswordModal = true;
+        await Mediator.Send(new ChurchState.ToggleModalAction("ChangePassword"));
+    }
+
+    private async Task HandleSignOutButton()
+    {
+        await Mediator.Send(new ChurchState.SignOutAction());
+        NavigationManager.NavigateTo("/signin");
+    }
+
+}

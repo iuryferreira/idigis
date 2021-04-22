@@ -1,0 +1,99 @@
+@using Idigis.Shared.Dtos.Requests
+@using Idigis.Web.States
+@inject IJSRuntime JSRuntime
+@inherits BlazorStateComponent
+
+<div class="modal @Status">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title is-size-5">Editar Oferta</p>
+            <button class="delete" aria-label="close" @onclick="HandleHide"></button>
+        </header>
+        <EditForm EditContext="_context">
+            <DataAnnotationsValidator/>
+            <section class="modal-card-body">
+                <div class="field">
+                    <label class="label">Valor</label>
+                    <div class="control has-icons-left">
+                        <InputNumber @bind-Value="_model.Value" class="input"/>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </span>
+                        <p class="help is-danger has-text-left">
+                            <ValidationMessage class="help" For="() => _model.Value"/>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-info" type="submit" @onclick="HandleValidSubmit">Adicionar</button>
+                <button class="button" aria-label="close" @onclick="HandleHide">Cancelar</button>
+            </footer>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private readonly EditOfferRequest _model = new();
+    private EditContext _context;
+    private ValidationMessageStore _messageStore;
+    private string Status => State.ShowEditModal ? "is-active" : "";
+    
+    [CascadingParameter]
+    public Offer Parent { get; set; }
+
+    OfferState State => GetState<OfferState>();
+    ChurchState ChurchState => GetState<ChurchState>();
+
+    protected override void OnInitialized()
+    {
+        _model.Value = State.SelectedOffer.Value;
+        _context = new(_model);
+        _messageStore = new(_context);
+        _context.OnValidationRequested += (_, _) => _messageStore.Clear();
+        _context.OnFieldChanged += (_, e) => _messageStore.Clear(e.FieldIdentifier);
+
+    }
+
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     if (firstRender)
+    //     {
+    //         await JSRuntime.InvokeVoidAsync("moneyMask");
+    //     }
+    // }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!_context.Validate())
+        {
+            return;
+        }
+
+        _model.ChurchId = ChurchState.Church.Id;
+        _model.Id = State.SelectedOffer.Id;
+        await Mediator.Send(new OfferState.EditOfferAction(_model));
+
+        if (State.Errors.Count > 0)
+        {
+            foreach (var error in State.Errors)
+            {
+                _messageStore.Add(_context.Field(error.Key), error.Message);
+            }
+            _context.NotifyValidationStateChanged();
+        }
+        else
+        {
+            await Mediator.Send(new OfferState.LoadOffersAction());
+            await Mediator.Send(new OfferState.ToggleModalAction("Edit"));
+            Parent.Refresh();
+        }
+    }
+
+    private async Task HandleHide()
+    {
+        await Mediator.Send(new OfferState.ToggleModalAction("Edit"));
+    }
+
+}

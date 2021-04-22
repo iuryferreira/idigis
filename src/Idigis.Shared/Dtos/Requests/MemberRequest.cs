@@ -27,6 +27,11 @@ namespace Idigis.Shared.Dtos.Requests
 
     public class CreateMemberRequest
     {
+        public CreateMemberRequest ()
+        {
+            Contact = new();
+        }
+
         public CreateMemberRequest (string churchId, string fullName, DateTime? birthDate = null,
             DateTime? baptismDate = null, ContactType contact = null)
         {
@@ -55,6 +60,10 @@ namespace Idigis.Shared.Dtos.Requests
             BirthDate = birthDate;
             BaptismDate = baptismDate;
             Contact = contact;
+        }
+
+        public EditMemberRequest ()
+        {
         }
 
         public string ChurchId { get; set; }

@@ -14,6 +14,11 @@ namespace Idigis.Shared.Dtos.Requests
 
     public class CreateChurchRequest
     {
+        public CreateChurchRequest ()
+        {
+
+        }
+
         public CreateChurchRequest (string name, string email, string password)
         {
             Name = name;
@@ -28,6 +33,8 @@ namespace Idigis.Shared.Dtos.Requests
 
     public class EditChurchRequest
     {
+        public EditChurchRequest(){}
+
         public EditChurchRequest (string id, string name, string email, string password)
         {
             Id = id;

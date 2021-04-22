@@ -32,6 +32,7 @@ namespace Idigis.Api.Controllers
 
             return _usecase.Notificator.NotificationType.Name switch
             {
+                "NotFound" => NotFound(_usecase.Notificator.Notifications),
                 "Validation" => BadRequest(_usecase.Notificator.Notifications),
                 _ => StatusCode(500, _usecase.Notificator.Notifications)
             };

@@ -1,0 +1,33 @@
+@page "/home"
+@layout AppLayout
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+@inject NavigationManager NavigationManager
+
+<div class="columns">
+    <div class="column">
+        <div class="container is-fluid" style="height: 75vh;">
+            <div class="block has-text-centered has-text-grey">
+                <img src="images/icon.svg" width="100" style="margin-top:13vh;" alt="">
+                <p class="mt-6">
+                    Bem vindo ao <b class="has-text-info">Idigis</b>, escolha uma das opções no
+                    nosso menu abaixo.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    ChurchState State => Store.GetState<ChurchState>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        if (!State.Authenticated)
+        {
+            NavigationManager.NavigateTo("signin");
+        }
+    }
+}

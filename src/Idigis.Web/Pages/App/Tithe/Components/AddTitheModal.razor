@@ -1,0 +1,133 @@
+@using Idigis.Shared.Dtos.Requests
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+
+<div class="modal @Status">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title is-size-5">Adicionar Dízimo</p>
+            <button class="delete" aria-label="close" @onclick="HandleHide"></button>
+        </header>
+        <EditForm EditContext="_context">
+            <DataAnnotationsValidator/>
+            <section class="modal-card-body">
+                <div class="columns is-inline-mobile">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Selecionar Membro</label>
+                            <div class="control has-icons-left">
+                                <div class="select is-fullwidth">
+                                    <InputSelect @bind-Value="_model.MemberId" class="input">
+                                        <option value="">Selecione um membro</option>
+                                        @foreach (var member in MemberState.Members)
+                                        {
+                                            <option value="@member.Id">@member.FullName</option>
+                                        }
+                                    </InputSelect>
+                                </div>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage class="help" For="() => _model.MemberId"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns is-inline-mobile">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Valor</label>
+                            <div class="control has-icons-left">
+                                <InputNumber @bind-Value="_model.Value" class="input"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage class="help" For="() => _model.Value"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Data</label>
+                            <div class="control has-icons-left">
+                                <InputDate @bind-Value="_model.Date" class="input"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage For="() => _model.Date"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-info" type="submit" @onclick="HandleValidSubmit">Adicionar</button>
+                <button class="button" aria-label="close" @onclick="HandleHide">Cancelar</button>
+            </footer>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private readonly CreateTitheRequest _model = new();
+    private EditContext _context;
+    private ValidationMessageStore _messageStore;
+    private string Status => State.ShowAddModal ? "is-active" : "";
+
+
+    [CascadingParameter]
+    public Tithe Parent { get; set; }
+
+    TitheState State => GetState<TitheState>();
+    ChurchState ChurchState => GetState<ChurchState>();
+    MemberState MemberState => GetState<MemberState>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Mediator.Send(new MemberState.LoadMembersAction());
+        _model.Date = DateTime.Now;
+        _context = new(_model);
+        _messageStore = new(_context);
+        _context.OnValidationRequested += (_, _) => _messageStore.Clear();
+        _context.OnFieldChanged += (_, e) => _messageStore.Clear(e.FieldIdentifier);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!_context.Validate())
+        {
+            return;
+        }
+
+        _model.ChurchId = ChurchState.Church.Id;
+        await Mediator.Send(new TitheState.AddTitheAction(_model));
+
+        if (State.Errors.Count > 0)
+        {
+            foreach (var error in State.Errors)
+            {
+                _messageStore.Add(_context.Field(error.Key), error.Message);
+            }
+            _context.NotifyValidationStateChanged();
+        }
+        else
+        {
+            await Mediator.Send(new TitheState.LoadTithesAction());
+            await Mediator.Send(new TitheState.ToggleModalAction("Add"));
+            Parent.Refresh();
+        }
+    }
+
+    private async Task HandleHide()
+    {
+        await Mediator.Send(new TitheState.ToggleModalAction("Add"));
+    }
+
+}

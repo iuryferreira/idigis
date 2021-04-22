@@ -11,6 +11,6 @@
         ]
     },
     "RoslynExtensionsOptions": {
-        "EnableAnalyzersSupport": true
+        "EnableAnalyzersSupport": false
     }
 }

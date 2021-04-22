@@ -13,7 +13,6 @@ namespace Idigis.Api.Auth
 {
     public class AuthService : IAuthService
     {
-        internal static byte[] Key => Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JwtSecret"));
         private readonly string ServerUrl;
 
         public AuthService (AbstractNotificator notificator)
@@ -21,6 +20,8 @@ namespace Idigis.Api.Auth
             Notificator = notificator;
             ServerUrl = Environment.GetEnvironmentVariable("ServerUrl");
         }
+
+        internal static byte[] Key => Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JwtSecret"));
 
         public AbstractNotificator Notificator { get; }
 
@@ -39,6 +40,17 @@ namespace Idigis.Api.Auth
 
             Notificator.SetNotificationType(new("Unauthorized"));
             return null;
+        }
+
+        public LoginResponse RefreshToken (LoginRequest request)
+        {
+            var token = GenerateToken(request.Email, request.ChurchId);
+            if (string.IsNullOrEmpty(token))
+            {
+                return null;
+            }
+            
+            return new() { Id = request.ChurchId, Email = request.Email, Name = request.Name, Token = token };
         }
 
         public string GenerateToken (string email, string id)

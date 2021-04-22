@@ -5,6 +5,7 @@ on:
     paths:
       - src/Idigis.Api/**
       - src/Idigis.Core/**
+      - src/Idigis.Shared/**
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,9 +16,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.200
-
-      - name: Install dependencies
-        run: dotnet restore
 
       - name: Testing
         env:
@@ -41,7 +39,3 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME_API }} 
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           usedocker: true
-          docker_build_args: |
-            project
-        env:
-          project: api

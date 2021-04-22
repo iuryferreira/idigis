@@ -1,0 +1,230 @@
+@using Idigis.Shared.Dtos.Requests
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+
+<div class="modal @Status">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title is-size-5">Editar Membro</p>
+            <button class="delete" aria-label="close" @onclick="HandleHide"></button>
+        </header>
+
+        <section class="modal-card-body">
+            <p class="help is-danger has-text-centered mt-5">
+                @AnyError
+            </p>
+            <EditForm EditContext="_context">
+                <DataAnnotationsValidator/>
+                <h1 class="subtitle">Dados Pessoais</h1>
+                <div class="columns is-inline-mobile">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Nome*</label>
+                            <div class="control has-icons-left">
+                                <InputText @bind-Value="_model.FullName" class="input" placeholder="Nome Completo"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-signature"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage class="help" For="() => _model.FullName"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns is-inline-mobile">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Data de Nascimento</label>
+                            <div class="control has-icons-left">
+                                <InputDate @bind-Value="_model.BirthDate" class="input"
+                                           placeholder="Digite a data de nascimento"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage For="() => _model.ChurchId"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Data de Batismo</label>
+                            <div class="control has-icons-left">
+                                <InputDate @bind-Value="_model.BaptismDate" class="input"
+                                           placeholder="Digite a data de batismo"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage For="() => _model.ChurchId"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h1 class="subtitle">Contato</h1>
+                <div class="columns is-inline-mobile">
+                    <div class="column is-6">
+                        <div class="field">
+                            <label class="label">Telefone</label>
+                            <div class="control has-icons-left is-expanded">
+                                <InputText @bind-Value="_model.Contact.PhoneNumber" class="input"
+                                           placeholder="Digite o seu telefone"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-phone"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage class="help" For="() => _model.Contact.PhoneNumber"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns is-inline-mobile">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Cidade</label>
+                            <div class="control has-icons-left is-expanded">
+                                <InputText @bind-Value="_model.Contact.City" class="input"
+                                           placeholder="Digite o nome da sua cidade"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-city"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage class="help" For="() => _model.Contact.City"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Bairro</label>
+                            <div class="control has-icons-left is-expanded">
+                                <InputText @bind-Value="_model.Contact.District" class="input"
+                                           placeholder="Digite o nome da sua cidade"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-city"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage class="help" For="() => _model.Contact.District"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns is-inline-mobile">
+                    <div class="column is-8">
+                        <div class="field">
+                            <label class="label">Rua</label>
+                            <div class="control has-icons-left is-expanded">
+                                <InputText @bind-Value="_model.Contact.Street" class="input"
+                                           placeholder="Digite o nome da rua"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-road"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage class="help" For="() => _model.Contact.Street"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Nº Casa</label>
+                            <div class="control has-icons-left is-expanded">
+                                <InputText @bind-Value="_model.Contact.HouseNumber" class="input"
+                                           placeholder="Digite o número da casa"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-home"></i>
+                                </span>
+                                <p class="help is-danger has-text-left">
+                                    <ValidationMessage class="help" For="() => _model.Contact.HouseNumber"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </EditForm>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-info" type="submit" @onclick="HandleValidSubmit">Salvar</button>
+            <button class="button" aria-label="close" @onclick="HandleHide">Cancelar</button>
+        </footer>
+    </div>
+</div>
+
+@code {
+    private EditMemberRequest _model = new();
+    private EditContext _context;
+    private ValidationMessageStore _messageStore;
+    private string Status => State.ShowEditModal ? "is-active" : "";
+    private string AnyError { get; set; } = "";
+
+
+    [CascadingParameter]
+    public Member Parent { get; set; }
+
+    MemberState State => GetState<MemberState>();
+    ChurchState ChurchState => GetState<ChurchState>();
+
+    protected override void OnInitialized()
+    {
+        _model.Contact = new();
+        _model.Id = State.SelectedMember.Id;
+        _model.FullName = State.SelectedMember.FullName;
+        _model.BirthDate = State.SelectedMember.BirthDate;
+        _model.BaptismDate = State.SelectedMember.BaptismDate;
+        _model.Contact.City = State.SelectedMember.City;
+        _model.Contact.District = State.SelectedMember.District;
+        _model.Contact.Street = State.SelectedMember.Street;
+        _model.Contact.HouseNumber = State.SelectedMember.HouseNumber;
+        _model.Contact.PhoneNumber = State.SelectedMember.PhoneNumber;
+        _context = new(_model);
+        _messageStore = new(_context);
+        _context.OnValidationRequested += (_, _) => _messageStore.Clear();
+        _context.OnFieldChanged += (_, e) => _messageStore.Clear(e.FieldIdentifier);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!_context.Validate())
+        {
+            return;
+        }
+        
+        _model.ChurchId = ChurchState.Church.Id;
+        await Mediator.Send(new MemberState.EditMemberAction(_model));
+
+        if (State.Errors.Count > 0)
+        {
+            foreach (var error in State.Errors)
+            {
+                _messageStore.Add(_context.Field(error.Key), error.Message);
+
+                if (error.Key is "AnyError")
+                {
+                    AnyError = error.Message;
+                }
+            }
+            _context.NotifyValidationStateChanged();
+        }
+        else
+        {
+            await Mediator.Send(new MemberState.LoadMembersAction());
+            await Mediator.Send(new MemberState.ToggleModalAction("Edit"));
+            Parent.Refresh();
+        }
+    }
+
+    private async Task HandleHide()
+    {
+        _context.MarkAsUnmodified();
+        await Mediator.Send(new MemberState.ToggleModalAction("Edit"));
+        Dispose();
+    }
+
+}

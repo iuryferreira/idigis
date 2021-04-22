@@ -1,0 +1,29 @@
+name: web deploy
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/Idigis.Web/**
+      - src/Idigis.Shared/**
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.200
+     
+      - name: Build Blazor WASM
+        run: chmod +x run && ./run web:build
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME_WEB }} 
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          procfile: true
+          appdir: deploy

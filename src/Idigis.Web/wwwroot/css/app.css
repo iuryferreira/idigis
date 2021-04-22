@@ -1,0 +1,19 @@
+* {
+    font-family: 'Red Hat Display', sans-serif !important;
+}
+
+.modified.valid {
+    border-color: hsl(141, 71%, 48%);
+}
+
+.modified.valid:focus {
+    box-shadow: 0 0 0 0.125em rgba(72, 199, 116, 0.25);
+}
+
+.modified.invalid {
+    border-color: hsl(348, 100%, 61%);
+}
+
+.modified.invalid:focus {
+    box-shadow: 0 0 0 0.125em rgba(241, 70, 104, 0.25);
+}

@@ -1,0 +1,46 @@
+@using Idigis.Shared.Dtos.Requests
+@using Idigis.Web.States
+@inject IJSRuntime JSRuntime
+@inherits BlazorStateComponent
+
+<div class="modal @Status">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title is-size-5">Excluir Oferta</p>
+            <button class="delete" aria-label="close" @onclick="HandleHide"></button>
+        </header>
+        <section class="modal-card-body">
+            <p>Tem certeza que deseja apagar esta oferta?</p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-info" type="submit" @onclick="HandleSubmit">Excluir</button>
+            <button class="button" aria-label="close" @onclick="HandleHide">Cancelar</button>
+        </footer>
+    </div>
+</div>
+
+@code {
+    private string Status => State.ShowDeleteModal ? "is-active" : "";
+
+    [CascadingParameter]
+    public Offer Parent { get; set; }
+
+    OfferState State => GetState<OfferState>();
+    ChurchState ChurchState => GetState<ChurchState>();
+
+    private async Task HandleSubmit()
+    {
+        await Mediator.Send(new OfferState.DeleteOfferAction(new(ChurchState.Church.Id, State.SelectedOffer.Id)));
+        await Mediator.Send(new OfferState.LoadOffersAction());
+        await Mediator.Send(new OfferState.ToggleModalAction("Delete"));
+        Parent.Refresh();
+        
+    }
+
+    private async Task HandleHide()
+    {
+        await Mediator.Send(new OfferState.ToggleModalAction("Delete"));
+    }
+
+}
