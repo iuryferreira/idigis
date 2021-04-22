@@ -23,5 +23,13 @@ namespace Idigis.Web
             public const string Delete = "/api/members";
             public const string Edit = "/api/members";
         }
+
+        public static class Tithe
+        {
+            public const string Add = "/api/tithes";
+            public const string List = "/api/tithes";
+            public const string Delete = "/api/tithes";
+            public const string Edit = "/api/tithes";
+        }
     }
 }
