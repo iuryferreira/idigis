@@ -33,6 +33,8 @@ namespace Idigis.Shared.Dtos.Requests
 
     public class EditChurchRequest
     {
+        public EditChurchRequest(){}
+
         public EditChurchRequest (string id, string name, string email, string password)
         {
             Id = id;
