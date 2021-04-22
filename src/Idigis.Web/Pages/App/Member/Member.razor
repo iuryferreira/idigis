@@ -69,28 +69,27 @@
     </div>
 </div>
 
-@if (_showAddModal)
-{
-    <CascadingValue Value="this">
+<CascadingValue Value="this">
+
+    @if (_showAddModal)
+    {
         <AddMemberModal/>
-    </CascadingValue>
-}
+    }
 
-@if (_showDeleteModal)
-{
-    <CascadingValue Value="this">
+    @if (_showDeleteModal)
+    {
         <DeleteMemberModal/>
-    </CascadingValue>
-}
-@if (_showEditModal)
-{
-    <EditMemberModal/>
-}
+    }
+    @if (_showEditModal)
+    {
+        <EditMemberModal/>
+    }
 
-@if (_showViewModal)
-{
-    <ViewMemberModal/>
-}
+    @if (_showViewModal)
+    {
+        <ViewMemberModal/>
+    }
+</CascadingValue>
 
 @code {
 
@@ -141,3 +140,4 @@
     }
 
 }
+

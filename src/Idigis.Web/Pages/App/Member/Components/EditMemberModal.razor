@@ -151,14 +151,14 @@
             </EditForm>
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-info" type="submit" @onclick="HandleValidSubmit">Adicionar</button>
+            <button class="button is-info" type="submit" @onclick="HandleValidSubmit">Salvar</button>
             <button class="button" aria-label="close" @onclick="HandleHide">Cancelar</button>
         </footer>
     </div>
 </div>
 
 @code {
-    private CreateMemberRequest _model = new();
+    private EditMemberRequest _model = new();
     private EditContext _context;
     private ValidationMessageStore _messageStore;
     private string Status => State.ShowEditModal ? "is-active" : "";
@@ -173,6 +173,8 @@
 
     protected override void OnInitialized()
     {
+        _model.Contact = new();
+        _model.Id = State.SelectedMember.Id;
         _model.FullName = State.SelectedMember.FullName;
         _model.BirthDate = State.SelectedMember.BirthDate;
         _model.BaptismDate = State.SelectedMember.BaptismDate;
@@ -195,7 +197,7 @@
         }
         
         _model.ChurchId = ChurchState.Church.Id;
-        await Mediator.Send(new MemberState.AddMemberAction(_model));
+        await Mediator.Send(new MemberState.EditMemberAction(_model));
 
         if (State.Errors.Count > 0)
         {
@@ -222,6 +224,7 @@
     {
         _context.MarkAsUnmodified();
         await Mediator.Send(new MemberState.ToggleModalAction("Edit"));
+        Dispose();
     }
 
 }
