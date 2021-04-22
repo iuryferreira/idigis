@@ -6,6 +6,8 @@ namespace Idigis.Web
         {
             public const string Signin = "/api/signin";
             public const string Signup = "/api/signup";
+            public const string Refresh = "api/refresh";
+            public const string Edit = "api/churches";
         }
 
         public static class Offer
