@@ -5,35 +5,38 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
+namespace Idigis.Core.Persistence.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210409034915_initial")]
+    [Migration("20210422224249_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .UseIdentityByDefaultColumns()
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("Idigis.Core.Persistence.Models.ChurchModel", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -43,36 +46,36 @@ namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
             modelBuilder.Entity("Idigis.Core.Persistence.Models.MemberModel", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("BaptismDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("BirthDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("ChurchId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("City")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("District")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("HouseNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Street")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -84,14 +87,14 @@ namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
             modelBuilder.Entity("Idigis.Core.Persistence.Models.OfferModel", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ChurchId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -103,19 +106,25 @@ namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
             modelBuilder.Entity("Idigis.Core.Persistence.Models.TitheModel", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
+
+                    b.Property<string>("ChurchModelId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("MemberId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChurchModelId");
 
                     b.HasIndex("MemberId");
 
@@ -146,11 +155,19 @@ namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
 
             modelBuilder.Entity("Idigis.Core.Persistence.Models.TitheModel", b =>
                 {
-                    b.HasOne("Idigis.Core.Persistence.Models.MemberModel", "Member")
+                    b.HasOne("Idigis.Core.Persistence.Models.ChurchModel", "ChurchModel")
                         .WithMany()
+                        .HasForeignKey("ChurchModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Idigis.Core.Persistence.Models.MemberModel", "Member")
+                        .WithMany("Tithes")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ChurchModel");
 
                     b.Navigation("Member");
                 });
@@ -160,6 +177,11 @@ namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
                     b.Navigation("Members");
 
                     b.Navigation("Offers");
+                });
+
+            modelBuilder.Entity("Idigis.Core.Persistence.Models.MemberModel", b =>
+                {
+                    b.Navigation("Tithes");
                 });
 #pragma warning restore 612, 618
         }
