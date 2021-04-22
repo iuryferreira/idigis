@@ -1,0 +1,123 @@
+@page "/tithe"
+@layout AppLayout
+@using Idigis.Web.Pages.App.Tithe.Components
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+@inject NavigationManager NavigationManager
+
+<div class="container">
+    <div class="columns is-inline-mobile">
+        <div class="column has-text-centered-mobile">
+            <button class="button is-rounded is-info is-outlined" @onclick="HandleAddButton">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span>Adicionar Dízimo</span>
+            </button>
+        </div>
+        <div class="column">
+            <p class="has-text-right has-text-centered-mobile has-text-weight-bold">Dízimos do mês:
+                @State.TotalTithesInMonth R$</p>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column mb-6">
+            <div class="table-container">
+                <table class="table is-fullwidth is-hoverable has-text-centered">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var tithe in State.Tithes)
+                        {
+                            <tr>
+                                <th>@tithe.MemberName</th>
+                                <td>@tithe.Date</td>
+                                <td>@tithe.Value R$</td>
+                                <td>
+                                    <button class="button is-warning is-small" @onclick="() => HandleEditButton(tithe)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-pen"></i>
+                                        </span>
+                                    </button>
+                                    <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(tithe)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-eraser"></i>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<CascadingValue Value="this">
+    @if (_showAddModal)
+    {
+        <AddTitheModal />
+    }
+    @if (_showDeleteModal)
+    {
+        <DeleteTitheModal />
+    }
+    @if (_showEditModal)
+    {
+        <EditTitheModal />
+    }
+</CascadingValue>
+
+@code {
+
+    private bool _showAddModal;
+    private bool _showDeleteModal;
+    private bool _showEditModal;
+    TitheState State => Store.GetState<TitheState>();
+    ChurchState ChurchState => Store.GetState<ChurchState>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        if (!ChurchState.Authenticated)
+        {
+            NavigationManager.NavigateTo("signin");
+        }
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        await Mediator.Send(new TitheState.LoadTithesAction());
+    }
+
+    private async Task HandleAddButton()
+    {
+        _showAddModal = true;
+        await Mediator.Send(new TitheState.ToggleModalAction("Add"));
+    }
+
+    private async Task HandleEditButton(Models.Tithe tithe)
+    {
+        _showEditModal = true;
+        await Mediator.Send(new TitheState.ToggleModalAction("Edit", tithe));
+    }
+
+    private async Task HandleDeleteButton(Models.Tithe tithe)
+    {
+        _showDeleteModal = true;
+        await Mediator.Send(new TitheState.ToggleModalAction("Delete", tithe));
+    }
+
+    public void Refresh()
+    {
+        _showAddModal = false;
+        _showDeleteModal = false;
+        _showEditModal = false;
+        StateHasChanged();
+    }
+
+}

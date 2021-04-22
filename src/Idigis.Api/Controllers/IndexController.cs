@@ -65,5 +65,35 @@ namespace Idigis.Api.Controllers
                 _ => StatusCode(500, _usecase.Notificator.Notifications)
             };
         }
+
+        [Authorize]
+        [HttpPost]
+        [Route("refresh")]
+        public async Task<ActionResult<LoginResponse>> Refresh ([FromBody] LoginRequest request)
+        {
+            var church = await _usecase.Get(new(request.Email));
+            if (church is null)
+            {
+                return _usecase.Notificator.NotificationType.Name switch
+                {
+                    "NotFound" => NotFound(_usecase.Notificator.Notifications),
+                    _ => StatusCode(500, _usecase.Notificator.Notifications)
+                };
+            }
+            
+            request.ChurchId = church.Id;
+            request.Name = church.Name;
+            var response = _authService.RefreshToken(request);
+            if (response is not null)
+            {
+                return Ok(response);
+            }
+
+            return _usecase.Notificator.NotificationType.Name switch
+            {
+                "Unauthorized" => Unauthorized(_usecase.Notificator.Notifications),
+                _ => StatusCode(500, _usecase.Notificator.Notifications)
+            };
+        }
     }
 }

@@ -1,0 +1,18 @@
+.bottom-bar .navbar-brand {
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    background: linear-gradient(0deg, #6f9ec9, #1b65b9) no-repeat fixed;
+    text-align: center;
+    width: 100%;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}

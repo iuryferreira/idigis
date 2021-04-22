@@ -1,0 +1,150 @@
+@page "/member"
+@layout AppLayout
+@using Idigis.Web.Pages.App.Member.Components
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+@inject NavigationManager NavigationManager
+<div class="container">
+    <div class="columns is-inline-mobile">
+        <div class="column has-text-centered-mobile">
+            <button class="button is-rounded is-info is-outlined" @onclick="HandleAddButton">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span>Adicionar Membro</span>
+            </button>
+        </div>
+        <div class="column">
+            <p class="has-text-right has-text-centered-mobile has-text-weight-bold">Quantidade de membros:
+                @State.TotalMembers</p>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column mb-6">
+            <div class="table-container">
+                <table class="table is-fullwidth is-hoverable has-text-centered">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Endereço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var member in State.Members)
+                        {
+                            <tr>
+                                <th>@member.FullName</th>
+                                @if (!string.IsNullOrEmpty(member.PhoneNumber))
+                                {
+                                    <td>@member.PhoneNumber</td>
+                                }
+                                else
+                                {
+                                    <td>--</td>
+                                }
+                                <td>@($"{member.Street} {member.HouseNumber} - {member.District} - {member.City}")</td>
+                                <td>
+                                    <button class="button is-info is-small" @onclick="() => HandleViewButton(member)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-eye"></i>
+                                        </span>
+                                    </button>
+                                    <button class="button is-warning is-small" @onclick="() => HandleEditButton(member)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-pen"></i>
+                                        </span>
+                                    </button>
+                                    <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(member)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-eraser"></i>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<CascadingValue Value="this">
+
+    @if (_showAddModal)
+    {
+        <AddMemberModal />
+    }
+
+    @if (_showDeleteModal)
+    {
+        <DeleteMemberModal />
+    }
+    @if (_showEditModal)
+    {
+        <EditMemberModal />
+    }
+
+    @if (_showViewModal)
+    {
+        <ViewMemberModal />
+    }
+</CascadingValue>
+
+@code {
+
+    private bool _showAddModal;
+    private bool _showDeleteModal;
+    private bool _showEditModal;
+    private bool _showViewModal;
+
+    MemberState State => Store.GetState<MemberState>();
+    ChurchState ChurchState => Store.GetState<ChurchState>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        if (!ChurchState.Authenticated)
+        {
+            NavigationManager.NavigateTo("signin");
+        }
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        await Mediator.Send(new MemberState.LoadMembersAction());
+    }
+
+    private async Task HandleAddButton()
+    {
+        _showAddModal = true;
+        await Mediator.Send(new MemberState.ToggleModalAction("Add"));
+    }
+
+    private async Task HandleViewButton(Models.Member member)
+    {
+        _showViewModal = true;
+        await Mediator.Send(new MemberState.ToggleModalAction("View", member));
+    }
+
+    private async Task HandleEditButton(Models.Member member)
+    {
+        _showEditModal = true;
+        await Mediator.Send(new MemberState.ToggleModalAction("Edit", member));
+    }
+
+    private async Task HandleDeleteButton(Models.Member member)
+    {
+        _showDeleteModal = true;
+        await Mediator.Send(new MemberState.ToggleModalAction("Delete", member));
+    }
+
+    public void Refresh()
+    {
+        _showAddModal = false;
+        _showDeleteModal = false;
+        _showEditModal = false;
+        _showViewModal = false;
+        StateHasChanged();
+    }
+
+}

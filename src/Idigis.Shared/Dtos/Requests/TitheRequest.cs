@@ -28,6 +28,8 @@ namespace Idigis.Shared.Dtos.Requests
 
     public class CreateTitheRequest
     {
+        public CreateTitheRequest () {}
+
         public CreateTitheRequest (string churchId, string memberId, decimal value, DateTime date)
         {
             Value = value;
@@ -44,6 +46,8 @@ namespace Idigis.Shared.Dtos.Requests
 
     public class EditTitheRequest
     {
+        public EditTitheRequest(){}
+
         public EditTitheRequest (string churchId, string memberId, string id, decimal value, DateTime date)
         {
             Value = value;
@@ -62,6 +66,8 @@ namespace Idigis.Shared.Dtos.Requests
 
     public class DeleteTitheRequest
     {
+        public DeleteTitheRequest(){}
+
         public DeleteTitheRequest (string churchId, string memberId, string id)
         {
             ChurchId = churchId;

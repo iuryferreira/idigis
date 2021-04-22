@@ -3,12 +3,14 @@
 case $1 in
 api:serve) dotnet watch run --project src/Idigis.Api ;;
 api:build) dotnet publish src/Idigis.Api/ -c Release --self-contained true -r linux-x64 /p:PublishSingleFile=true -o deploy ;;
+web:serve) dotnet watch run --project src/Idigis.Web ;;
+web:build) dotnet publish src/Idigis.Web/ -c Release --self-contained true -r linux-x64 -o deploy && cp static.json deploy ;;
 test) dotnet test --nologo && rm -rf `find -type d -name TestResults` ;;
 test:coverage) dotnet test --nologo -v q /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../../coverage/lcov.info /p:ExcludeByFile=\"**/Migrations/*.cs,**/Models/*.cs\" && rm -rf `find -type d -name TestResults` ;;
 test:silent) dotnet test --nologo -v q && rm -rf `find -type d -name TestResults` ;;
 test:nobuild) dotnet test --no-build --nologo && rm -rf `find -type d -name TestResults` ;;
-db:migrate) dotnet ef migrations --project src/Idigis.Core -o Persistence/Migrations add $2 ;;
-db:testmigrate) dotnet ef migrations --project src/Idigis.Tests -o IntegrationTests/Persistence/Helpers/Migrations add $2 ;;
+db:migrate) dotnet ef migrations add $2 --project src/Idigis.Core -o Persistence/Migrations ;;
+db:testmigrate) dotnet ef migrations add $2 --project src/Idigis.Tests -o IntegrationTests/Persistence/Helpers/Migrations ;;
 db:update)  dotnet ef database update --project src/Idigis.Core ;;
 *) echo "command not found." ;;
 esac

@@ -2,6 +2,11 @@ namespace Idigis.Shared.Dtos.Types
 {
     public class ContactType
     {
+        public ContactType ()
+        {
+            
+        }
+
         public ContactType (string phoneNumber, string houseNumber, string street, string district, string city)
         {
             PhoneNumber = phoneNumber;
@@ -11,10 +16,10 @@ namespace Idigis.Shared.Dtos.Types
             City = city;
         }
 
-        public string PhoneNumber { get; }
-        public string HouseNumber { get; }
-        public string Street { get; }
-        public string District { get; }
-        public string City { get; }
+        public string PhoneNumber { get; set; }
+        public string HouseNumber { get; set; }
+        public string Street { get; set; }
+        public string District { get; set; }
+        public string City { get; set; }
     }
 }

@@ -1,0 +1,71 @@
+<nav class="navbar is-fixed-bottom bottom-bar" role="navigation">
+    <div class="navbar-brand">
+        <NavLink class=@($"navbar-item is-expanded is-block has-text-centered {Home}") href="home"
+                 @onclick='() => Active("Home")'>
+            <i class="fas fa-home"></i>
+            <p class="is-size-7">Início</p>
+        </NavLink>
+        <NavLink class=@($"navbar-item is-expanded is-block has-text-centered {Members}") href="member"
+                 @onclick='() => Active("Members")'>
+            <i class="fas fa-user"></i>
+            <p class="is-size-7">Membros</p>
+        </NavLink>
+        <NavLink class=@($"navbar-item is-expanded is-block has-text-centered {Offers}") href="offer"
+                 @onclick='() => Active("Offers")'>
+            <i class="fas fa-donate"></i>
+            <p class="is-size-7">Ofertas</p>
+        </NavLink>
+        <NavLink class=@($"navbar-item is-expanded is-block has-text-centered {Tithes}") href="tithe"
+                 @onclick='() => Active("Tithes")'>
+            <i class="fas fa-envelope"></i>
+            <p class="is-size-7">Dízimos</p>
+        </NavLink>
+    </div>
+</nav>
+
+@code{
+        private const string SelectedColor = "has-text-dark";
+        private const string UnSelectedColor = "has-text-light";
+    public static string Home { get; private set; } = SelectedColor;
+    public static string Offers { get; private set; } = UnSelectedColor;
+    public static string Tithes { get; private set; } = UnSelectedColor;
+    public static string Members { get; private set; } = UnSelectedColor;
+
+    public static void Active(string menuItem)
+    {
+        switch (menuItem)
+        {
+            case "Finances":
+                Home = UnSelectedColor;
+                Members = UnSelectedColor;
+                Offers = UnSelectedColor;
+                Tithes = UnSelectedColor;
+                break;
+            case "Home":
+                Home = SelectedColor;
+                Members = UnSelectedColor;
+                Offers = UnSelectedColor;
+                Tithes = UnSelectedColor;
+                break;
+            case "Members":
+                Home = UnSelectedColor;
+                Members = SelectedColor;
+                Offers = UnSelectedColor;
+                Tithes = UnSelectedColor;
+                break;
+            case "Offers":
+                Home = UnSelectedColor;
+                Members = UnSelectedColor;
+                Offers = SelectedColor;
+                Tithes = UnSelectedColor;
+                break;
+            case "Tithes":
+                Home = UnSelectedColor;
+                Members = UnSelectedColor;
+                Offers = UnSelectedColor;
+                Tithes = SelectedColor;
+                break;
+        }
+    }
+
+}
