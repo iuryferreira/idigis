@@ -4,7 +4,7 @@ case $1 in
 api:serve) dotnet watch run --project src/Idigis.Api ;;
 api:build) dotnet publish src/Idigis.Api/ -c Release --self-contained true -r linux-x64 /p:PublishSingleFile=true -o deploy ;;
 web:serve) dotnet watch run --project src/Idigis.Web ;;
-web:build) dotnet publish src/Idigis.Web/ -c Release --self-contained true -r linux-x64 -o deploy ;;
+web:build) dotnet publish src/Idigis.Web/ -c Release --self-contained true -r linux-x64 -o deploy && cp static.json deploy ;;
 test) dotnet test --nologo && rm -rf `find -type d -name TestResults` ;;
 test:coverage) dotnet test --nologo -v q /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../../coverage/lcov.info /p:ExcludeByFile=\"**/Migrations/*.cs,**/Models/*.cs\" && rm -rf `find -type d -name TestResults` ;;
 test:silent) dotnet test --nologo -v q && rm -rf `find -type d -name TestResults` ;;
