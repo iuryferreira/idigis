@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace Idigis.Core.Persistence.Repositories
                 }
 
                 model.MemberId = memberId;
+                model.ChurchModelId = churchId;
                 var entry = await _context.TitheContext.AddAsync(model);
                 await _context.SaveChangesAsync();
                 return entry.State is EntityState.Unchanged;
@@ -90,7 +92,6 @@ namespace Idigis.Core.Persistence.Repositories
             {
                 var churchAndMemberExists = await _context.ChurchContext
                     .Where(c => c.Id == churchId)
-                    .Select(c => c.Members)
                     .FirstOrDefaultAsync() is not null;
                 if (!churchAndMemberExists)
                 {
@@ -98,9 +99,12 @@ namespace Idigis.Core.Persistence.Repositories
                     Notificator.AddNotification(new("Repository", "Esta igreja não existe no sistema."));
                     return null;
                 }
-
-                var tithes = await _context.MemberContext
-                    .Select(m => m.Tithes.Select(t => (Tithe)t).ToList()).FirstOrDefaultAsync();
+                var tithes = await _context.TitheContext
+                    .Include(t => t.Member)
+                    .Where(t => t.ChurchModelId == churchId)
+                    .Select(t => (Tithe)t)
+                    .ToListAsync();
+                Console.WriteLine(tithes);
                 return tithes;
             }
             catch

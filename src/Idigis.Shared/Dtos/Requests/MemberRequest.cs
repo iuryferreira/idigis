@@ -62,6 +62,10 @@ namespace Idigis.Shared.Dtos.Requests
             Contact = contact;
         }
 
+        public EditMemberRequest ()
+        {
+        }
+
         public string ChurchId { get; set; }
         public string Id { get; set; }
         public string FullName { get; set; }
