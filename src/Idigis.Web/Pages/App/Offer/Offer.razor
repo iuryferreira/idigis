@@ -1,8 +1,8 @@
 @page "/offer"
 @layout AppLayout
-@using Idigis.Web.Pages.App.Offer.Components
 @using Idigis.Web.States
 @inherits BlazorStateComponent
+@inject NavigationManager NavigationManager
 
 <div class="container">
     <div class="columns is-inline-mobile">
@@ -63,10 +63,16 @@
 @code {
 
     OfferState State => Store.GetState<OfferState>();
+    ChurchState ChurchState => Store.GetState<ChurchState>();
     private bool _showEditModal;
 
     protected override async Task OnInitializedAsync()
     {
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        if (!ChurchState.Authenticated)
+        {
+            NavigationManager.NavigateTo("signin");
+        }
         await Mediator.Send(new ChurchState.LoadStateAction());
         await Mediator.Send(new OfferState.LoadOffersAction());
     }

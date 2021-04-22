@@ -2,7 +2,7 @@
 @layout AppLayout
 @using Idigis.Web.States
 @inherits BlazorStateComponent
-
+@inject NavigationManager NavigationManager
 <div class="container">
     <div class="columns is-inline-mobile">
         <div class="column has-text-centered-mobile">
@@ -99,9 +99,15 @@
     private bool _showViewModal;
 
     MemberState State => Store.GetState<MemberState>();
+    ChurchState ChurchState => Store.GetState<ChurchState>();
 
     protected override async Task OnInitializedAsync()
     {
+        await Mediator.Send(new ChurchState.LoadStateAction());
+        if (!ChurchState.Authenticated)
+        {
+            NavigationManager.NavigateTo("signin");
+        }
         await Mediator.Send(new ChurchState.LoadStateAction());
         await Mediator.Send(new MemberState.LoadMembersAction());
     }
