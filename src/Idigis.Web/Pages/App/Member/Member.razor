@@ -44,7 +44,7 @@
                             }
                             <td>@($"{member.Street} {member.HouseNumber} - {member.District} - {member.City}")</td>
                             <td>
-                                <button class="button is-info is-small" @onclick="() => HandleEditButton(member)">
+                                <button class="button is-info is-small" @onclick="() => HandleViewButton(member)">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-eye"></i>
                                     </span>
@@ -82,11 +82,22 @@
         <DeleteMemberModal/>
     </CascadingValue>
 }
+@if (_showEditModal)
+{
+    <EditMemberModal/>
+}
+
+@if (_showViewModal)
+{
+    <ViewMemberModal/>
+}
 
 @code {
 
     private bool _showAddModal;
     private bool _showDeleteModal;
+    private bool _showEditModal;
+    private bool _showViewModal;
 
     MemberState State => Store.GetState<MemberState>();
 
@@ -102,15 +113,21 @@
         await Mediator.Send(new MemberState.ToggleModalAction("Add"));
     }
 
+    private async Task HandleViewButton(Models.Member member)
+    {
+        _showViewModal = true;
+        await Mediator.Send(new MemberState.ToggleModalAction("View", member));
+    }
+
     private async Task HandleEditButton(Models.Member member)
     {
+        _showEditModal = true;
         await Mediator.Send(new MemberState.ToggleModalAction("Edit", member));
     }
 
     private async Task HandleDeleteButton(Models.Member member)
     {
         _showDeleteModal = true;
-
         await Mediator.Send(new MemberState.ToggleModalAction("Delete", member));
     }
 
@@ -118,6 +135,8 @@
     {
         _showAddModal = false;
         _showDeleteModal = false;
+        _showEditModal = false;
+        _showViewModal = false;
         StateHasChanged();
     }
 
