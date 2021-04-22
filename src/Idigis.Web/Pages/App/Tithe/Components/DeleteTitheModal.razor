@@ -1,0 +1,43 @@
+@using Idigis.Web.States
+@inherits BlazorStateComponent
+
+<div class="modal @Status">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title is-size-5">Excluir Dízimo</p>
+            <button class="delete" aria-label="close" @onclick="HandleHide"></button>
+        </header>
+        <section class="modal-card-body">
+            <p>Tem certeza que deseja apagar este dízimo?</p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-info" type="submit" @onclick="HandleSubmit">Excluir</button>
+            <button class="button" aria-label="close" @onclick="HandleHide">Cancelar</button>
+        </footer>
+    </div>
+</div>
+
+@code {
+    private string Status => State.ShowDeleteModal ? "is-active" : "";
+
+    [CascadingParameter]
+    public Tithe Parent { get; set; }
+
+    TitheState State => GetState<TitheState>();
+    ChurchState ChurchState => GetState<ChurchState>();
+
+    private async Task HandleSubmit()
+    {
+        await Mediator.Send(new TitheState.DeleteTitheAction(new(ChurchState.Church.Id, State.SelectedTithe.MemberId, State.SelectedTithe.Id)));
+        await Mediator.Send(new TitheState.LoadTithesAction());
+        await Mediator.Send(new TitheState.ToggleModalAction("Delete"));
+        Parent.Refresh();
+    }
+
+    private async Task HandleHide()
+    {
+        await Mediator.Send(new TitheState.ToggleModalAction("Delete"));
+    }
+
+}
