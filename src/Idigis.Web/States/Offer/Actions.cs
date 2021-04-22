@@ -6,8 +6,6 @@ namespace Idigis.Web.States
 {
     public partial class OfferState
     {
-        public class LoadFinanceTypeAction : IAction { }
-
         public class ToggleModalAction : IAction
         {
             public ToggleModalAction (string modalName, Offer offer = null)
@@ -15,6 +13,7 @@ namespace Idigis.Web.States
                 ModalName = modalName;
                 Offer = offer;
             }
+
             public string ModalName { get; }
             public Offer Offer { get; }
         }
@@ -35,15 +34,17 @@ namespace Idigis.Web.States
             {
                 Request = request;
             }
+
             public CreateOfferRequest Request { get; }
         }
-        
+
         public class EditOfferAction : IAction
         {
             public EditOfferAction (EditOfferRequest request)
             {
                 Request = request;
             }
+
             public EditOfferRequest Request { get; }
         }
 
@@ -53,10 +54,11 @@ namespace Idigis.Web.States
             {
                 Request = request;
             }
+
             public DeleteOfferRequest Request { get; }
         }
 
         public class LoadOffersAction : IAction
-        { }
+        {}
     }
 }
