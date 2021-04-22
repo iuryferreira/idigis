@@ -1,5 +1,6 @@
 @page "/offer"
 @layout AppLayout
+@using Idigis.Web.Pages.App.Offer.Components
 @using Idigis.Web.States
 @inherits BlazorStateComponent
 @inject NavigationManager NavigationManager
@@ -7,10 +8,11 @@
 <div class="container">
     <div class="columns is-inline-mobile">
         <div class="column has-text-centered-mobile">
-            <AddButton Text="Adicionar Oferta"/>
+            <AddButton Text="Adicionar Oferta" />
         </div>
         <div class="column">
-            <p class="has-text-right has-text-centered-mobile has-text-weight-bold">Ofertas do mês: @State.TotalOffersInMonth R$</p>
+            <p class="has-text-right has-text-centered-mobile has-text-weight-bold">Ofertas do mês:
+                @State.TotalOffersInMonth R$</p>
         </div>
     </div>
     <div class="columns">
@@ -18,32 +20,32 @@
             <div class="table-container">
                 <table class="table is-fullwidth is-hoverable has-text-centered">
                     <thead>
-                    <tr>
-                        <th>Valor</th>
-                        <th>Data</th>
-                        <th>Ações</th>
-                    </tr>
+                        <tr>
+                            <th>Valor</th>
+                            <th>Data</th>
+                            <th>Ações</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach (var offer in State.Offers)
-                    {
-                        <tr>
-                            <th>@offer.Value R$</th>
-                            <td>20/04/2021</td>
-                            <td>
-                                <button class="button is-warning is-small" @onclick="() => HandleEditButton(offer)">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-pen"></i>
-                                    </span>
-                                </button>
-                                <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(offer)">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-eraser"></i>
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                    }
+                        @foreach (var offer in State.Offers)
+                        {
+                            <tr>
+                                <th>@offer.Value R$</th>
+                                <td>20/04/2021</td>
+                                <td>
+                                    <button class="button is-warning is-small" @onclick="() => HandleEditButton(offer)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-pen"></i>
+                                        </span>
+                                    </button>
+                                    <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(offer)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-eraser"></i>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -52,11 +54,11 @@
 </div>
 
 <CascadingValue Value="this">
-    <AddOfferModal/>
-    <DeleteOfferModal/>
+    <AddOfferModal />
+    <DeleteOfferModal />
     @if (_showEditModal)
     {
-        <EditOfferModal/>
+        <EditOfferModal />
     }
 </CascadingValue>
 

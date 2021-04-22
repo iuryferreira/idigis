@@ -1,5 +1,6 @@
 @page "/settings"
 @layout AppLayout
+@using Idigis.Web.Pages.App.Settings.Components
 @using Idigis.Web.States
 @inherits BlazorStateComponent
 @inject NavigationManager NavigationManager
@@ -25,12 +26,12 @@
 
     @if (_showChangeNameModal)
     {
-        <ChangeNameModal/>
+        <ChangeNameModal />
     }
 
     @if (_showChangePasswordModal)
     {
-        <ChangePasswordModal/>
+        <ChangePasswordModal />
     }
 </CascadingValue>
 

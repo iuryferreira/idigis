@@ -1,5 +1,6 @@
 @page "/member"
 @layout AppLayout
+@using Idigis.Web.Pages.App.Member.Components
 @using Idigis.Web.States
 @inherits BlazorStateComponent
 @inject NavigationManager NavigationManager
@@ -14,7 +15,8 @@
             </button>
         </div>
         <div class="column">
-            <p class="has-text-right has-text-centered-mobile has-text-weight-bold">Quantidade de membros: @State.TotalMembers</p>
+            <p class="has-text-right has-text-centered-mobile has-text-weight-bold">Quantidade de membros:
+                @State.TotalMembers</p>
         </div>
     </div>
     <div class="columns">
@@ -22,46 +24,46 @@
             <div class="table-container">
                 <table class="table is-fullwidth is-hoverable has-text-centered">
                     <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>Endereço</th>
-                        <th>Ações</th>
-                    </tr>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Endereço</th>
+                            <th>Ações</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach (var member in State.Members)
-                    {
-                        <tr>
-                            <th>@member.FullName</th>
-                            @if (!string.IsNullOrEmpty(member.PhoneNumber))
-                            {
-                                <td>@member.PhoneNumber</td>
-                            }
-                            else
-                            {
-                                <td>--</td>
-                            }
-                            <td>@($"{member.Street} {member.HouseNumber} - {member.District} - {member.City}")</td>
-                            <td>
-                                <button class="button is-info is-small" @onclick="() => HandleViewButton(member)">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-eye"></i>
-                                    </span>
-                                </button>
-                                <button class="button is-warning is-small" @onclick="() => HandleEditButton(member)">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-pen"></i>
-                                    </span>
-                                </button>
-                                <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(member)">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-eraser"></i>
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                    }
+                        @foreach (var member in State.Members)
+                        {
+                            <tr>
+                                <th>@member.FullName</th>
+                                @if (!string.IsNullOrEmpty(member.PhoneNumber))
+                                {
+                                    <td>@member.PhoneNumber</td>
+                                }
+                                else
+                                {
+                                    <td>--</td>
+                                }
+                                <td>@($"{member.Street} {member.HouseNumber} - {member.District} - {member.City}")</td>
+                                <td>
+                                    <button class="button is-info is-small" @onclick="() => HandleViewButton(member)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-eye"></i>
+                                        </span>
+                                    </button>
+                                    <button class="button is-warning is-small" @onclick="() => HandleEditButton(member)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-pen"></i>
+                                        </span>
+                                    </button>
+                                    <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(member)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-eraser"></i>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -73,21 +75,21 @@
 
     @if (_showAddModal)
     {
-        <AddMemberModal/>
+        <AddMemberModal />
     }
 
     @if (_showDeleteModal)
     {
-        <DeleteMemberModal/>
+        <DeleteMemberModal />
     }
     @if (_showEditModal)
     {
-        <EditMemberModal/>
+        <EditMemberModal />
     }
 
     @if (_showViewModal)
     {
-        <ViewMemberModal/>
+        <ViewMemberModal />
     }
 </CascadingValue>
 
@@ -146,4 +148,3 @@
     }
 
 }
-

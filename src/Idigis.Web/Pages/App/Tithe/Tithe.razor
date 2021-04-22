@@ -1,5 +1,6 @@
 @page "/tithe"
 @layout AppLayout
+@using Idigis.Web.Pages.App.Tithe.Components
 @using Idigis.Web.States
 @inherits BlazorStateComponent
 @inject NavigationManager NavigationManager
@@ -15,7 +16,8 @@
             </button>
         </div>
         <div class="column">
-            <p class="has-text-right has-text-centered-mobile has-text-weight-bold">Dízimos do mês: @State.TotalTithesInMonth R$</p>
+            <p class="has-text-right has-text-centered-mobile has-text-weight-bold">Dízimos do mês:
+                @State.TotalTithesInMonth R$</p>
         </div>
     </div>
     <div class="columns">
@@ -23,34 +25,34 @@
             <div class="table-container">
                 <table class="table is-fullwidth is-hoverable has-text-centered">
                     <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Data</th>
-                        <th>Valor</th>
-                        <th>Ações</th>
-                    </tr>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach (var tithe in State.Tithes)
-                    {
-                        <tr>
-                            <th>@tithe.MemberName</th>
-                            <td>@tithe.Date</td>
-                            <td>@tithe.Value R$</td>
-                            <td>
-                                <button class="button is-warning is-small" @onclick="() => HandleEditButton(tithe)">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-pen"></i>
-                                    </span>
-                                </button>
-                                <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(tithe)">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-eraser"></i>
-                                    </span>
-                                </button>
-                            </td>
-                        </tr>
-                    }
+                        @foreach (var tithe in State.Tithes)
+                        {
+                            <tr>
+                                <th>@tithe.MemberName</th>
+                                <td>@tithe.Date</td>
+                                <td>@tithe.Value R$</td>
+                                <td>
+                                    <button class="button is-warning is-small" @onclick="() => HandleEditButton(tithe)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-pen"></i>
+                                        </span>
+                                    </button>
+                                    <button class="button is-danger is-small" @onclick="() => HandleDeleteButton(tithe)">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-eraser"></i>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -61,15 +63,15 @@
 <CascadingValue Value="this">
     @if (_showAddModal)
     {
-        <AddTitheModal/>
+        <AddTitheModal />
     }
     @if (_showDeleteModal)
     {
-        <DeleteTitheModal/>
+        <DeleteTitheModal />
     }
     @if (_showEditModal)
     {
-        <EditTitheModal/>
+        <EditTitheModal />
     }
 </CascadingValue>
 
