@@ -15,5 +15,13 @@ namespace Idigis.Web
             public const string Delete = "/api/offers";
             public const string Edit = "/api/offers";
         }
+
+        public static class Member
+        {
+            public const string List = "/api/members";
+            public const string Add = "/api/members";
+            public const string Delete = "/api/members";
+            public const string Edit = "/api/members";
+        }
     }
 }
