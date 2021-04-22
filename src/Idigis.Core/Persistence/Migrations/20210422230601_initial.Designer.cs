@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Idigis.Core.Persistence.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210422224249_initial")]
+    [Migration("20210422230601_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,7 +109,6 @@ namespace Idigis.Core.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ChurchModelId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Date")
@@ -157,9 +156,7 @@ namespace Idigis.Core.Persistence.Migrations
                 {
                     b.HasOne("Idigis.Core.Persistence.Models.ChurchModel", "ChurchModel")
                         .WithMany()
-                        .HasForeignKey("ChurchModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ChurchModelId");
 
                     b.HasOne("Idigis.Core.Persistence.Models.MemberModel", "Member")
                         .WithMany("Tithes")

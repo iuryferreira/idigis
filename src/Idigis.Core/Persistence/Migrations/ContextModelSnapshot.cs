@@ -107,7 +107,6 @@ namespace Idigis.Core.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ChurchModelId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Date")
@@ -155,9 +154,7 @@ namespace Idigis.Core.Persistence.Migrations
                 {
                     b.HasOne("Idigis.Core.Persistence.Models.ChurchModel", "ChurchModel")
                         .WithMany()
-                        .HasForeignKey("ChurchModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ChurchModelId");
 
                     b.HasOne("Idigis.Core.Persistence.Models.MemberModel", "Member")
                         .WithMany("Tithes")

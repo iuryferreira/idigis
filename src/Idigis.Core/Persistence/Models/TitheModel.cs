@@ -13,8 +13,8 @@ namespace Idigis.Core.Persistence.Models
         [Required] public DateTime Date { get; set; }
         [Required] public string MemberId { get; set; }
         [Required] public MemberModel Member { get; set; }
-        [Required] public string ChurchModelId { get; set; }
-        [Required] public ChurchModel ChurchModel { get; set; }
+        public string ChurchModelId { get; set; }
+        public ChurchModel ChurchModel { get; set; }
 
         public static implicit operator TitheModel (Tithe entity)
         {
