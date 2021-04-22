@@ -9,8 +9,8 @@ test) dotnet test --nologo && rm -rf `find -type d -name TestResults` ;;
 test:coverage) dotnet test --nologo -v q /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=../../coverage/lcov.info /p:ExcludeByFile=\"**/Migrations/*.cs,**/Models/*.cs\" && rm -rf `find -type d -name TestResults` ;;
 test:silent) dotnet test --nologo -v q && rm -rf `find -type d -name TestResults` ;;
 test:nobuild) dotnet test --no-build --nologo && rm -rf `find -type d -name TestResults` ;;
-db:migrate) dotnet ef migrations --project src/Idigis.Core -o Persistence/Migrations add $2 ;;
-db:testmigrate) dotnet ef migrations --project src/Idigis.Tests -o IntegrationTests/Persistence/Helpers/Migrations add $2 ;;
+db:migrate) dotnet ef migrations add $2 --project src/Idigis.Core -o Persistence/Migrations ;;
+db:testmigrate) dotnet ef migrations add $2 --project src/Idigis.Tests -o IntegrationTests/Persistence/Helpers/Migrations ;;
 db:update)  dotnet ef database update --project src/Idigis.Core ;;
 *) echo "command not found." ;;
 esac
