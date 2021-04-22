@@ -7,6 +7,7 @@ using Idigis.Api;
 using Idigis.Api.Auth;
 using Idigis.Core.Persistence;
 using Idigis.Core.Persistence.Models;
+using Idigis.Shared.Dtos.Requests;
 using Idigis.Shared.Dtos.Responses;
 using Idigis.Tests.IntegrationTests.Persistence.Helpers;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -66,7 +67,10 @@ namespace Idigis.Tests.IntegrationTests.Api
             var client = _factory.CreateClient();
             client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.PostAsJsonAsync($"{Routes.Member.Base}/",
-                new { ChurchId = Guid.NewGuid().ToString(), Fullname = "any_name" });
+                new CreateMemberRequest
+                {
+                    ChurchId = Guid.NewGuid().ToString(), FullName = "any_name", Contact = null
+                });
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             Assert.IsFalse(response.IsSuccessStatusCode);
         }
@@ -94,7 +98,7 @@ namespace Idigis.Tests.IntegrationTests.Api
             };
             await _context.ChurchContext.AddAsync(model);
             await _context.SaveChangesAsync();
-            var data = new { ChurchId = model.Id, Fullname = "any_name" };
+            var data = new CreateMemberRequest { ChurchId = model.Id, FullName = "any_name", Contact = null };
             var client = _factory.CreateClient();
             client.DefaultRequestHeaders.Authorization = new("Bearer", _token);
             var response = await client.PostAsJsonAsync(Routes.Member.Base, data);
@@ -144,7 +148,10 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel { Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name" };
+            var member = new MemberModel
+            {
+                Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name"
+            };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();
             var client = _factory.CreateClient();
@@ -199,7 +206,10 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel { Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name" };
+            var member = new MemberModel
+            {
+                Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name"
+            };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();
             var client = _factory.CreateClient();
@@ -274,7 +284,10 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel { Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name" };
+            var member = new MemberModel
+            {
+                Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name"
+            };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();
             var data = new { ChurchId = church.Id, FullName = "any_name" };
@@ -327,7 +340,10 @@ namespace Idigis.Tests.IntegrationTests.Api
                 Email = "email@email.com"
             };
             await _context.ChurchContext.AddAsync(church);
-            var member = new MemberModel { Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name" };
+            var member = new MemberModel
+            {
+                Id = Guid.NewGuid().ToString(), ChurchId = church.Id, FullName = "any_name"
+            };
             await _context.MemberContext.AddAsync(member);
             await _context.SaveChangesAsync();
             var client = _factory.CreateClient();

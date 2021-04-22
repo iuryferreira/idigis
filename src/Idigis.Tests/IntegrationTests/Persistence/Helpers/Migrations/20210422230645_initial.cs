@@ -74,7 +74,7 @@ namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
                     Value = table.Column<decimal>(type: "TEXT", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     MemberId = table.Column<string>(type: "TEXT", nullable: false),
-                    ChurchModelId = table.Column<string>(type: "TEXT", nullable: false)
+                    ChurchModelId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,7 +84,7 @@ namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
                         column: x => x.ChurchModelId,
                         principalTable: "churches",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_tithes_members_MemberId",
                         column: x => x.MemberId,

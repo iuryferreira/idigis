@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210422224330_initial")]
+    [Migration("20210422230645_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,7 +106,6 @@ namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ChurchModelId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Date")
@@ -154,9 +153,7 @@ namespace Idigis.Tests.IntegrationTests.Persistence.Helpers.Migrations
                 {
                     b.HasOne("Idigis.Core.Persistence.Models.ChurchModel", "ChurchModel")
                         .WithMany()
-                        .HasForeignKey("ChurchModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ChurchModelId");
 
                     b.HasOne("Idigis.Core.Persistence.Models.MemberModel", "Member")
                         .WithMany("Tithes")
