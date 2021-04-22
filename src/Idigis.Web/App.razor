@@ -1,5 +1,5 @@
-﻿@using BlazorState.Pipeline.ReduxDevTools;
-@inject ReduxDevToolsInterop ReduxDevToolsInterop
+﻿@* @using BlazorState.Pipeline.ReduxDevTools;
+    @inject ReduxDevToolsInterop ReduxDevToolsInterop *@
 
 <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
     <Found Context="routeData">
@@ -12,9 +12,9 @@
     </NotFound>
 </Router>
 
-@code {
+@* @code {
     protected override async Task OnAfterRenderAsync(bool aFirstRender)
     {
-        await ReduxDevToolsInterop.InitAsync();
+    await ReduxDevToolsInterop.InitAsync();
     }
-}
+    } *@

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using BlazorState;
 using Idigis.Web.Services;
-using Idigis.Web.States;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,11 +16,11 @@ namespace Idigis.Web
             builder.RootComponents.Add<App>("#app");
             //Services
             builder.Services.AddBlazoredLocalStorage(config => config.JsonSerializerOptions.WriteIndented = true);
-            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new("https://localhost:5004") });
+            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new("https://idigis-api.herokuapp.com") });
             builder.Services.AddScoped<IHttpService, HttpService>();
             builder.Services.AddBlazorState(options =>
             {
-                options.UseReduxDevToolsBehavior = true;
+                // options.UseReduxDevToolsBehavior = true;
                 options.Assemblies = new[] { typeof(Program).Assembly };
             });
             await builder.Build().RunAsync();
