@@ -9,16 +9,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet" />
     <link href="Idigis.Web.styles.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="512x512" href="images/icon.svg" />
 </head>
 
 <body>
     <div id="app"></div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
     <!-- <script src="_content/Blazor-State/blazorstate.js"></script> -->
-    <script src="https://unpkg.com/imask"></script>
+    <script src="https://unpkg.com/imask@6.0.7/dist/imask.js"></script>
     <script>
 
         var moneyMask = () => {

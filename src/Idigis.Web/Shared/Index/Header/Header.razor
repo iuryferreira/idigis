@@ -6,30 +6,64 @@
             <NavLink class="ml-4" Match="NavLinkMatch.All" href="/signin">
                 <img src="images/logo.svg" width="130" alt="">
             </NavLink>
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="">
+            <a role="button" class="navbar-burger @(_burgerActive) burger" aria-label="menu" aria-expanded="false"
+                data-target="" @onclick="HandleBurgerMenu">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
-        <div id="" class="navbar-menu">
+        <div class="navbar-menu @(_burgerActive)">
             <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <NavLink Match="NavLinkMatch.All" href="/signup" class="button is-light is-warning is-outlined">
-                            <span>Cadastre-se</span>
-                        </NavLink>
-                        <NavLink Match="NavLinkMatch.All" href="/signin" class="button is-light is-info is-outlined">
-                            <span class="icon">
-                                <i class="fas fa-sign-in-alt"></i>
-                            </span>
-                            <span>
-                                <strong>Entrar</strong>
-                            </span>
-                        </NavLink>
+                @if (_activeDropdown)
+                {
+                    <NavLink Match="NavLinkMatch.All" href="/signup" class="navbar-item" @onclick="HandleBurgerMenu">
+                        <span>
+                            <strong>Cadastre-se</strong>
+                        </span>
+                    </NavLink>
+                    <NavLink Match="NavLinkMatch.All" href="/signin" class="navbar-item" @onclick="HandleBurgerMenu">
+                        <span>
+                            <strong>Entrar</strong>
+                        </span>
+                    </NavLink>
+                }
+                else
+                {
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <NavLink Match="NavLinkMatch.All" href="/signup" class="button is-light is-warning is-outlined">
+                                <span>Cadastre-se</span>
+                            </NavLink>
+                            <NavLink Match="NavLinkMatch.All" href="/signin" class="button is-light is-info is-outlined">
+                                <span class="icon">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                </span>
+                                <span>
+                                    <strong>Entrar</strong>
+                                </span>
+                            </NavLink>
+                        </div>
                     </div>
-                </div>
+                }
+
             </div>
         </div>
+
     </nav>
 </div>
+
+@code {
+
+    private bool _activeDropdown;
+    private string _burgerActive = "";
+
+
+    private void HandleBurgerMenu()
+    {
+        _activeDropdown = !_activeDropdown;
+        _burgerActive = _burgerActive == "is-active" ? "" : "is-active";
+    }
+
+
+}
