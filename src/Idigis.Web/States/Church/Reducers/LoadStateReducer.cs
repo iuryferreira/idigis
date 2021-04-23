@@ -32,7 +32,13 @@ namespace Idigis.Web.States
 
             public override async Task<Unit> Handle (LoadStateAction action, CancellationToken cancellationToken)
             {
-                var church = CustomEncoder.Decode<Church>(await _storage.GetItemAsStringAsync("church"));
+                var encoded = await _storage.GetItemAsStringAsync("church");
+                if (string.IsNullOrEmpty(encoded))
+                {
+                    return await Unit.Task;
+                }
+                var church = CustomEncoder.Decode<Church>(encoded);
+
                 var response = await _http.Post(ApiRoutes.Church.Refresh, new LoginRequest { Email = church.Email });
                 switch (response.StatusCode)
                 {
